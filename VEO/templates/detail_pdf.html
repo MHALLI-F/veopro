@@ -1,0 +1,228 @@
+{% extends "easy_pdf/base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>VEOSMART</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+  </head>
+  <body>
+    <!-- Background image -->
+    <div style=" background-image: url('{% static '/filigrane.png' %}'');">
+    <!-- Start your project here-->
+    {% load static %}
+    
+    <!-- Navbar-->
+
+
+
+      <!-- Image and text -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarRightAlignExample"
+            aria-controls="navbarRightAlignExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <a class="navbar-brand" href="#">
+     
+            <font size="6.5">VEO</font><font color="#D50000" size="6">smart</font>
+          </a>
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+            <!-- Left links -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                
+                <a class="nav-link active" aria-current="page" href="">Exporter PDF</a>
+              </li>
+            
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login/">Se déconnecter</a>
+              </li>
+              <!-- Navbar dropdown -->
+              
+             
+            </ul>
+            <!-- Left links -->
+          </div>
+          <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+
+      
+
+   <!--  <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+      <img
+        src="{% static '/logo.png' %}"
+        height="50"
+        alt=""
+        loading="lazy"
+       
+      />
+    </a>-->
+    
+<!-- ############################ Règle 1   #############################################-->
+ 
+
+    <br>
+
+    <div class="card"  style="width: 100rem;">
+    <div class="card-body">
+    <br>
+    <table class="table table-hover"  >
+      <thead>
+        <tr class="table-dark">
+          {% if Veo.Immatriculation != None %}
+        <th scope="col">Immatriculation</th>
+        {% endif %}
+        {% if  Veo.ImmatriculationAdverse != None %}
+        <th scope="col">Immatriculation Adverse</th>
+        {% endif %}
+        {% if  Veo.Marque != None %}
+        <th scope="col">Marque</th>
+        {% endif %}
+        {% if  Veo.Procédure != None %}
+        <th scope="col">Procédure:</th>
+        {% endif %}
+        {% if  Veo.Etat_dossier != None %}
+        <th scope="col">Etat_dossier:</th>
+        {% endif %}
+        {% if  Veo.Expert != None %}
+        <th scope="col">Expert:</th>
+        {% endif %}
+        {% if  Veo.Date_sinistre != None %}
+        <th scope="col">Date sinistre</th>
+        {% endif %}
+        {% if  Veo.Date_création != None %}
+        <th scope="col">Date création:</th>
+        {% endif %}
+        {% if  Veo.Dû_compagnie != None %}
+        <th scope="col">Dû_compagnie:</th>
+        {% endif %}
+        {% if  Veo.CodeIntermédiaire != None %}
+        <th scope="col">Code Intérmidiaire:</th>
+        {% endif %}
+        {% if  Veo.Dû_assuré != None %}
+        <th scope="col"> Dû_assuré:</th>
+        {% endif %}
+        {% if  Veo.RateFraude != None %}
+        <th scope="col"> Rate_Fraude</th> 
+        {% endif %}
+        {% if  Veo.Photos_Avant != None %}                                                     
+        <th scope="col">Photos Avant</th>
+        {% endif %}
+        {% if  Veo.Photos_en_cours != None %}
+        <th scope="col">Photos en cours</th>
+        {% endif %}
+        {% if  Veo.Photos_après_réparation != None %}
+        <th scope="col">Photos Après </th>
+        {% endif %}
+        </tr>
+      </thead>
+      
+      <tbody>
+          <tr class="table-light">
+            {% if Veo.Immatriculation != None %}
+          <th scope="row">{{Veo.Immatriculation}}</th>
+          {% endif %}
+          {% if  Veo.ImmatriculationAdverse != None %}
+        
+          <th scope="row">{{Veo.ImmatriculationAdverse}}</th>
+          {% endif %}
+          {% if  Veo.Marque != None %}
+          <td>{{Veo.Marque}}</td>
+          {% endif %}
+          {% if  Veo.Procédure != None %}
+          <td>{{Veo.Procédure}}</td>
+          {% endif %}
+          {% if  Veo.Etat_dossier != None %}
+          <td>{{Veo.Etat_dossier}}</td>
+          {% endif %}
+          {% if  Veo.Expert != None %}
+          <td>{{Veo.Expert}}</td>
+          {% endif %}
+          {% if  Veo.Date_sinistre != None %}
+          <td>{{Veo.Date_sinistre}}</td>
+          {% endif %}
+          {% if  Veo.Date_création != None %}
+          <td>{{Veo.Date_création}}</td>
+          {% endif %}
+          {% if  Veo.Dû_compagnie != None %}
+          <td>{{Veo.Dû_compagnie}}</td>
+          {% endif %}
+          {% if  Veo.CodeIntermédiaire != None %}
+          <td>{{Veo.CodeIntermédiaire}}</td>
+          {% endif %}
+          {% if  Veo.Dû_assuré != None %}
+          <td>{{Veo.Dû_assuré}}</td>
+          {% endif %}
+        {% if  Veo.RateFraude != None %}
+          <th scope="row">{{Veo.RateFraude}}</th>
+          {% endif %}
+          {% if  Veo.Photos_Avant != None %}   
+          <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_Avant}} target="_blank" role="button"
+            >Voir Photos</a></td>
+            {% endif %}
+            {% if  Veo.Photos_en_cours != None %}
+            <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_en_cours}} target="_blank" role="button"
+             >Voir Photos</a></td>
+             {% endif %}
+             {% if  Veo.Photos_après_réparation != None %}
+            <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_après_réparation}} target="_blank" role="button"
+                >Voir Photos</a></td>
+                {% endif %}
+        </tr>   
+    </table>
+    <br>
+    R1:
+    {{R1}}
+
+<br>
+<br>
+<br>
+<br>
+
+    <font size=3>
+
+      <footer class="text-center text-white fixed-bottom" style="background-color: #D50000;">
+        <!-- Grid container -->
+        <div class="container p-0.1"> <i class="fas fa-car-side fa-3x" data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right" data-mdb-animation-on-scroll="repeat"></i></div>
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">Gestion Digitalisée de Dossiers Souscription & Sinistres  - Assurance Automobile
+      
+        </div>
+        <!-- Copyright -->
+      </footer>
+      </font></body></html>
+      {% endblock %}

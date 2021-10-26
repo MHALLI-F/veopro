@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>VEOSMART</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+
+    <style>
+      .card {
+padding: (10)px;
+background-color:rgba(31, 30, 30, 0.918)
+}
+
+</style>
+  </head>
+  <body>
+    <!-- Background image -->
+   
+  
+     
+    <!-- Start your project here-->
+    {% load static %}
+    <!-- Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarRightAlignExample"
+          aria-controls="navbarRightAlignExample"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <a class="navbar-brand" href="#">
+   
+          <font size="6.5">VEO</font><font color="#D50000" size="6">smart</font>
+        </a>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+          <!-- Left links -->
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/home">Accueil</a>
+                </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login/">Se déconnecter</a>
+            </li>
+            <!-- Navbar dropdown -->
+            
+           
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+
+    
+
+ <!--  <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+    <img
+      src="{% static '/logo.png' %}"
+      height="50"
+      alt=""
+      loading="lazy"
+     
+    />
+  </a>-->
+  
+
+
+
+<br>
+<br>
+<center>{{AVG}}%</center>
+   <font size ="2">  
+  
+  <!-- Background image -->
+  <center>
+
+    <br>
+    <br>
+
+  <div class="card"  style="width: 100rem;">
+ 
+    <div class="card-body">
+  
+      <h4 class="card-title"><font color=#FEFEFE >Souscriptions {{imm}}</font></h4>
+    </center>
+  
+        <br>
+        {% if not sous %}
+<center><b> <h5> Pas de  dossier souscription pour  cette  Immatriculation </h5></b> </center>
+{% else %}
+      <table class="table table-hover"  >
+        <thead>
+            <tr class="table-dark">
+            <th scope="col">Immatriculation:</th>
+           
+            <th scope="col">Nom de contacte</th>
+            <th scope="col">Type:</th>
+            <th scope="col">Date souscription:</th>
+           
+            <th scope="col">OK pour  souscription:</th>
+            <th scope="col">Code intermédiaire:</th>
+            
+            <th scope="col">Nom Intermédiaire cp:</th>
+
+            <th scope="col">Ville Intervention:</th>
+            <th scope="col">Statut</th>
+            <th scope="col">AssignedTo</th>
+            
+            <th scope="col">Voir photos</th>
+  
+          </tr>
+        </thead>
+
+         {% for i in sous %}
+        <tbody>
+            <tr class="table-light">
+            <th scope="row">{{i.Immatriculation}}</th>
+           
+            <td>{{i.ContactName}}</td>
+            <td>{{i.Type}}</td>
+            <td>{{i.CreatedDate}}</td>
+            <td>{{i.Okpoursouscription}}</td>
+            <td>{{i.CodeIntermédiaire}}</td>
+            <td>{{i.Nomintermédiairecp}}</td>
+            <th scope="row">{{i.VilleIntervention}}</th>
+            <td>{{i.Status}}</td>
+            <td>{{i.AssignedTo}}</td>
+            
+            
+
+            <td> <a class="btn btn-outline-danger"  href="" role="button"
+                >Voir photos</a></td>
+          </tr>
+          
+        
+
+
+
+         {% endfor %}     
+      </table>
+      {% endif %}
+    </div>
+  </div>
+
+
+
+
+<center>
+    <div class="card"  style="width: 100rem;">
+      <div class="card-body">
+        <h4 class="card-title"><font color=#FEFEFE>Déclarations sinistres de {{imm}}</font></h4></div>
+      </center>
+      {% if not sinis %}
+<center><b> <h5>Pas de  dossier historique  de  sinistre pour  cette  immatriculation </h5></b> </center>
+{% else %}
+  <br>
+    <table class="table table-hover"  >
+        <thead>
+            <tr class="table-dark">
+         
+              <th scope="col">Immatriculation</th>
+          
+              <th scope="col">Immatriculation Adverse</th>
+          
+                  <th scope="col">Marque</th>
+             
+              <th scope="col">Procédure:</th>
+          
+              <th scope="col">Etat_dossier:</th>
+           
+                  <th scope="col">Expert:</th>
+             
+              <th scope="col">Date sinistre</th>
+
+              <th scope="col">Date création:</th>
+
+              <th scope="col">Dû_compagnie:</th>
+      
+              <th scope="col">Code Intérmidiaire:</th>
+              
+            
+              <th scope="col"> Dû_assuré:</th>
+ 
+              
+              <th scope="col"> Rate_Fraude</th> 
+                       
+              <th scope="col">Photos Avant</th>
+      
+              <th scope="col">Photos en cours</th>
+     
+              
+              <th scope="col">Photos Après </th>
+           
+          </tr>
+        </thead>
+        {% for i in sinis %}
+        <tbody>
+          <tr class="table-light"></tr>
+          <td>{% if i.Immatriculation != None %}
+          {{i.Immatriculation}}</td>
+          {% endif %}
+          <td>{% if  i.ImmatriculationAdverse != None %}
+          {{i.ImmatriculationAdverse}}</td>
+          {% endif %}
+          <td>{% if  i.Marque != None %}
+          {{i.Marque}}</td>
+          {% endif %}
+          <td>{% if  i.Procédure != None %}
+          {{i.Procédure}}</td>
+          {% endif %}
+          <td>{% if  i.Etat_dossier != None %}
+          {{i.Etat_dossier}}</td>
+          {% endif %}
+          <td>{% if  i.Expert != None %}
+          {{i.Expert}}</td>
+          {% endif %}
+          <td>{% if  i.Date_sinistre != None %}
+          {{i.Date_sinistre}}</td>
+          {% endif %}
+          <td>{% if  i.Date_création != None %}
+          {{i.Date_création}}</td>
+          {% endif %}
+          <td>{% if  i.Dû_compagnie != None %}
+          {{i.Dû_compagnie}}</td>
+          {% endif %}
+          <td>{% if  i.CodeIntermédiaire != None %}
+          {{i.CodeIntermédiaire}}</td>
+          {% endif %}
+          <td>{% if  i.Dû_assuré != None %}
+          {{i.Dû_assuré}}</td>
+          {% endif %}
+        <td>{% if  i.RateFraude != None %}
+          {{i.RateFraude}}</td>
+          {% endif %}
+          <td>{% if  i.Photos_Avant != None %}   
+           <a class="btn btn-outline-danger"  href="{{i.Photos_Avant}} target="_blank" role="button"
+            >Voir Photos</a></td>
+            {% endif %}
+            <td>{% if  i.Photos_en_cours != None %}
+             <a class="btn btn-outline-danger"  href="{{i.Photos_en_cours}} target="_blank" role="button"
+             >Voir Photos</a></td>
+             {% endif %}
+             <td>{% if  Veo.Photos_après_réparation != None %}
+             <a class="btn btn-outline-danger"  href="{{Veo.Photos_après_réparation}} target="_blank" role="button"
+                >Voir Photos</a></td>
+                {% endif %}
+          
+        
+            </tr>
+
+
+        <td>{% endfor %}     
+      </table>
+{% endif %}
+<br>
+<center>
+  <div class="card"  style="width: 100rem;">
+    <div class="card-body">
+      <h4 class="card-title"><font color=#FEFEFE>Déclarations sinistres partie Adverse de {{imm}}</font></h4></div>
+    </center>
+    {% if not sinisAd %}
+    <center><b> <h5> Pas de  dossier historique  de  sinistre pour  cette  immatriculation dans  la  partie  adverse </h5> </b> </center>
+    {% else %}
+<br>
+<table class="table table-hover"  >
+  <thead>
+      <tr class="table-dark">
+      <th scope="col">Immatriculation</th>
+      <th scope="col">Immatriculation Adverse</th>
+      <th scope="col">Marque</th>
+      <th scope="col">Procédure:</th>
+      <th scope="col">Etat_dossier:</th>
+      <th scope="col">Expert:</th>
+      <th scope="col">Date sinistre</th>
+      <th scope="col">Date création:</th>
+      <th scope="col">Dû_compagnie:</th>
+      <th scope="col">Code Intérmidiaire:</th>
+      <th scope="col"> Dû_assuré:</th>
+      
+      
+      
+      <th scope="col"> Rate Fraude</th>
+                                                           
+      <th scope="col">Photos Avant</th>
+            <th scope="col">Photos en cours</th>
+            <th scope="col">Photos Après </th>
+
+    </tr>
+  </thead>
+      {% for i in sinisAd %}
+      <tbody>
+        <tr class="table-light">
+        <th scope="row">{{i.Immatriculation}}</th>
+        <th scope="row">{{i.ImmatriculationAdverse}}</th>
+        <td>{{i.Marque}}</td>
+        <td>{{i.Procédure}}</td>
+        <td>{{i.Etat_dossier}}</td>
+        <td>{{i.Expert}}</td>
+        <td>{{i.Date_sinistre}}</td>
+        <td>{{i.Date_création}}</td>
+        <td>{{i.Dû_compagnie}}</td>
+        <td>{{i.CodeIntermédiaire}}</td>
+        <td>{{i.Dû_assuré}}</td>
+        
+        
+        
+        
+      <th scope="row">{{i.RateFraude}}</th>
+        <td> <a class="btn btn-outline-danger"  href="{{I.Photos_Avant}} target="_blank" role="button"
+          >Voir Photos</a></td>
+      <td> <a class="btn btn-outline-danger"  href="{{I.Photos_en_cours}} target="_blank" role="button"
+          >Voir Photos</a></td>
+      <td> <a class="btn btn-outline-danger"  href="{{I.Photos_après_réparation}} target="_blank" role="button"
+          >Voir Photos</a></td>
+
+      </tr>
+      
+    
+
+
+        
+      
+
+
+
+      {% endfor %}     
+    </table>
+    {% endif %}
+<br>
+<center>
+  <div class="card"  style="width: 100rem;">
+    <div class="card-body">
+      <h4 class="card-title"><font color=#FEFEFE>Dossiers Assistance de{{imm}}</font></h4></div>
+    </center>
+    {% if not Assis %}
+    <center><b> <h5> Pas de  dossier assistance pour  cette  immatriculation </h5> </b> </center>
+    {% else %}
+<br>
+  <table class="table table-hover"  >
+    <thead>
+      <tr class="table-dark">
+      <th scope="col">Immatriculation:</th>
+      <th scope="col">Type:</th>
+      <th scope="col">Nom client</th>
+      <th scope="col">Date Assistance:</th>
+      <th scope="col">Prestataire:</th>
+      <th scope="col">Réf Prestation</th>
+      <th scope="col">Statut:</th>
+      <th scope="col">RéférenceVeo:</th>
+      <th scope="col">Intervention:</th>
+      <th scope="col">Photos Avant:</th>
+      <th scope="col">Photos Après:</th>
+      <th scope="col">Photos Constat</th>
+      <th scope="col">Photos Historique</th>
+      <th scope="col">Date photos Avant:</th>
+      <th scope="col">Date photos Après:</th>
+      <th scope="col">Rate Fraude</th>
+    </tr>
+  </thead>
+      {% for i in Assis %}
+      <tbody>
+        <tr class="table-light">
+          <th scope="row">{{i.Immatriculation}}</th>
+          <th scope="row">{{i.Type}}</th>
+          <td>{{i.Nomclient}}</td>
+          <td>{{i.DateAssistance}}</td>
+          <td>{{i.Prestataire}}</td>
+          <th scope="row">{{i.Réf_Prestation}}</th>
+          <td>{{i.Statut}}</td>
+          <td>{{i.RéférenceVeo}}</td>
+          <td>{{i.Intervention}}</td>
+         
+          <td> <a class="btn btn-outline-danger"  href={{i.PhotosConstat}} target="_blank" role="button"
+            >Voir Photos</a></td>
+          <td> <a class="btn btn-outline-danger"  href={{i.PhotosHistorique}} target="_blank" role="button"
+            >Voir Photos</a></td>
+            <td> <a class="btn btn-outline-danger"  href={{i.PhotosAvant}} target="_blank" role="button"
+              >Voir Photos</a></td>
+            <td> <a class="btn btn-outline-danger"  href={{i.PhotosAprès}} target="_blank" role="button"
+              >Voir Photos</a></td>
+          <td>{{i.DatephotosAvant}}</td>
+          <td>{{i.DatephotosAprès}}</td>
+          <th scope="row">{{i.RateFraude}}</th>
+          
+
+          
+
+        </tr>
+        
+      
+
+
+
+      {% endfor %}     
+    </table>
+    {% endif %}
+    <br>
+<center>
+  <div class="card"  style="width: 100rem;">
+    <div class="card-body">
+      <h4 class="card-title"><font color=#FEFEFE>Dossiers Bris De Glace de{{imm}}</font></h4></div>
+    </center>
+<br>
+{% if not BDG %}
+<center><b><h5> Pas de  dossier Bris de Glace pour  cette  immatriculation </h5></b> </center>
+{% else %}
+<table class="table table-hover"  >
+  <thead>
+    <tr class="table-dark">
+    <th scope="col">Immatriculation:</th>
+    <th scope="col">Type:</th>
+    <th scope="col">Compagnie</th>
+    <th scope="col">Datesinistre:</th>
+    <th scope="col">Numérodesinistre:</th>
+    <th scope="col">Assuré_souscription</th>
+    <th scope="col">Statut:</th>
+    <th scope="col">Atelier:</th>
+    <th scope="col">Date de création:</th>
+    <th scope="col">Date de facturation/h</th>
+    <th scope="col">Délai de facturation:</th>
+    <th scope="col">Cat_facturation</th>
+    <th scope="col">Nombre de  Glaces endommagées</th>
+    <th scope="col">Du companie/Dhs</th>
+    <th scope="col">Du Assuré/Dhs</th>
+    
+    <th scope="col">Photos Avant:</th>
+    <th scope="col">Photos Après:</th>
+    <th scope="col">Rate Fraude</th>
+  </tr>
+</thead>
+    {% for i in BDG %}
+    <tbody>
+      <tr class="table-light">
+        <th scope="row">{{i.Immatriculation}}</th>
+        <th scope="row">{{i.Type}}</th>
+        <td>{{i.Compagnie}}</td>
+        <td>{{i.Datesinistre}}</td>
+        <td>{{i.Numérodesinistre}}</td>
+        <th scope="row">{{i.Assuré_souscription}}</th>
+        <td>{{i.Statut}}</td>
+        <td>{{i.Atelier}}</td>
+        <td>{{i.Datedecréation}}</td>
+        <td>{{i.Datedefacturation}}</td>
+        <td>{{i.Délaidefacturation}}</td>
+        <td>{{i.Cat_facturation}}</td>
+        <td>{{i.Nombredeglacesendommagées}}</td>
+        <td>{{i.Ducompanie_Dhs}}</td>
+        <td>{{i.Duassuré_Dhs}}</td>
+        <td> <a class="btn btn-outline-danger"  href={{i.PhotosAvant}} target="_blank" role="button"
+          >Voir Photos</a></td>
+        <td> <a class="btn btn-outline-danger"  href={{i.PhotosAprès}} target="_blank" role="button"
+          >Voir Photos</a></td>
+        
+  
+     
+        <th scope="row">{{i.RateFraude}}</th>
+        
+
+        
+
+      </tr>
+      
+    
+
+
+
+    {% endfor %}     
+  </table>
+    </center> 
+    {% endif %}
+<br>
+<br>
+<br>
+<br><br>
+<br><br><br>
+<br>
+    <footer class="text-center text-white fixed-bottom" style="background-color: #FAFAFA;">
+        <!-- Grid container -->
+        <div class="container p-2"><img
+            src="{% static '/logo.png' %}"
+            height="50"
+            alt=""
+            loading="lazy"
+           
+          /></div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        
+        <!-- Copyright -->
+      </footer>
+  
+    </div>
+
+  </body>
+</html>
