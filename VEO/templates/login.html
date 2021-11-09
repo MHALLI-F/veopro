@@ -184,38 +184,40 @@ outline: none;
 
 </head>
 <body>
+	  {% load static %}
+	 
 
-  {% load static %}
-  <nav class="navbar navbar-light" style="background-color: #FAFAFA;">
-        <div class="container-fluid justify-content-between">
-          <!-- Left elements -->
-          <div class="d-flex">
+
+
+	
+	    
+
+	    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		      <div class="container-fluid">
+			          <button
+					        class="navbar-toggler"
+						      type="button"
+						            data-mdb-toggle="collapse"
+							          data-mdb-target="#navbarTogglerDemo01"
+								        aria-controls="navbarTogglerDemo01"
+									      aria-expanded="false"
+									            aria-label="Toggle navigation"
+										        >
+											      <i class="fas fa-bars">
+												      <br><br><br>  </i>
+											      <br><br><br>
+		      </div>
+      </div>
+	    </nav>
+	    <br><br><br>
+	<div class="container-sm"><div class="container-md"><div class="container-lg"><div class="container-xl"><div class="container-xxl">
       
-         <!--  <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#" -->
-            <img
-              src="{% static '/logo.png' %}"
-              height="50"
-              alt=""
-              loading="lazy"
-             
-            />
-            <a class="navbar-brand" href="#">
+<br>
+<br>
+<center>
      
-              <font size="5.8"  >VEO</font><font  size="5.8" color="#D50000">SMART</font>
-            </a>
-          
       
-          
-      
-        
-      </nav>
-<br>
-<br>
-      <div class="card" style="width: 100rem" >
-        <div class="card-body">
-         
-      
-    <center><h3>Authentification</h3>
+    <center>
     <form method="POST">
         {% csrf_token %}
 
@@ -227,39 +229,32 @@ outline: none;
    <!-- Modal Content -->
    <form   method="post">
      <div class="imgcontainer">
-       <img src="{% static '/avatar3.png' %}" alt="Avatar" class="avatar" height="100">
-     </div>
-   
+       
+     <img
+                   src="{% static '/logo.png' %}"
+		                 height="100"
+				               alt=""
+		   loading="lazy"></div>
     </center>
 
-     <div class="container">
-       <label for="uname"><div text-align="Left"><b>Nom d'utilisateur</b></div></label>
+     <div class="container" width="30">
+	     <div align="left"> <label for="uname"><div text-align="Left"><b>Nom d'utilisateur</b></div></label>
        <input  class="form-control" type="text"  placeholder="Entrer Nom d'utilisateur" name="username" required >
  <br>
        <label for="psw"><b>Mot de passe</b></label>
        <input class="form-control" type="password" placeholder="Entrer votre Mot de passe" name="password" required>
  <br>
-       <input type="submit" class="btn btn-light"  value="se connecter">
-       <label>
-         <input type="checkbox" checked="checked" name="remember"> Se souvenir du nom d'utilisateur
-       </label>
+    <label>
+	             <input type="checkbox" checked="checked" name="remember"> Se souvenir du nom d'utilisateur
+		            </label>
+ <div align="right">    <input type="submit" class="btn btn-light"  value="se connecter"></div>
+     
      </div>
 
 
-     <font size=3>
+</center>
+     </div></div></div></div></div>
 
-      <footer class="text-center text-white fixed-bottom" style="background-color: #D50000;">
-        <!-- Grid container -->
-        <div class="container p-0.1"> <i class="fas fa-car-side fa-3x" data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right" data-mdb-animation-on-scroll="repeat"></i></div>
-      
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">Gestion Digitalisée de Dossiers Souscription & Sinistres  - Assurance Automobile
-      
-        </div>
-        <!-- Copyright -->
-      </footer>
-      </div>
-      </font>
 </body>
 </html>
 

@@ -11,19 +11,26 @@ from django.contrib.auth import (
      logout
      )
 
-from .forms import (UserLoginForm, UserRegisterForm)
+from .forms import UserLoginForm
+
 
 def login_view(request):
-    next= request.GET.get('next')
+    #next= request.GET.get('next')
     form = UserLoginForm(request.POST or None)
     if form.is_valid():
+        #user=form.save
         username= form.cleaned_data.get('username')
-        password= form.cleaned_data.get('pasword')
+        password= form.cleaned_data.get('password')
         user= authenticate(username=username, password=password)
-        login( request, user)
-        if next:
-            return redirect(next)
-        return redirect('/home')
+        if  user is  not  None:
+            login(request,user)
+            return redirect('/home')
+        #user=form.save
+        #login(request, user,backend='django.contrib.auth.backends.ModekBackend')
+        
+        #if next:
+         #   return redirect(next)
+        #return redirect('/home')
     
     context = {
         'form':form,

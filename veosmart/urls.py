@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path,include
-from VEO.views import inis, search, err, Rate,details, filtre, observation
+from VEO.views import inis,statutdoute, search, err, Rate,details, filtre, observation
 
 
 from accounts.views import login_view
@@ -28,20 +28,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),   
     path('home/', inis,name="inis"),
     path('search/',search,name="search"),
-    path('details/<int:id>/',details,name="details"),
+    path('details/<str:Dossier>/',details,name="details"),
     path('filtre/',filtre,name="filtre"),
-    path('observation/',observation,name="observation"),
+    path('statutdoute/',statutdoute,name="statutdoute"),
    #path('details$',details,name="details$"),
  
     path('home/login/', login_view),
-    path('home/admin/', admin.site.urls),
-    path('search/admin/', admin.site.urls),
+
     path('search/err/',err,name="err"),
     path('search/err/home',inis,name="inis"),
-    path('search/err/home/admin/',admin.site.urls),
     path('search/err/login/',login_view),
     path('search/login/',login_view),
-    path('search/err/admin/',admin.site.urls),
+    path('observation/',observation,name="observation"),
 
 
 

@@ -10,11 +10,11 @@ def inter_dt(dtV , dtE):
         return abs(dtV - dtE).days 
 def inter_dt2(dtV,dtE):  
     if (dtV and dtE):  
-        dtV= datetime.satrptime(dtV, "%d/%m/%Y").date()
+        dtV= datetime.strptime(dtV, "%d/%m/%Y").date()
         dtE = datetime.strptime(dtE, "%d %b, %Y %H:%M:%S").date()
         return (dtE- dtV).days 
 
-################################################################### Nettoyage des immatriculations
+############################################################### Nettoyage des immatriculations
 #Enlever les zéros de début
 def remove_zerostart (val):
     i=0
@@ -104,108 +104,55 @@ class Veodata(models.Model):
     ContactName=models.TextField()
     Immatriculation=models.TextField()
     ImmatriculationAdverse=models.TextField()
-    NumérodePolice=models.TextField()
-    NumérodePoliceAdverse=models.TextField()
-    TypeAppréciation=models.TextField()
-    ClientOKavecchiffrage=models.TextField()
     Okpoursouscription=models.TextField()
     Statutgarage=models.TextField()
-    AssignedTo=models.TextField()
-    Indemnité_calculauto=models.TextField()
     Status=models.TextField()
     CreatedDate=models.TextField()
-    ResolutionActual=models.TextField()
     Datesinistre=models.TextField()
-    DatePEC=models.TextField()
-    Daterdv=models.TextField()
-    CodeIntermédiaire=models.TextField()
-    VilleIntervention=models.TextField()
     Nomintermédiairecp=models.TextField()
-    Garages=models.TextField()
-    Devisgarage=models.TextField()
-    Observationssurledossierfaitsmarquants=models.TextField()
-    Idd=models.TextField()
-    Statutdetaillé=models.TextField()
-    Instanceàtraiter=models.TextField()
-    DatePhotosAvantWP=models.TextField()
-    EmailWP=models.TextField()
     def strtodate(self):
-        if self.CreatedDate!=None and self.Datesinistre!=None and self.DatePEC!=None and self.Daterdv!=None and self.DatePhotosAvantWP!=None:        
+        if self.CreatedDate!=None and self.Datesinistre!=None:        
             self.CreatedDate=datetime.strptime(self.CreatedDate, "%d %b, %Y %H:%M:%S")
             self.Datesinistre=datetime.strptime(self.Datesinistre, "%d %b, %Y %H:%M:%S")
-            self.DatePEC=datetime.strptime(self.DatePEC, "%d %b, %Y %H:%M:%S")
-            self.Daterdv=datetime.strptime(self.Daterdv, "%d %b, %Y %H:%M:%S")
-            self.DatePhotosAvantWP=datetime.strptime(self.DatePhotosAvantWP, "%d %b, %Y %H:%M:%S")
         return self
 
 class Assistance(models.Model):
     id = models.AutoField(primary_key=True)
     Type=models.TextField()
-    Idd=models.TextField()
     Prestataire=models.TextField()
     DateAssistance=models.TextField()
     Statut=models.TextField()
     RéférenceVeo=models.TextField()
     Intervention=models.TextField()
     Immatriculation=models.TextField()
-    NumérodePolice=models.TextField()
     Nomclient=models.TextField()
     PhotosAvant=models.TextField()
     PhotosAprès=models.TextField()
     PhotosConstat=models.TextField()
     PhotosHistorique=models.TextField()
-    DatePhotosAvant=models.TextField()
-    DatePhotosaprès=models.TextField()
-    Datedépartremorquage=models.TextField()
-    DatePhotosConstat=models.TextField()
     DateAssistance_h=models.TextField()
    
     
     def strtodate(self):
-        if self.DateAssistance!=None and self.DatePhotosAvant!=None and self.DatePhotosaprès!=None and self.Datedépartremorquage !=None and self.DatePhotosConstat!=None:
+        if self.DateAssistance!=None:
             self.DateAssistance=datetime.strptime(self.DateAssistance, "%d/%m/%Y")
-            self.DatePhotosAvant=datetime.strptime(self.DatePhotosAvant, "%d %b, %Y %H:%M:%S")
-            self.DatePhotosaprès=datetime.strptime(self.DatePhotosaprès, "%d %b, %Y %H:%M:%S")
-            self.Datedépartremorquage=datetime.strptime(self.Datedépartremorquage,"%d %b, %Y %H:%M:%S")
-            self.DatePhotosConstat=datetime.strptime(self.DatePhotosConstat, "%d %b, %Y %H:%M:%S")
         return self
 
 class Bris_De_Glace(models.Model):
     id = models.AutoField(primary_key=True)
     Type=models.TextField()
-    Idd=models.TextField()
     Référencedossier=models.TextField()
-    Compagnie=models.TextField()
     Immatriculation=models.TextField()
     Datesinistre=models.TextField()
-    NumérodePolice=models.TextField()
-    Numérodesinistre=models.TextField()
     NomAssuré_souscripteur=models.TextField()
     PhotosAvant=models.TextField()
     PhotosAprès=models.TextField()
-    Réseau=models.TextField()
     Statut=models.TextField()
     Datedecréation=models.TextField()
-    Datedefacturation=models.TextField()
-    Délaidefacturation_h=models.TextField()
-    Cat_facturation=models.TextField()
-    Dateenvoiedevis=models.TextField()
-    Dateenvoieaccord=models.TextField()
-    DélaidetraitementdesDevis_h=models.TextField()
-    Cat_traitementDevis=models.TextField()
-    Atelier=models.TextField()
-    Nombredeglacesendommagées=models.TextField()
-    Ducompagnie_Dhs=models.TextField()
-    Duassuré_Dhs=models.TextField()
-    Dateclôturedossier=models.TextField()
-    
+
 
     def strtodate(self):
-        if self.Dateclôturedossier!=None and self.Dateenvoiedevis!=None and self.Dateenvoieaccord!=None and self.Datedefacturation!=None and self.Datedecréation!=None and self.Datesinistre!=None:
-            self.Dateclôturedossier=datetime.strptime(self.Dateclôturedossier, "%d/%m/%Y %H:%M")
-            self.Dateenvoiedevis=datetime.strptime(self.Dateenvoiedevis, "%d/%m/%Y %H:%M")
-            self.Dateenvoieaccord=datetime.strptime(self.Dateenvoieaccord, "%d/%m/%Y %H:%M")
-            self.Datedefacturation=datetime.strptime(self.Datedefacturation, "%d/%m/%Y %H:%M")
+        if self.Datedecréation!=None and self.Datesinistre!=None:
             self.Datedecréation=datetime.strptime(self.Datedecréation, "%d/%m/%Y %H:%M")
             self.Datesinistre=datetime.strptime(self.Datesinistre, "%d/%m/%Y")
         return self
@@ -213,93 +160,18 @@ class Bris_De_Glace(models.Model):
    
 class Veoservices(models.Model):
     id = models.AutoField(primary_key=True)
-    Idd=models.TextField()
     Dossier=models.TextField()
     Statut=models.TextField()
-    Statut_gestion=models.TextField()
     Date_sinistre=models.TextField()
-    Marque=models.TextField()
-    Modèle=models.TextField()
-    Date_de_mise_en_circulation=models.TextField()
     Garantie=models.TextField()
-    Code_intermédiaire=models.TextField()
-    Octroi_VHR=models.TextField()
-    Cat_VHR=models.TextField()
-    Durée_VHR=models.TextField()
-    Durée_réparation=models.TextField()
-    Code_Garage=models.TextField()
-    Code_Expert=models.TextField()
-    Code_Procédure=models.TextField()
-    Montant_initial_accord=models.TextField()
-    Montant_modifié_accord=models.TextField()
-    Etat_dossier=models.TextField()
     Procédure=models.TextField()
     Expert=models.TextField()
-    Garage=models.TextField()
     Immatriculation=models.TextField()
-    Dû_compagnie_GA=models.TextField()
-    Dû_compagnie_RC=models.TextField()
-    Devis_peinture_TTC=models.TextField()
-    Devis_Pièces_TTC=models.TextField()
-    Devis_garage_TTC=models.TextField()
-    Accord_Dommages_TTC=models.TextField()
-    Rapport_Peinture_TTC=models.TextField()
-    Rapport_Pièces_TTC =models.TextField()
-    Montant_Dommages_rapport_TTC=models.TextField()
-    TVA_à_déduire=models.TextField()
-    Vétusté_appliquée=models.TextField()
-    Franchise_appliquée=models.TextField()
-    Dû_compagnie=models.TextField()
-    Dû_assuré=models.TextField()
     Date_création=models.TextField()
-    Date_envoi_devis_garage=models.TextField()
-    Date_Accord_Expert=models.TextField()
-    Date_règlement=models.TextField()
-    Date_accord_compagnie=models.TextField()
-    Date_envoi_demande_2e_accord=models.TextField()
-    Date_prédéclaration=models.TextField()
-    Date_validation_rapport_contrôle=models.TextField()
-    Date_rejet_accord_compagnie=models.TextField()
-    Login_accord_compagnie=models.TextField()
-    Date_état_des_lieux=models.TextField()
-    Date_Photos_Avant=models.TextField()
-    Date_Photos_après=models.TextField()
-    Date_Photos_en_cours=models.TextField()
-    Date_2ème_accord=models.TextField()
-    Date_envoi_facture=models.TextField()
-    Date_FFT=models.TextField()
-    Date_publication_rapport=models.TextField()
-    Date_validation_mission=models.TextField()
-    Date_CDC=models.TextField()
-    Début_VHR=models.TextField()
-    Fin_VHR=models.TextField()
-    Date_retour_véhicule=models.TextField()
-    Rdv_client=models.TextField()
-    Rdv_initial_client=models.TextField()
-    Facture_Peinture_TTC=models.TextField()
-    Facture_Pièces_TTC=models.TextField()
-    Facture_Garage_TTC=models.TextField()
-    Différence_montant_accord=models.TextField()
-    Motif_rejet_rapport=models.TextField()
-    Date_FFT_signée=models.TextField()
-    Date_de_mise_en_instance_PEC_Mission=models.TextField()
-    Date_de_mise_en_instance_règlement=models.TextField()
-    Dommage_Collision=models.TextField()
-    RC=models.TextField()
-    Durée_VHR_Calculée=models.TextField()
-    Nature_Rdv=models.TextField()
-    Mise_en_instance_PEC_Mission=models.TextField()
-    Mise_en_instance_règlement=models.TextField()
-    Montant_Dommages_1_accord_TTC=models.TextField()
-    Motif_de_changement_de_procédure=models.TextField()
-    Type_Garage=models.TextField()
-    Date_rejet_rapport=models.TextField()
-    Num_déclaration=models.TextField()
     Date_validité_début=models.TextField()
     Date_validité_fin=models.TextField()	
     Date_validité_début_Adv=models.TextField()	
     Date_validité_fin_Adv=models.TextField()	
-    Dossier_douteux=models.TextField()
     RateFraude=models.FloatField()
     Photos_Avant=models.TextField()	
     Photos_en_cours=models.TextField()	
@@ -315,6 +187,7 @@ class Veoservices(models.Model):
     R8=models.TextField()
     R9=models.TextField()
     observation=models.TextField()
+    statutdoute=models.TextField()
 
     def strtodate(self):
         if self.Date_création!=None and self.Date_sinistre!=None and self.Date_validité_début_Adv!=None and self.Date_validité_fin_Adv!=None and self.Date_validité_fin!=None and self.Date_validité_début!=None:        
@@ -365,7 +238,7 @@ class Veoservices(models.Model):
             for j in List_Princ:
                 if ((j.Statutgarage is not  None) and (j.Statutgarage.lower()=="cas douteux")):
                     Rate=30
-                    R="30%: l'immatriculation principale a déjà été impliquée dans un dossier historique signalé douteux "+str(j.CaseNumber)
+          #          R="30%: l'immatriculation principale a déjà été impliquée dans un dossier historique signalé douteux "+str(j.CaseNumber)
                     #La declaration douteux pour  afficher le  détail
                     doute_Princ=j
                     break
@@ -377,7 +250,7 @@ class Veoservices(models.Model):
             for i in List_Adv:
                 if ((i.Statutgarage is not  None) and (i.Statutgarage.lower()=="cas douteux")):
                     Rate=30
-                    R="30%: l'immatriculation adverse a déjà été impliquée dans un dossier historique signalé douteux: "+str(i.CaseNumber)
+         #           R="30%: l'immatriculation adverse a déjà été impliquée dans un dossier historique signalé douteux: "+str(i.CaseNumber)
                     #La declaration douteux pour  afficher le  détail
                     doute_Adv=i
                     break 
@@ -385,7 +258,7 @@ class Veoservices(models.Model):
                     doute_Adv=None
         else:
             doute_Adv=None
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R1=R)       
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R1=R)       
         return [Rate,doute_Princ,doute_Adv]
 
 
@@ -402,13 +275,13 @@ class Veoservices(models.Model):
         if date_sinis!=None or date_sinis!="":
             if DDP!=None:
                 diff_sous_sinis=inter_dt2(date_sinis, DDP)
-                if 0<=diff_sous_sinis<=30:
+                if diff_sous_sinis!=None  and  0<=diff_sous_sinis<=30:
                     Rate=10  
-                    R="10%: Ce sinistre survenu moins d'un mois après date début d'assurance: "+self.Date_validité_début
+           #         R="10%: Ce sinistre survenu moins d'un mois après date début d'assurance: "+self.Date_validité_début
                 else:
                     DDP=None
                     date_sinis=None
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R2=R)   
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R2=R)   
         return [Rate,DDP,date_sinis]
 
       
@@ -424,16 +297,16 @@ class Veoservices(models.Model):
         if date_sinis!=None or date_sinis!="":
             if DDA!=None:
                 diff_sous_sinis=inter_dt2(date_sinis, DDA)
-                if 0<=diff_sous_sinis<=30:
+                if diff_sous_sinis!=None  and 0<=diff_sous_sinis<=30:
                     Rate=10  
-                    R="10%: sinistre survenu moins d'un mois après date début d'assurance de la partie adverse: "+self.Date_validité_début_Adv
+         #           R="10%: sinistre survenu moins d'un mois après date début d'assurance de la partie adverse: "+self.Date_validité_début_Adv
                 else:
                     DDA=None
                     date_sinis=None      
         else:
             DDA=None
             date_sinis=None     
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R3=R)   
+       # Veoservices.objects.filter(Dossier=self.Dossier).update(R3=R)   
         return [Rate,DDA,date_sinis]
         
         
@@ -469,7 +342,7 @@ class Veoservices(models.Model):
             for A in  List_A:
                 if i.Okpoursouscription=="NOK":
                     Rate=15
-                    R="15%: l'immatriculation adverse a été signalée comme souscription NOK voir le dossier "+str(i.CaseNumber)
+        #            R="15%: l'immatriculation adverse a été signalée comme souscription NOK voir le dossier "+str(i.CaseNumber)
                     A=List_A[0]
                     break
                 else:
@@ -482,7 +355,7 @@ class Veoservices(models.Model):
             for A in  List_A:
                 if i.Okpoursouscription=="NOK":
                     Rate=15
-                    R="15%: l'immatriculation principale a été signalée comme souscription NOK voir le dossier "+str(i.CaseNumber)
+         #           R="15%: l'immatriculation principale a été signalée comme souscription NOK voir le dossier "+str(i.CaseNumber)
                     P=List_P[0]
                     break
                 else:
@@ -490,7 +363,7 @@ class Veoservices(models.Model):
                     P=None
         else:
             P=None
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R4=R)   
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R4=R)   
         return  [Rate,P,A]
         
         
@@ -515,12 +388,12 @@ class Veoservices(models.Model):
                     date=datetime.strptime(i.DateAssistance_h, "%d %b, %Y %H:%M:%S")
                     if date.hour<=7  or date.hour>=20:
                         Rate=10
-                        R="10%: La date assistance du dossier: "+str(i.RéférenceVeo)+" est après 20h ou avant 7h du matin"
+         #               R="10%: La date assistance du dossier: "+str(i.RéférenceVeo)+" est après 20h ou avant 7h du matin"
                         A=i
                         break
                         
                 
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R5=R)                       
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R5=R)                       
         return [Rate,A]
 
     def  Reg6(self):
@@ -552,13 +425,13 @@ class Veoservices(models.Model):
                             
                                 
                             Rate=5
-                            R="5%: les 2 dossiers "+str(i.RéférenceVeo)+" et "+str(j.RéférenceVeo)+" ont moins de 3 mois de distance"
+         #                   R="5%: les 2 dossiers "+str(i.RéférenceVeo)+" et "+str(j.RéférenceVeo)+" ont moins de 3 mois de distance"
                             A1=j
                             A2=i
                             break
                             # j'ai multiplier par  2  par  ce  que  il  doit  avoir  deux  
                             # dossier  pour  comparer  donc  à chaque  fois  qu'il sera détécter  la  liste  contient 2  dossiers 
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R6=R)                   
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R6=R)                   
         return [Rate,A1,A2]
 
 
@@ -588,7 +461,7 @@ class Veoservices(models.Model):
                         diff=inter_dt(date_sinis1, date_sinis2)
                         if ((diff!=None) and (0<diff<=365)):
                             Rate=5
-                            R="5%: l'immatriculation principale a déjà fait l'objet d'un sinistre il y'a moins de 12 mois " +str(j.Dossier)
+         #                   R="5%: l'immatriculation principale a déjà fait l'objet d'un sinistre il y'a moins de 12 mois " +str(j.Dossier)
                             P=j
                             break
                         
@@ -611,11 +484,11 @@ class Veoservices(models.Model):
                         if ((diff!=None) and (diff<=365)):
                             Rate=5
                             A=j
-                            R="5%: l'immatriculation adverse a déjà fait l'objet d'un sinistre il y'a moins de 12 mois "+str(j.Dossier)
+          #                  R="5%: l'immatriculation adverse a déjà fait l'objet d'un sinistre il y'a moins de 12 mois "+str(j.Dossier)
                             
                             break
                         
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R7=R)                   
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R7=R)                   
         return  [Rate,P,A]
         
         
@@ -630,13 +503,13 @@ class Veoservices(models.Model):
             if (date_sinis!=None) and (date_sinis!="") and ("tierce" in self.Garantie.lower()):
                 if DFP!=None:
                     diff_sous_sinis=inter_dt2(date_sinis,DFP)
-                    if 0<=diff_sous_sinis<=30:
+                    if diff_sous_sinis!=None  and 0<diff_sous_sinis<=30:
                         Rate=5  
-                        R="5%: La  garantie  est Tierce  et il reste moins  d'un mois avant la fin  de  validité  de  contrat: "+self.Date_validité_fin
+         #               R="5%: La  garantie  est Tierce  et il reste moins  d'un mois avant la fin  de  validité  de  contrat: "+self.Date_validité_fin
                 else:
                     DFP=None
                     date_sinis=None
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R9=R)   
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R9=R)   
         return [Rate,DFP,date_sinis]
         
     def  Reg8(self):
@@ -649,9 +522,9 @@ class Veoservices(models.Model):
         if (self.ImmatriculationAdverse!=None) and (self.ImmatriculationAdverse!="") and (len(self.ImmatriculationAdverse)>=12):
             
             Rate=10 
-            R="10%: La  partie  adverse est un cyclo: "+self.ImmatriculationAdverse
+         #   R="10%: La  partie  adverse est un cyclo: "+self.ImmatriculationAdverse
                 
-        Veoservices.objects.filter(Dossier=self.Dossier).update(R8=R)   
+        #Veoservices.objects.filter(Dossier=self.Dossier).update(R8=R)   
         return Rate
 
 

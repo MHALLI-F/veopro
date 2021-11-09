@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k2q4krne^1e@7#+&(_!1(ka(-%*&j53(3lcwfx40rh&ibb=azk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['105.73.80.39']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'VEO',
+    'accounts',
 
 ]
 
@@ -48,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -82,12 +83,12 @@ WSGI_APPLICATION = 'veosmart.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
-        'USER': 'django',
-        'PASSWORD': 'veosmart01' ,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'veo',
+        'USER': 'postgres',
+        'PASSWORD': 'veosmart2021' ,
         'PORT': '5432',
-        'HOST': 'localhost'
+        'HOST': '0.0.0.0'
     }
 }
 
@@ -109,6 +110,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+        
+        'django.contrib.auth.backends.ModelBackend',
+        ]
 
 
 # Internationalization
@@ -138,10 +144,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 TEMPLATE_DIRS = (
 os.path.join(BASE_DIR, 'templates'),
 )
 #  pour affichage des photos de la bdd
 MEDIA_URL='/media/'
 
-LOGIN_REDIRECT_URL="/"
+iLOGIN_REDIRECT_URL="/"

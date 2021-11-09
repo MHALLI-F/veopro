@@ -51,7 +51,7 @@
   alt=""
   loading="lazy"
   style="margin-top: 2px;"/>
-            <font size="6.5">VEO</font><font color="#D50000" size="6">smart</font>
+           
           </a>
           <!-- Collapsible wrapper -->
          
@@ -153,23 +153,23 @@ document.getElementById("search").value="{{query}}"
 
 
 </center>
-
-
-
       <table class="table table-hover"  >
         <thead>
-            <tr class="table-dark">
-            <th scope="col">Immatriculation:</th>
            
-            <th scope="col">Marque</th>
-            
-            <th scope="col">Date création dossier:</th>
+		<tr class="table-dark">
+			<th scope="col">Dossier</th>
+			<th scope="col">Immatriculation:</th>
+           
+    
             <th scope="col">Date sinistre:</th>
-            <th scope="col">Procédure:</th>
+	    <th scope="col">Date création</th>
+            <th scope="col">Type:</th>
             
-            <th scope="col">Expert:</th>
+           
             <th scope="col">Statut</th>
-            <th scope="col">Photos</th>
+	      <th scope="col">Expert:</th>
+	        <th scope="col">Immat_Adverse:</th>
+            <th scope="col">Photos Avant</th>
             <th scope="col">RateFraude</th>
             
             <th scope="col">Observation</th>
@@ -180,19 +180,21 @@ document.getElementById("search").value="{{query}}"
       
         <tbody>
             <tr class="table-light">
+		     <th scope="row">{{i.Dossier}}</th>
             <th scope="row">{{i.Immatriculation}}</th>
-           
-            <td>{{i.Marque}}</td>
+          
          
-            <th scope="row">{{i.Date_création}}</th>
-            <th scope="row">{{i.Date_sinistre}}</th>
-            <td>{{i.Procédure}}</td>
-            <td>{{i.Expert}}</td>
             
-            <td>{{i.Statut}}</td>
-            <td> <a href="{{i.Photos_en_cours}}" role="button"
+            <th scope="row">{{i.Date_sinistre}}</th>
+	     <th scope="row">{{i.Date_création}}</th>
+            <td>{{i.Procédure}}</td>
+	     <td>{{i.Statut}}</td>
+             <td>{{i.Expert}}</td>
+             <td>{{i.ImmatriculationAdverse}}</td>
+            
+            <td> <a href="{{i.Photos_Avant}}" role="button"
               >    <i class="far fa-image fa-2x"></i></td>
-            <td><a href="{% url 'details' i.id %}"> {{i.RateFraude}}% </a></td>
+            <td><a href="{% url 'details' i.Dossier %}"> {{i.RateFraude}}% </a></td>
             <td>{{i.observation}}</td>
             
             
@@ -224,22 +226,6 @@ document.getElementById("search").value="{{query}}"
 
 <br>
 <br>
-<br>
 
-
-  <font size=3>
-
-<footer class="text-center text-white fixed-bottom" style="background-color: #D50000;">
-  <!-- Grid container -->
-  <div class="container p-0.1"> <i class="fas fa-car-side fa-3x" data-mdb-toggle="animation" data-mdb-animation-reset="true" data-mdb-animation="slide-out-right" data-mdb-animation-on-scroll="repeat"></i></div>
-
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">Gestion Digitalisée de Dossiers Souscription & Sinistres  - Assurance Automobile
-
-  </div>
-  <!-- Copyright -->
-</footer>
-</div>
-</font>
   </body>
 </html>

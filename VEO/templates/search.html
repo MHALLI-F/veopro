@@ -123,13 +123,10 @@ background-color:rgba(31, 30, 30, 0.918)
             <th scope="col">Date souscription:</th>
            
             <th scope="col">OK pour  souscription:</th>
-            <th scope="col">Code intermédiaire:</th>
             
-            <th scope="col">Nom Intermédiaire cp:</th>
-
-            <th scope="col">Ville Intervention:</th>
-            <th scope="col">Statut</th>
-            <th scope="col">AssignedTo</th>
+          
+           <th scope="col">Statut</th>
+          
             
             <th scope="col">Voir photos</th>
   
@@ -145,12 +142,8 @@ background-color:rgba(31, 30, 30, 0.918)
             <td>{{i.Type}}</td>
             <td>{{i.CreatedDate}}</td>
             <td>{{i.Okpoursouscription}}</td>
-            <td>{{i.CodeIntermédiaire}}</td>
-            <td>{{i.Nomintermédiairecp}}</td>
-            <th scope="row">{{i.VilleIntervention}}</th>
-            <td>{{i.Status}}</td>
-            <td>{{i.AssignedTo}}</td>
-            
+             <td>{{i.Status}}</td>
+           
             
 
             <td> <a class="btn btn-outline-danger"  href="" role="button"
@@ -187,9 +180,7 @@ background-color:rgba(31, 30, 30, 0.918)
           
               <th scope="col">Immatriculation Adverse</th>
           
-                  <th scope="col">Marque</th>
-             
-              <th scope="col">Procédure:</th>
+               <th scope="col">Procédure:</th>
           
               <th scope="col">Etat_dossier:</th>
            
@@ -197,16 +188,7 @@ background-color:rgba(31, 30, 30, 0.918)
              
               <th scope="col">Date sinistre</th>
 
-              <th scope="col">Date création:</th>
-
-              <th scope="col">Dû_compagnie:</th>
-      
-              <th scope="col">Code Intérmidiaire:</th>
-              
-            
-              <th scope="col"> Dû_assuré:</th>
- 
-              
+              <th scope="col">Date création </th>    
               <th scope="col"> Rate_Fraude</th> 
                        
               <th scope="col">Photos Avant</th>
@@ -292,18 +274,12 @@ background-color:rgba(31, 30, 30, 0.918)
       <tr class="table-dark">
       <th scope="col">Immatriculation</th>
       <th scope="col">Immatriculation Adverse</th>
-      <th scope="col">Marque</th>
+    
       <th scope="col">Procédure:</th>
-      <th scope="col">Etat_dossier:</th>
+    
       <th scope="col">Expert:</th>
       <th scope="col">Date sinistre</th>
-      <th scope="col">Date création:</th>
-      <th scope="col">Dû_compagnie:</th>
-      <th scope="col">Code Intérmidiaire:</th>
-      <th scope="col"> Dû_assuré:</th>
-      
-      
-      
+      <th scope="col">Date création:</th>    
       <th scope="col"> Rate Fraude</th>
                                                            
       <th scope="col">Photos Avant</th>
@@ -317,15 +293,11 @@ background-color:rgba(31, 30, 30, 0.918)
         <tr class="table-light">
         <th scope="row">{{i.Immatriculation}}</th>
         <th scope="row">{{i.ImmatriculationAdverse}}</th>
-        <td>{{i.Marque}}</td>
-        <td>{{i.Procédure}}</td>
-        <td>{{i.Etat_dossier}}</td>
+	<td>{{i.Procédure}}</td>
         <td>{{i.Expert}}</td>
         <td>{{i.Date_sinistre}}</td>
         <td>{{i.Date_création}}</td>
-        <td>{{i.Dû_compagnie}}</td>
-        <td>{{i.CodeIntermédiaire}}</td>
-        <td>{{i.Dû_assuré}}</td>
+   
         
         
         
@@ -369,7 +341,6 @@ background-color:rgba(31, 30, 30, 0.918)
       <th scope="col">Nom client</th>
       <th scope="col">Date Assistance:</th>
       <th scope="col">Prestataire:</th>
-      <th scope="col">Réf Prestation</th>
       <th scope="col">Statut:</th>
       <th scope="col">RéférenceVeo:</th>
       <th scope="col">Intervention:</th>
@@ -377,8 +348,6 @@ background-color:rgba(31, 30, 30, 0.918)
       <th scope="col">Photos Après:</th>
       <th scope="col">Photos Constat</th>
       <th scope="col">Photos Historique</th>
-      <th scope="col">Date photos Avant:</th>
-      <th scope="col">Date photos Après:</th>
       <th scope="col">Rate Fraude</th>
     </tr>
   </thead>
@@ -390,7 +359,6 @@ background-color:rgba(31, 30, 30, 0.918)
           <td>{{i.Nomclient}}</td>
           <td>{{i.DateAssistance}}</td>
           <td>{{i.Prestataire}}</td>
-          <th scope="row">{{i.Réf_Prestation}}</th>
           <td>{{i.Statut}}</td>
           <td>{{i.RéférenceVeo}}</td>
           <td>{{i.Intervention}}</td>
@@ -403,8 +371,7 @@ background-color:rgba(31, 30, 30, 0.918)
               >Voir Photos</a></td>
             <td> <a class="btn btn-outline-danger"  href={{i.PhotosAprès}} target="_blank" role="button"
               >Voir Photos</a></td>
-          <td>{{i.DatephotosAvant}}</td>
-          <td>{{i.DatephotosAprès}}</td>
+      
           <th scope="row">{{i.RateFraude}}</th>
           
 
@@ -434,20 +401,10 @@ background-color:rgba(31, 30, 30, 0.918)
     <tr class="table-dark">
     <th scope="col">Immatriculation:</th>
     <th scope="col">Type:</th>
-    <th scope="col">Compagnie</th>
     <th scope="col">Datesinistre:</th>
-    <th scope="col">Numérodesinistre:</th>
     <th scope="col">Assuré_souscription</th>
     <th scope="col">Statut:</th>
-    <th scope="col">Atelier:</th>
     <th scope="col">Date de création:</th>
-    <th scope="col">Date de facturation/h</th>
-    <th scope="col">Délai de facturation:</th>
-    <th scope="col">Cat_facturation</th>
-    <th scope="col">Nombre de  Glaces endommagées</th>
-    <th scope="col">Du companie/Dhs</th>
-    <th scope="col">Du Assuré/Dhs</th>
-    
     <th scope="col">Photos Avant:</th>
     <th scope="col">Photos Après:</th>
     <th scope="col">Rate Fraude</th>
@@ -458,19 +415,11 @@ background-color:rgba(31, 30, 30, 0.918)
       <tr class="table-light">
         <th scope="row">{{i.Immatriculation}}</th>
         <th scope="row">{{i.Type}}</th>
-        <td>{{i.Compagnie}}</td>
-        <td>{{i.Datesinistre}}</td>
-        <td>{{i.Numérodesinistre}}</td>
-        <th scope="row">{{i.Assuré_souscription}}</th>
-        <td>{{i.Statut}}</td>
-        <td>{{i.Atelier}}</td>
+         <td>{{i.Datesinistre}}</td>
+       <th scope="row">{{i.Assuré_souscription}}</th>
+       <td>{{i.Statut}}</td>
+      
         <td>{{i.Datedecréation}}</td>
-        <td>{{i.Datedefacturation}}</td>
-        <td>{{i.Délaidefacturation}}</td>
-        <td>{{i.Cat_facturation}}</td>
-        <td>{{i.Nombredeglacesendommagées}}</td>
-        <td>{{i.Ducompanie_Dhs}}</td>
-        <td>{{i.Duassuré_Dhs}}</td>
         <td> <a class="btn btn-outline-danger"  href={{i.PhotosAvant}} target="_blank" role="button"
           >Voir Photos</a></td>
         <td> <a class="btn btn-outline-danger"  href={{i.PhotosAprès}} target="_blank" role="button"
