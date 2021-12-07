@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -154,3 +155,35 @@ os.path.join(BASE_DIR, 'templates'),
 MEDIA_URL='/media/'
 
 iLOGIN_REDIRECT_URL="/"
+
+
+
+
+
+
+
+
+#CELERY SETTINGS
+CELERY_BROKER_URL = 'redis://0.0.0.0:6379'
+CELERY_RESULT_BACKEND = 'redis://0.0.0.0:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Johannesburg'
+CELERY_BEAT_SCHEDULE = {
+        'task-number-one': {
+            'task': 'VEO.tasks.scheduledTask',
+         #   'schedule':crontab(hours = crontab_parser(24).parse('*/10')),
+
+           # 'schedule': crontab(minute='*/60'),
+            'schedule':20,
+            }
+        }
+
+
+
+
+
+
+
+

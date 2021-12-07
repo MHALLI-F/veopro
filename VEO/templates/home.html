@@ -19,17 +19,8 @@
   </head>
   <body>
     <!-- Background image -->
-    <div style=" background-image: url('{% static '/filigrane.png' %}'');">
-    <!-- Start your project here-->
-    {% load static %}
-    
-    <!-- Navbar-->
-
-
-
-      <!-- Image and text -->
+    <!--Main Navigation-->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Container wrapper -->
         <div class="container-fluid">
           <!-- Toggle button -->
           <button
@@ -53,54 +44,55 @@
   style="margin-top: 2px;"/>
            
           </a>
-          <!-- Collapsible wrapper -->
+	  <form class="d-none d-md-flex input-group w-auto my-auto" action="{% url 'filterDos'  %}" methode='GET'>
+
+		                                                    <input
+
+							                                                                                  type="text"  name="search"
+												                                                                 class="form-control rounded"
+									                                               placeholder="N° Dossier| Immatriculation"    autocomplete="on"    style="min-width: 225px"
+
+							                                     />   <span class="input-group-text border-0 d-none d-lg-flex"
+	            ><i class="fas fa-search"></i
+	          ></span></form>
+
+
+	     <form  class="d-flex input-group w-auto w-auto my-auto" action="{% url 'filtre'  %}" methode='GET'>
+	      
+	      
+	                      <select class="nav-link dropdown-toggle" name=filtre id=select autocomplete=off required>
+				                        <option selected>Pourcentage fraude</option>
+							                  <option value="Date_sinistre">Date sinistre</option>
+									                    <option value="Date_creation">Date creation</option>
+											                    </select>
+													    
+													    
+													                    <button type="submit" class="btn btn-outline-danger">
+																                            <i class="fas fa-sort-amount-down-alt"></i></button>
+															    
+															    
+															                </form>
+																	<!-- Collapsible wrapper -->
          
             <!-- Left links -->
            
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-              <form class="d-flex input-group w-auto" action="{% url 'search'  %}" methode='GET'>
-                
-                <input
-                
-                  type="text"  name="search"
-                  class="form-control rounded"
-                  placeholder="Immatriculation"
-              
-                  
-                />
-                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-search"></i></button>
-                
-              </form>
-            </li>
-           
+  
+                        
+																			       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-            <li class="nav-item">
-              <div class="container">
-            <form class="d-flex input-group w-auto" action="{% url 'filtre'  %}" methode='GET'>   
-              <li class="nav-item dropdown show">
+     <li class="nav-item dropdown">
+     
+	     <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+	                                                       <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+                   </li></li>         
+               <li class="nav-item dropdown">
                 
-                <select class="nav-link dropdown-toggle" name=filtre id=select autocomplete=off required>
-                  <option selected>Pourcentage fraude</option>
-                  <option value="Date_sinistre">Date sinistre</option>
-                  <option value="Date_creation">Date creation</option>      
-                </select>
-             
+                <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
               </li>
-                <button type="submit" class="btn btn-outline-danger">
-                <i class="fas fa-filter"></i></button>
-              
-              
-            </form>
-         
-        </div>
-      </li>
-              <li class="nav-item">
-                
-                <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login/">Se déconnecter</a>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="login/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
               </li>
               <!-- Navbar dropdown -->
               
@@ -136,7 +128,7 @@
 document.getElementById("search").value="{{query}}"
 </script>
 
-
+{% block content %}
 
 <center>
  
@@ -145,42 +137,41 @@ document.getElementById("search").value="{{query}}"
 
 
 
- 
-
-
-
-
-
-
+  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+											    <script type="text/javascript">
+											    document.getElementById("search").value="{{query}}"
+											    </script>
 </center>
-      <table class="table table-hover"  >
+   <div class="card-body">
+                                <div class="table-responsive">
+				                                                 <table class="table table-hover text-nowrap">
         <thead>
            
-		<tr class="table-dark">
-			<th scope="col">Dossier</th>
-			<th scope="col">Immatriculation:</th>
+		<tr>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Dossier<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrDos"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Immatriculation<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrImmat"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
            
     
-            <th scope="col">Date sinistre:</th>
-	    <th scope="col">Date création</th>
-            <th scope="col">Type:</th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Date sinistre<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrDsin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Date création<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrDcr"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Type<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrType"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
             
            
-            <th scope="col">Statut</th>
-	      <th scope="col">Expert:</th>
-	        <th scope="col">Immat_Adverse:</th>
-            <th scope="col">Photos Avant</th>
-            <th scope="col">RateFraude</th>
-            
-            <th scope="col">Observation</th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Statut<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrStat"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Expert<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrExp"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Immat_Adverse<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrIAdv"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">RateFraude<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrRF"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Statut doute<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/TrStatDoute"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Observation<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/Trobs"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
           </tr>
         </thead>
-
+																																																						                                                                              
          {% for i in list_Veo_recente %}
       
         <tbody>
-            <tr class="table-light">
-		     <th scope="row">{{i.Dossier}}</th>
+            <tr>
+		     <th scope="row">{{i.id}}</th>
             <th scope="row">{{i.Immatriculation}}</th>
           
          
@@ -192,9 +183,9 @@ document.getElementById("search").value="{{query}}"
              <td>{{i.Expert}}</td>
              <td>{{i.ImmatriculationAdverse}}</td>
             
-            <td> <a href="{{i.Photos_Avant}}" role="button"
-              >    <i class="far fa-image fa-2x"></i></td>
-            <td><a href="{% url 'details' i.Dossier %}"> {{i.RateFraude}}% </a></td>
+            
+            <td><a href="{% url 'details' i.id %}"> {{i.RateFraude}}% </a></td>
+	    <td>{{i.statutdoute}}</td>
             <td>{{i.observation}}</td>
             
             
@@ -209,7 +200,7 @@ document.getElementById("search").value="{{query}}"
 
          {% endfor %}    
 
-
+										 </table></div></div>
         
           <br>
 
@@ -218,9 +209,23 @@ document.getElementById("search").value="{{query}}"
 <br>
 <br>
       </table>
+   <nav aria-label="...">
+        <ul class="pagination">
+	
+{% if list_Veo_recente.has_previous %}
+<nav aria-label="...">
+	  
+	<a href="?page=1">  &laquo <hr> </a>				
+	<a href="?page={{list_Veo_recente.previous_page_number}}">  Précédent <hr> </a>
+      {% endif %}
    
-
-
+      Page {{ list_Veo_recente.number }} de {{ list_Veo_recente.paginator.num_pages}} <hr>
+			   
+		    <li class="page-item">
+			    {% if list_Veo_recente.has_next %} <a href="?page={{list_Veo_recente.next_page_number }}">    Suivant   </a></li>
+		    <a href="?page={{ list_Veo_recente.paginator.num_pages }}">  &raquo </a>   
+      {% endif %}
+      {% endblock %}
 <br>
 
 

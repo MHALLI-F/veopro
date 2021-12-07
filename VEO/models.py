@@ -98,15 +98,14 @@ def Preprocessing_Imm (a):
 
 
 class Veodata(models.Model):
-    id = models.AutoField(primary_key=True)
-    CaseNumber=models.TextField()
+    id = models.TextField(primary_key=True)
     Type=models.TextField()
     ContactName=models.TextField()
     Immatriculation=models.TextField()
     ImmatriculationAdverse=models.TextField()
     Okpoursouscription=models.TextField()
     Statutgarage=models.TextField()
-    Status=models.TextField()
+
     CreatedDate=models.TextField()
     Datesinistre=models.TextField()
     Nomintermédiairecp=models.TextField()
@@ -117,12 +116,12 @@ class Veodata(models.Model):
         return self
 
 class Assistance(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.TextField(primary_key=True)
     Type=models.TextField()
     Prestataire=models.TextField()
     DateAssistance=models.TextField()
     Statut=models.TextField()
-    RéférenceVeo=models.TextField()
+#    RéférenceVeo=models.TextField()
     Intervention=models.TextField()
     Immatriculation=models.TextField()
     Nomclient=models.TextField()
@@ -159,8 +158,8 @@ class Bris_De_Glace(models.Model):
 
    
 class Veoservices(models.Model):
-    id = models.AutoField(primary_key=True)
-    Dossier=models.TextField()
+    id = models.TextField(primary_key=True)
+
     Statut=models.TextField()
     Date_sinistre=models.TextField()
     Garantie=models.TextField()
@@ -177,6 +176,7 @@ class Veoservices(models.Model):
     Photos_en_cours=models.TextField()	
     Photos_après_réparation=models.TextField()
     ImmatriculationAdverse=models.TextField()
+    calcul=models.TextField()
     R1=models.TextField()
     R2=models.TextField()
     R3=models.TextField()
@@ -238,7 +238,7 @@ class Veoservices(models.Model):
             for j in List_Princ:
                 if ((j.Statutgarage is not  None) and (j.Statutgarage.lower()=="cas douteux")):
                     Rate=30
-          #          R="30%: l'immatriculation principale a déjà été impliquée dans un dossier historique signalé douteux "+str(j.CaseNumber)
+                    R="30%: l'immatriculation principale a déjà été impliquée dans un dossier historique signalé douteux "+str(j.id)
                     #La declaration douteux pour  afficher le  détail
                     doute_Princ=j
                     break
@@ -250,7 +250,7 @@ class Veoservices(models.Model):
             for i in List_Adv:
                 if ((i.Statutgarage is not  None) and (i.Statutgarage.lower()=="cas douteux")):
                     Rate=30
-         #           R="30%: l'immatriculation adverse a déjà été impliquée dans un dossier historique signalé douteux: "+str(i.CaseNumber)
+                    R="30%: l'immatriculation adverse a déjà été impliquée dans un dossier historique signalé douteux: "+str(i.id)
                     #La declaration douteux pour  afficher le  détail
                     doute_Adv=i
                     break 
@@ -258,7 +258,7 @@ class Veoservices(models.Model):
                     doute_Adv=None
         else:
             doute_Adv=None
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R1=R)       
+        Veoservices.objects.filter(id=self.id).update(R1=R)       
         return [Rate,doute_Princ,doute_Adv]
 
 
@@ -277,11 +277,11 @@ class Veoservices(models.Model):
                 diff_sous_sinis=inter_dt2(date_sinis, DDP)
                 if diff_sous_sinis!=None  and  0<=diff_sous_sinis<=30:
                     Rate=10  
-           #         R="10%: Ce sinistre survenu moins d'un mois après date début d'assurance: "+self.Date_validité_début
+                    R="10%: Ce sinistre survenu moins d'un mois après date début d'assurance: "+self.Date_validité_début
                 else:
                     DDP=None
                     date_sinis=None
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R2=R)   
+        Veoservices.objects.filter(id=self.id).update(R2=R)   
         return [Rate,DDP,date_sinis]
 
       
@@ -299,14 +299,14 @@ class Veoservices(models.Model):
                 diff_sous_sinis=inter_dt2(date_sinis, DDA)
                 if diff_sous_sinis!=None  and 0<=diff_sous_sinis<=30:
                     Rate=10  
-         #           R="10%: sinistre survenu moins d'un mois après date début d'assurance de la partie adverse: "+self.Date_validité_début_Adv
+                    R="10%: sinistre survenu moins d'un mois après date début d'assurance de la partie adverse: "+self.Date_validité_début_Adv
                 else:
                     DDA=None
                     date_sinis=None      
         else:
             DDA=None
             date_sinis=None     
-       # Veoservices.objects.filter(Dossier=self.Dossier).update(R3=R)   
+        Veoservices.objects.filter(id=self.id).update(R3=R)   
         return [Rate,DDA,date_sinis]
         
         
@@ -342,7 +342,7 @@ class Veoservices(models.Model):
             for A in  List_A:
                 if i.Okpoursouscription=="NOK":
                     Rate=15
-        #            R="15%: l'immatriculation adverse a été signalée comme souscription NOK voir le dossier "+str(i.CaseNumber)
+                    R="15%: l'immatriculation adverse a été signalée comme souscription NOK voir le dossier "+str(i.id)
                     A=List_A[0]
                     break
                 else:
@@ -355,7 +355,7 @@ class Veoservices(models.Model):
             for A in  List_A:
                 if i.Okpoursouscription=="NOK":
                     Rate=15
-         #           R="15%: l'immatriculation principale a été signalée comme souscription NOK voir le dossier "+str(i.CaseNumber)
+                    R="15%: l'immatriculation principale a été signalée comme souscription NOK voir le dossier "+str(i.id)
                     P=List_P[0]
                     break
                 else:
@@ -363,7 +363,7 @@ class Veoservices(models.Model):
                     P=None
         else:
             P=None
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R4=R)   
+        Veoservices.objects.filter(id=self.id).update(R4=R)   
         return  [Rate,P,A]
         
         
@@ -388,12 +388,12 @@ class Veoservices(models.Model):
                     date=datetime.strptime(i.DateAssistance_h, "%d %b, %Y %H:%M:%S")
                     if date.hour<=7  or date.hour>=20:
                         Rate=10
-         #               R="10%: La date assistance du dossier: "+str(i.RéférenceVeo)+" est après 20h ou avant 7h du matin"
+                        R="10%: La date assistance du dossier: "+str(i.id)+" est après 20h ou avant 7h du matin"
                         A=i
                         break
                         
                 
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R5=R)                       
+        Veoservices.objects.filter(id=self.id).update(R5=R)                       
         return [Rate,A]
 
     def  Reg6(self):
@@ -425,13 +425,13 @@ class Veoservices(models.Model):
                             
                                 
                             Rate=5
-         #                   R="5%: les 2 dossiers "+str(i.RéférenceVeo)+" et "+str(j.RéférenceVeo)+" ont moins de 3 mois de distance"
+                            R="5%: les 2 dossiers "+str(i.id)+" et "+str(j.id)+" ont moins de 3 mois de distance"
                             A1=j
                             A2=i
                             break
                             # j'ai multiplier par  2  par  ce  que  il  doit  avoir  deux  
                             # dossier  pour  comparer  donc  à chaque  fois  qu'il sera détécter  la  liste  contient 2  dossiers 
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R6=R)                   
+        Veoservices.objects.filter(id=self.id).update(R6=R)                   
         return [Rate,A1,A2]
 
 
@@ -461,7 +461,7 @@ class Veoservices(models.Model):
                         diff=inter_dt(date_sinis1, date_sinis2)
                         if ((diff!=None) and (0<diff<=365)):
                             Rate=5
-         #                   R="5%: l'immatriculation principale a déjà fait l'objet d'un sinistre il y'a moins de 12 mois " +str(j.Dossier)
+                            R="5%: l'immatriculation principale a déjà fait l'objet d'un sinistre il y'a moins de 12 mois " +str(j.id)
                             P=j
                             break
                         
@@ -484,11 +484,11 @@ class Veoservices(models.Model):
                         if ((diff!=None) and (diff<=365)):
                             Rate=5
                             A=j
-          #                  R="5%: l'immatriculation adverse a déjà fait l'objet d'un sinistre il y'a moins de 12 mois "+str(j.Dossier)
+                            R="5%: l'immatriculation adverse a déjà fait l'objet d'un sinistre il y'a moins de 12 mois "+str(j.id)
                             
                             break
                         
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R7=R)                   
+        Veoservices.objects.filter(id=self.id).update(R7=R)                   
         return  [Rate,P,A]
         
         
@@ -505,11 +505,11 @@ class Veoservices(models.Model):
                     diff_sous_sinis=inter_dt2(date_sinis,DFP)
                     if diff_sous_sinis!=None  and 0<diff_sous_sinis<=30:
                         Rate=5  
-         #               R="5%: La  garantie  est Tierce  et il reste moins  d'un mois avant la fin  de  validité  de  contrat: "+self.Date_validité_fin
+                        R="5%: La  garantie  est Tierce  et il reste moins  d'un mois avant la fin  de  validité  de  contrat: "+self.Date_validité_fin
                 else:
                     DFP=None
                     date_sinis=None
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R9=R)   
+        Veoservices.objects.filter(id=self.id).update(R9=R)   
         return [Rate,DFP,date_sinis]
         
     def  Reg8(self):
@@ -522,9 +522,9 @@ class Veoservices(models.Model):
         if (self.ImmatriculationAdverse!=None) and (self.ImmatriculationAdverse!="") and (len(self.ImmatriculationAdverse)>=12):
             
             Rate=10 
-         #   R="10%: La  partie  adverse est un cyclo: "+self.ImmatriculationAdverse
+            R="10%: La  partie  adverse est un cyclo: "+self.ImmatriculationAdverse
                 
-        #Veoservices.objects.filter(Dossier=self.Dossier).update(R8=R)   
+        Veoservices.objects.filter(id=self.id).update(R8=R)   
         return Rate
 
 

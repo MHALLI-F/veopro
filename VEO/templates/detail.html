@@ -59,9 +59,9 @@
     <!-- Navbar-->
 
 
-
+    <header>
       <!-- Image and text -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <!-- Container wrapper -->
         <div class="container-fluid">
           <!-- Toggle button -->
@@ -76,99 +76,105 @@
           >
             <i class="fas fa-bars"></i>
           </button>
-          <a class="navbar-brand" href="#">
-     
-            <font size="6.5">VEO</font><font color="#D50000" size="6">smart</font>
-          </a>
+         
+	            <a class="navbar-brand" href="#">
+
+			      <img
+				       src="{% static '/logo.png' %}"
+	     height="45"
+        alt=""
+	  loading="lazy"
+     style="margin-top: 2px;"/>
+
+			                </a>
           <!-- Collapsible wrapper -->
-          <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+      
             <!-- Left links -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <div class="container">
-              <form class="d-flex input-group w-auto" action="{% url 'statutdoute'   %}" methode='GET'>   
-                <li class="nav-item dropdown show">
-                
-
            
-                  <select class="nav-link dropdown-toggle" name=statutdoute id=select   autocomplete=off required>
-			  <option selected>{{Veo.statutdoute}}</option>
+            
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-			  <option value="Attente">Attente Photos Avant</option>
-                    <option value="confirme">Doute confirmé</option>
-                    <option value="rejete">Doute rejeté</option>
-		    <option value="Nontraité">Non traité</option>
-                  </select>
-                 
-                  <input type="hidden" id="action" name="dos" value="{{Veo.Dossier}}">
-                 
-                  
-                </li>
-                  <input type="submit" class="btn btn-outline-danger" >
-                    
-                
-                
-              </form>
-           
-          </div>
-        </li>
+     <li class="nav-item dropdown">
+
+              <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+	                                                                    <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+								                       </li></li>
+										        <li class="nav-item dropdown">
+
+												<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
+									                                                                                                                                                  </li>
+																											  
+										                      <li class="nav-item dropdown">
+
+													                      <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+															                    </li>
+
+
+																	                <li class="nav-item dropdown">
+																				                <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/login/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+																						              </li>
+																							                    <!-- Navbar dropdown -->
+
+
+
+																									                </ul>
             
-       
-            
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/home">Accueil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login/">Se déconnecter</a>
-              </li>
-              <!-- Navbar dropdown -->
-              
-             
-            </ul>
+         
             <!-- Left links -->
           </div>
           <!-- Collapsible wrapper -->
         </div>
         <!-- Container wrapper -->
       </nav>
+      </header>
 
-      
-
-   <!--  <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
-      <img
-        src="{% static '/logo.png' %}"
-        height="50"
-        alt=""
-        loading="lazy"
-       
-      />
-    </a>-->
    
+      <section>	               
+	    <div class="row">
+	    <div class="col-sm-10">
+		    <div> 
+	                <div class="card-body">
+		                                                <div class="table-responsive">
+		            
+									<div class="card-header py-3">
+										<h6 class="mb-0 text-center"><strong>Detail de {{ Veo.id }}</strong></h6>
+									</div> 
 
-  
-	      <h5 class="card-title">Observation Expert</h5>	           <form class="row g-3 needs-validation" novalidate action="{% url 'observation'   %}" methode='GET'>
-                   
-                                                     
+			                           <table class="table table-hover text-nowrap">
+							   <thead><tr><th scope="col">Statut Doute</th>
+									   <th scope="col">Observation Expert</th>      </tr>
+								         </thead>
+
+									       <tbody>
+										                 <tr class="table-light">
+													 <td>                                                                                                                                                                               		      {% if Veo.statutdoute != None %}
+															           {{ Veo.statutdoute }}
+																   {% endif %} </td><td>
+	      {% if Veo.observation != None %}
+	      {{ Veo.observation }}
+	      {% else %}
+	      Pas d'observation
+	      {% endif %}</td>
+	    
+										                    </tr>
+							</div></div>
                                                   
                                              
-						                                                                  <div class="form-outline">
-														                                                                         <input name="observation" type="text" class="form-control" id="observation" value={{Veo.observation}} required/><div class="col-12">
-																							                                                                                      <input type="hidden" id="action" name="dos" value="{{Veo.Dossier}}">                                                                                    <button class="btn btn-primary" type="submit">Enregistrer <i class="far fa-edit"></i></button>                                                                                        					  
-														  
-														                                                                                                                                    </form></div>
-						  </div>
 								  
 <br>
 
-    <div class="card"  style="width: 100rem;">
-    <div class="card-body">
     <br>
-    <table class="table table-hover"  >
+          <div class="card-body">
+	            <div class="table-responsive">
+		                <table class="table table-hover text-nowrap">
       <thead>
-        <tr class="table-dark">
+        <tr>
+		  {% if Veo.Dossier != None %}
+		          <th scope="col">Dossier</th>
+			          {% endif %}
           {% if Veo.Immatriculation != None %}
         <th scope="col">Immatriculation</th>
         {% endif %}
@@ -182,7 +188,7 @@
      
         {% if  Veo.Expert != None %}
         <th scope="col">Expert:</th>
-        {% endif %}
+	{% endif %}
         {% if  Veo.Date_sinistre != None %}
         <th scope="col">Date sinistre</th>
         {% endif %}
@@ -191,21 +197,19 @@
         {% endif %}
         {% if  Veo.RateFraude != None %}
         <th scope="col"> Rate_Fraude</th> 
-        {% endif %}<!--
-        {% if  Veo.Photos_Avant != None %}                                                     
+        {% endif %}
+	{% if i.Photos_Avant != "" and i.Photos_Avant != None %}                                                   
         <th scope="col">Photos Avant</th>
         {% endif %}
-        {% if  Veo.Photos_en_cours != None %}
-        <th scope="col">Photos en cours</th>
-        {% endif %}
-        {% if  Veo.Photos_après_réparation != None %}
-        <th scope="col">Photos Après </th>
-	{% endif %} -->
+       
         </tr>
       </thead>
       
       <tbody>
           <tr class="table-light">
+		   {% if Veo.Dossier != None %}
+		             <th scope="row">{{Veo.Dossier}}</th>
+			               {% endif %}
             {% if Veo.Immatriculation != None %}
           <th scope="row">{{Veo.Immatriculation}}</th>
           {% endif %}
@@ -227,38 +231,40 @@
           <td>{{Veo.Date_création}}</td>
           {% endif %}
         {% if  Veo.RateFraude != None %}
-          <th scope="row">{{Veo.RateFraude}}</th>
-          {% endif %}<!--
-          {% if  Veo.Photos_Avant != None%}   
+          <th scope="row">{{Veo.RateFraude}}% </th>
+          {% endif %}
+	  {% if i.Photos_Avant != "" and i.Photos_Avant != None %}
           <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_Avant}} target="_blank" role="button"
             >Voir Photos</a></td>
             {% endif %}
-            {% if  Veo.Photos_en_cours != None %}
-            <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_en_cours}} target="_blank" role="button"
-             >Voir Photos</a></td>
-             {% endif %}
-             {% if  Veo.Photos_après_réparation != None %}
-            <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_après_réparation}} target="_blank" role="button"
-                >Voir Photos</a></td>
-		{% endif %} -->
+        
         </tr>   
-    </table>
+     </table>
+               </div>
+	               </div>
     <br>
-
-    <center ><h3> Detail de: {{Rate}}% </center></h3>
+    <div class="card-header py-3">
+	    <h6 class="mb-0 text-center"><strong> Pourcentage de Fraude: {{Rate}}%</strong></h6>
+											                                                                         </div>
+    
 
     {% if R1 != 0 %}
     {% if R1_P != None %}
     <br>
+    
     <center>
     <font style="color: red;"><b>30%:</b></font> L'immatriculation existe dans la partie principale de ce dossier qui est signalé cas douteux:    <font style="color: red;" size="4"><b></b></font>
 </center>
-    <div class="card"  style="width: 100rem;">
-        <div class="card-body">
-            <br>
-          <table class="table table-hover"  >
+         <br>
+	   <div class="card-body">
+		             <div class="table-responsive">
+				                 <table class="table table-hover text-nowrap">
+         
             <thead>
-                <tr class="table-dark"> 
+                <tr>
+			 {% if R1_P.id != None %}
+			                 <th scope="col">Dossier:</th>
+					                 {% endif%}
                 {% if R1_P.Immatriculation != None %}
                 <th scope="col">Immatriculation:</th>
                 {% endif%}
@@ -287,7 +293,10 @@
             </thead>
       
             <tbody>
-                <tr class="table-light">
+                <tr>
+			  {% if R1_P.id != None %}
+			                  <th scope="row">{{R1_P.id}}</th>
+					                  {% endif%}
                     {% if R1_P.Immatriculation != None %}
                 <th scope="row">{{R1_P.Immatriculation}}</th>
                 {% endif%}
@@ -318,17 +327,19 @@
                     >Voir photos</a></td>-->
               </tr>   
           </table>
-        </div></div>
-        {% endif %}
+			     </div>
+	   </div>
+           {% endif %}
         {% elif R1_A != None %}
     <br>
   <center><font style="color: red;"><b>30%:</b></font> L'immatriculation existe dans la partie adverse de ce dossier qui est signalé cas douteux: <font style="color: red;"><b></b></font></center>
 
-    <div class="card"  style="width: 100rem;">
-        <div class="card-body">
-            <br>
-          <table class="table table-hover"  >
+        <br>
+         <div class="card-body">
+	           <div class="table-responsive">
+		               <table class="table table-hover text-nowrap">
             <thead>
+		    <tr>
                 {% if R1_A.Immatriculation != None %}
                 <th scope="col">Immatriculation:</th>
                 {% endif%}
@@ -357,7 +368,7 @@
             </thead>
       
             <tbody>
-                <tr class="table-light">
+                <tr>
                     {% if R1_A.Immatriculation != None %}
                 <th scope="row">{{R1_A.Immatriculation}}</th>
                 {% endif%}
@@ -385,8 +396,7 @@
                 
               </tr>   
           </table>
-        </div></div>
-        
+		   </div></div>
         {% endif %}
 
 <!-- ############################ Règle 2   #############################################-->
@@ -396,13 +406,13 @@
     <center>
       <font style="color: red;"><b>10%:</b></font> Ce sinistre survenu moins d'un mois après date début d'assurance de  la  partie principale: Critère<font style="color: red;"><b> **</b></font></center>
 
-    <div class="card"  style="width: 100rem;">
-        <div class="card-body">
-          
+       
             <br>
-          <table class="table table-hover"  >
+        <div class="card-body">
+	          <div class="table-responsive">
+			              <table class="table table-hover text-nowrap">
             <thead>
-                <tr class="table-dark">
+                <tr>
                     
                 <th scope="col">Date début assurance:</th>
                 <th scope="col">Date sinistre:</th>
@@ -410,13 +420,12 @@
             </thead>
 
             <tbody>
-                <tr class="table-light">
+                <tr>
                 <td>{{R2_DDA}}</td>
                 <td>{{R2_DS}}</td>
               </tr>   
-          </table>
-        </div></div></div></div>
-        {% endif %}
+				      </table></div></div>
+               {% endif %}
         {% endif %}
 
         <!-- ############################ Règle 3   #############################################-->
@@ -424,7 +433,7 @@
         
     <br>
     
-    
+   
 
 
     {% if R3 != 0 %}
@@ -432,14 +441,13 @@
     <br>
     <center>
       <font style="color: red;"><b>10%: </b></font>Ce sinistre survenu moins d'un mois après date début d'assurance de  la  partie adverse: Critère<font style="color: red;"><b> **</b></font></center>
-
-/bin/bash: q: command not found
-        <div class="card-body">
-          
+        
             <br>
-          <table class="table table-hover"  >
+           <div class="card-body">
+	             <div class="table-responsive">
+		                 <table class="table table-hover text-nowrap">
             <thead>
-                <tr class="table-dark">
+                <tr>
                     
                 <th scope="col">Date début assurance:</th>
                 <th scope="col">Date sinistre:</th>
@@ -447,13 +455,12 @@
             </thead>
 
             <tbody>
-                <tr class="table-light">
+                <tr>
                 <td>{{R3_DDA}}</td>
                 <td>{{R3_DS}}</td>
               </tr>   
-          </table>
-        </div></div></div></div>
-        {% endif %}
+				 </table></div></div>
+    {% endif %}
         {% endif %}
 
         
@@ -466,12 +473,12 @@
         <center>
           <font style="color: red;"><b> 15%:</b></font> La dernière  souscription de l'immatriculation principale est Non OK: Critère<font style="color: red;"><b> ***</b></font></center>
     
-        <div class="card"  style="width: 100rem;">
-            <div class="card-body">
-                <br>
-              <table class="table table-hover"  >
+           <br>
+               <div class="card-body">
+		                 <div class="table-responsive">
+					             <table class="table table-hover text-nowrap">
                 <thead>
-                    <tr class="table-dark">
+                    <tr>
                         {% if R4_SP.Immatriculation != None %} 
                     <th scope="col">Immatriculation:</th>
                     {%endif%}
@@ -497,7 +504,7 @@
                 </thead>
 
                 <tbody>
-                    <tr class="table-light">
+                    <tr>
                         {% if R4_SP.Immatriculation != None %}
                     <th scope="row">{{R4_SA.Immatriculation}}</th>
                     {%endif%}
@@ -519,20 +526,18 @@
                     {% endif %}
            
                   </tr>    
-              </table>
-            </div>
-          </div>
-            {% endif %}
+						     </table></div></div>
+                   {% endif %}
             
             {% if R4_SA != None %}
         <br>
     <center> <font style="color: red;"><b> 15%: La dernière  souscription de l'immatriculation Adverse est Non OK: Critère ***</b></font></center>
-      <div class="card"  style="width: 100rem;">
-        <div class="card-body">
-            <br>
-          <table class="table table-hover"  >
+               <br>
+           <div class="card-body">
+		             <div class="table-responsive">
+		                <table class="table table-hover text-nowrap">
             <thead>
-                <tr class="table-dark">
+		    <tr>
                     {% if R4_SA.Immatriculation != None %} 
                 <th scope="col">Immatriculation:</th>
                 {%endif%}
@@ -560,7 +565,7 @@
             </thead>
 
             <tbody>
-                <tr class="table-light">
+                <tr>
                     {% if R4_SA.Immatriculation != None %}
                 <th scope="row">{{R4_SA.Immatriculation}}</th>
                 {%endif%}
@@ -582,10 +587,8 @@
                 {% endif %}
      
               </tr> 
-          </table>
-        </div>
-      </div>
-      {% endif %}
+				</table></div></div>
+   {% endif %}
             
             {% endif %}
  <!-- ############################ Règle 5  #############################################-->
@@ -594,19 +597,17 @@
         <br>
      <center><font style="color: red;"><b>10:</b></font>  Cette Immatriculation a une  déclaration assistance qui est avant 7h ou après 20h qui ne  dépasse pas 5 jrs <font style="color: red;"><b></b></font></center>
     
-        <div class="card"  style="width: 100rem;">
-            <div class="card-body">
                
-            </table>
+      
             <center>
-              <div class="card"  style="width: 100rem;">
-                <div class="card-body">
-                  <h4 class="card-title"><font color=#FEFEFE>Dossiers Assistance de{{imm}}</font></h4></div>
+                       <h4 class="card-title"><font color=#FEFEFE>Dossiers Assistance de{{imm}}</font></h4></div>
                 </center>
          
-              <table class="table table-hover"  >
+               <div class="card-body">
+	                 <div class="table-responsive">
+			             <table class="table table-hover text-nowrap">
                 <thead>
-                  <tr class="table-dark">
+                  <tr>
                     {% if R5_Assis.Immatriculation != None %}
                   <th scope="col">Immatriculation:</th>
                   {% endif %}
@@ -649,7 +650,7 @@
               </thead>
                   
                   <tbody>
-                    <tr class="table-light">
+                    <tr>
                         {% if R5_Assis.Immatriculation != None %}
                       <th scope="row">{{R5_Assis.Immatriculation}}</th>
                       {% endif %}
@@ -688,9 +689,8 @@
                       <th scope="row">{{R5_Assis.RateFraude}}</th>
                       {% endif %}
                     </tr>   
-                </table>
-            </div></div>
-            {% endif %}
+				     </table></div></div>
+           {% endif %}
             {% endif %}
 
 <!-- ############################ Règle 6   #############################################-->
@@ -700,20 +700,19 @@
         <center>
           <font style="color: red;"><b>10%: </b></font> Cette Immatriculation a deux  déclarations assistance qui ne  dépasse pas 3 mois entre eux : <font style="color: red;"><b></b></font></center>
      
-        <div class="card"  style="width: 100rem;">
-            <div class="card-body">
-                
-            </table>
+          
+           
         
             <center>
-              <div class="card"  style="width: 100rem;">
-                <div class="card-body">
+         
                   <h4 class="card-title"><font color=#FEFEFE>Dossiers Assistance de{{imm}}</font></h4></div>
                 </center>
           
-              <table class="table table-hover"  >
+               <div class="card-body">
+	                 <div class="table-responsive">
+				             <table class="table table-hover text-nowrap">
                 <thead>
-                  <tr class="table-dark">
+                  <tr>
                     {% if  R6_Assis1.Immatriculation != None or R6_Assis2.Immatriculation != None  %}
                   <th scope="col">Immatriculation:</th>
                   {% endif %}
@@ -754,7 +753,7 @@
               </thead>
                   
             <tbody>
-            <tr class="table-light">
+            <tr>
               {% if R6_Assis1.Immatriculation != None %}
                 <th scope="row">{{R6_Assis1.Immatriculation}}</th>
                 {% endif %}
@@ -794,7 +793,7 @@
                 {% endif %}
             </tr>
             
-            <tr class="table-light">
+            <tr>
               {% if R6_Assis2.Immatriculation != None %}
                 <th scope="row">{{R6_Assis2.Immatriculation}}</th>
                 {% endif %}
@@ -833,8 +832,8 @@
               <th scope="row">{{R6_Assis2.RateFraude}}</th>
               {% endif %}
                 </tr>       
-        </table>
-            </div></div>
+					     </table></div></div>
+            
             {% endif %}
             {% endif %}
 <!-- ############################ Règle 7   #############################################-->
@@ -843,12 +842,13 @@
             {% if R7_P != None %}
         <br><center>
           <b> <font style="color: red;"><b>5%:</b> </font> L'immatriculation principale de ce dossier a déjà fait l'objet d'un sinistre il y'a moins de 12 mois:<font style="color: red;"><b></b></font></center>
-     <div class="card"  style="width: 100rem;">
-        <div class="card-body">
+  
    <br>
-      <table class="table table-hover"  >
+       <div class="card-body">
+                 <div class="table-responsive">
+		             <table class="table table-hover text-nowrap">
           <thead>
-            <tr class="table-dark">
+            <tr>
               {% if R7_P.Immatriculation != None %}
             <th scope="col">Immatriculation</th>
             {% endif %}
@@ -888,7 +888,7 @@
           </thead>
           
           <tbody>
-              <tr class="table-light">
+              <tr>
                 {% if R7_P.Immatriculation != None %}
               <th scope="row">{{R7_P.Immatriculation}}</th>
               {% endif %}
@@ -917,19 +917,17 @@
           
       
               {% if  R7_P.Photos_Avant != None %}   
-              <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_Avant}} target="_blank" role="button"
-                >Voir Photos</a></td>
+              <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_Avant}} target="_blank" role="button"> Voir Photos</a></td>
                 {% endif %}
                 {% if  R7_P.Photos_en_cours != None %}
-                <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_en_cours}} target="_blank" role="button"
-                 >Voir Photos</a></td>
+                <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_en_cours}} target="_blank" role="button">Voir Photos</a></td>
                  {% endif %}
                  {% if  R7_P.Photos_après_réparation != None %}
                 <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_après_réparation}} target="_blank" role="button"
                     >Voir Photos</a></td>
                     {% endif %}
             </tr>   
-        </table>
+			     </table></div></div>
     <br>
     {% endif %}
 
@@ -937,12 +935,13 @@
     <br>
     <center>
    <b><font style="color: red;"><b> 5%:</b></font>  L'immatriculation adverse de ce dossier a déjà fait l'objet d'un sinistre il y'a moins de 12 mois:<font style="color: red;"><b></b></center>
-    <div class="card"  style="width: 100rem;">
-    <div class="card-body">
+   
     <br>
-    <table class="table table-hover"  >
+    <div class="card-body">
+              <div class="table-responsive">
+		               <table class="table table-hover text-nowrap">
       <thead>
-        <tr class="table-dark">
+        <tr>
           {% if R7_A.Immatriculation != None %}
         <th scope="col">Immatriculation</th>
         {% endif %}
@@ -977,7 +976,7 @@
       </thead>
       
       <tbody>
-          <tr class="table-light">
+          <tr>
             {% if R7_A.Immatriculation != None %}
           <th scope="row">{{R7_A.Immatriculation}}</th>
           {% endif %}
@@ -1015,7 +1014,7 @@
                 >Voir Photos</a></td>
                 {% endif %}
         </tr>   
-    </table>
+			       </table></div></div>
     <br>
     <br>
     <br>
@@ -1029,40 +1028,37 @@
     <center>
       <font style="color: red;"><b>10%: </b></font> 10%: La  partie  adverse est un cyclo</font></center>
 
-    <div class="card"  style="width: 100rem;">
-        <div class="card-body">
-          
-            <br>
-          <table class="table table-hover"  >
-            <thead>
-                <tr class="table-dark">
-                  <th scope="col">ImmatriculationAdverse:</th>
+      
+    <br> <div class="card-body">
+              <div class="table-responsive">
+	              
+				                 <table class="table table-hover text-nowrap">
+                <thead>
+		                <tr>
+				                  <th scope="col">
+						  ImmatriculationAdverse:</th>
               
-              </tr>
-            </thead>
-
-            <tbody>
-                <tr class="table-light">
-                  <td>{{Veo.ImmatriculationAdverse}}</td>
-              
-              </tr>   
-          </table>
-        </div></div></div></div>
-        {% endif %}
+               <tbody>
+	                       <tr>
+			                         <td>
         
+	{{Veo.ImmatriculationAdverse}}</td>
+        {% endif %}
+						 </table></div></div>
     {% if R9 != 0 %}
     {% if R9_DFP != None %}
     <br>
     <center>
       <font style="color: red;"><b>5%: </b></font> La  garantie  est Tierce  et il y a moins  de  2  mois  avant la fin  de  validité  de  contrat: </font></center>
 
-    <div class="card"  style="width: 100rem;">
-        <div class="card-body">
+   
           
             <br>
-          <table class="table table-hover"  >
+          <div class="card-body">
+	                 <div class="table-responsive">
+				             <table class="table table-hover text-nowrap">
             <thead>
-                <tr class="table-dark">
+		    <tr>
                   <th scope="col">Garantie:</th>
                 <th scope="col">Date validité fin assurance:</th>
                 <th scope="col">Date sinistre:</th>
@@ -1070,15 +1066,53 @@
             </thead>
 
             <tbody>
-                <tr class="table-light">
+                <tr>
                   <td>{{Veo.Garantie}}</td>
                 <td>{{R9_DFP}}</td>
                 <td>{{R9_DS}}</td>
               </tr>   
           </table>
-        </div></div></div></div>
+			 </div></div>
         {% endif %}
         {% endif %}
+																																												           																																	                                          
+			   <div class="col-sm-2">
+				  
+				   <div class="card-body">
+				                                                                   <div class="table-responsive">
+													   
+													                                                                           <div class="card-header py-3">
+																							                                                                                   <h6 class="mb-0 text-center"><strong>Nouvelle observation</strong></h6>
+																						   </div><br>
+											      <form  class="d-flex input-group w-auto" novalidate action="{% url 'observation' %}" methode='GET'>
+												     <div class="form-outline">
+														      <label for="basic-url" class="form-label"> Statut doute <br> </label>
+												     <div align="center">	  <div class="input-group mb-3">
+											 
+	                                <select class="nav-link dropdown-toggle" name=statutdoute id=select   autocomplete=off required>
+						                                                      <option selected>{{Veo.statutdoute}}</option>
+												      <option value="Attente">Attente Photos Avant</option>
+																									                                                                        <option value="confirme">Doute confirmé</option>
+																									                                                                       <option value="rejete">Doute rejeté</option>																																											                                                                              <option value="Nontraité">Non traité</option>
+																							                                                                             <option value="Pas sur">Pas sur</option>
+					</select>	</div>	</div>					<div class="form-outline">																																														                                        <input type="hidden" id="action" name="dos" value="{{Veo.id}}">  <br>   																																																														                                                                                                                   
+						    <div class="form-outline">
+							 
+						      <textarea class="form-control" name="observation"   id="observation" border-color="blue"  rows="7"></textarea>
+						      
+						        <label class="form-label" for="textAreaExample">Tapez votre observation</label>
+							    
+						    </div>
+																      </div>
+						     <div class="form-outline">
+																   
+													
+							     <input type="hidden" id="action" name="dos" value="{{Veo.id}}">
+							     <br>
+							     <button class="btn btn-primary" type="submit">Enregistrer <i class="far fa-edit"></i></button>
+								</form>   </div>
+												   </div>																          </div>
+																							      
 <br>
 <br>
 <br>

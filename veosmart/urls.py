@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path,include
-from VEO.views import inis,statutdoute, search, err, Rate,details, filtre, observation
+from VEO.views import inis, search, err, Rate,details,filterDos, filtre, observation, dossiersAtrait, filtretrait, TrDos,TrImmat,TrDsin,TrDcr,TrType,TrStat,TrExp,TrIAdv,TrRF,TrStatDoute,Trobs
 
 
 from accounts.views import login_view
@@ -30,17 +30,30 @@ urlpatterns = [
     path('search/',search,name="search"),
     path('details/<str:Dossier>/',details,name="details"),
     path('filtre/',filtre,name="filtre"),
-    path('statutdoute/',statutdoute,name="statutdoute"),
+    path('filtretrait/',filtretrait,name="filtretrait"),
+     #path('statutdoute/',statutdoute,name="statutdoute"),
    #path('details$',details,name="details$"),
- 
+    path('dt/',dossiersAtrait,name="dossiersAtrait"),
+    path('filterDos/',filterDos,name="filterDos"),
+   # path('filterimmat/',filterimmat,name="filterimmat"),
     path('home/login/', login_view),
-
+    path('login/', login_view),
     path('search/err/',err,name="err"),
     path('search/err/home',inis,name="inis"),
     path('search/err/login/',login_view),
     path('search/login/',login_view),
     path('observation/',observation,name="observation"),
-
+    path('TrDos/',TrDos,name="TrDos"),
+    path('TrImmat/',TrImmat,name="TrImmat"),
+    path('TrDsin/',TrDsin,name="TrDsin"),
+    path('TrDcr/',TrDcr,name="TrDcr"),
+    path('TrType/',TrType,name="TrType"),
+    path('TrStat/',TrStat,name="TrStat"),
+    path('TrExp/',TrExp,name="TrExp"),
+    path('TrIAdv/',TrIAdv,name="TrIAdv"),
+    path('TrRF/',TrRF,name="TrRF"),
+    path('TrStatDoute/',TrStatDoute,name="TrStatDoute"),
+    path('Trobs/',Trobs,name="Trobs"),
 
 
     #path('', include("django.contrib.auth.urls")),
