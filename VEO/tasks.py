@@ -15,8 +15,8 @@ from .models import *
 @task()
 def scheduledTask():
     Today_DateVeo=None
-    Today_DateVeo=datetime.today().strftime('%d %b, %Y %H:%M:%S')
-    Today_DateVeo=datetime.strptime(str(Today_DateVeo), '%d %b, %Y %H:%M:%S')
+    Today_DateVeo=datetime.today().strftime('%d/%m/%Y %H:%M')
+    Today_DateVeo=datetime.strptime(str(Today_DateVeo), '%d/%m/%Y %H:%M')
   #  Today_DateAss=datetime.datetime.today().strftime("%im/%d/%Y")
   #  Today_DateAss=datetime.datetime.strptime(Today_DateAss, "%m/%d/%Y")
    # Today_DateBDG=datetime.datetime.today().strftime("%m/%d/%Y %H:%M")
@@ -26,8 +26,8 @@ def scheduledTask():
     Rate=0
     for i in list_Veoservices:
       #  if i.Date_création!=None:
-        Date_création=datetime.strptime(i.Date_création, '%d %b, %Y %H:%M:%S')
-        if ((Today_DateVeo-Date_création).days<=500):
+        Date_création=datetime.strptime(i.Date_création, '%d/%m/%Y %H:%M')
+        if ((Today_DateVeo-Date_création).days<=4) or i.statutdoute == None:
             if i.Reg1()!=None:
                 R1=i.Reg1()[0] 
             else: 

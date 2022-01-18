@@ -2,1118 +2,481 @@
 {% load static %}
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>VEOSMART</title>
-    <!-- MDB icon -->
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
-    <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <!-- MDB -->
-    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>VEOSMART | Detail de {{ Veo.Dossier}}</title>
+<!-- MDB icon -->
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+<link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+<!-- Google Fonts Roboto -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+<!-- MDB -->
+<link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
 
-    <script type='text/javascript' language='Javascript' >
-      var enter = false;
-      function envoi(champ) 
-      {
-      enter=true; 
-      // mémorise le bouton clické dans un champ caché
-      document.getElementById("action").value = champ.name;
-      // demande l'envoi du formulaire (dont l'ID est table)
-      document.getElementById("table").submit();
-
-      }</script>
 <script type='text/javascript' language='Javascript' >
-	      // Example starter JavaScript for disabling form submissions if there are invalid fields
-	      (() => {
-		        'use strict';
+var enter = false;
+function envoi(champ)
+{
+enter=true;
+// mémorise le bouton clické dans un champ caché
+document.getElementById("action").value = champ.name;
+// demande l'envoi du formulaire (dont l'ID est table)
+document.getElementById("table").submit();
 
-		        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-		        const forms = document.querySelectorAll('.needs-validation');
+}</script>
 
-		        // Loop over them and prevent submission
-		        Array.prototype.slice.call(forms).forEach((form) => {
-				    form.addEventListener('submit', (event) => {
-					          if (!form.checkValidity()) {
-							          event.preventDefault();
-							          event.stopPropagation();
-							        }
-					          form.classList.add('was-validated');
-					        }, false);
-				  });
-	      })();
-      </script>
-  </head>
-  <body>
-    <!-- Background image -->
-    <div style=" background-image: url('{% static '/filigrane.png' %}'');">
-
-
-    <!-- Start your project here-->
-    {% load static %}
+<style>
+    textarea:required{
+            background:url(asterisk.png) 98% center no-repeat;
+        }
     
-    <!-- Navbar-->
+    td{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+ 
+tr {
+    line-height: 0.1px;
+    min-height: 0.1px;
+    height: 0.1px;
+}
+th {
+    line-height: 0.1px;
+    min-height: 0.1px;
+    height: 0.1px;
+    background-color: #65a789;
+
+}
+.detail{background-color: #aed2f0e0;
+    height: 20px;
+}
+</style>
+</head>
+<body>
+<!-- Background image -->
+<div style=" background-image: url('{% static '/filigrane.png' %}'');">
 
 
-    <header>
-      <!-- Image and text -->
- <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarRightAlignExample"
-            aria-controls="navbarRightAlignExample"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-         
-	            <a class="navbar-brand" href="#">
+<!-- Start your project here-->
+{% load static %}
 
-			      <img
-				       src="{% static '/logo.png' %}"
-	     height="45"
-        alt=""
-	  loading="lazy"
-     style="margin-top: 2px;"/>
-
-			                </a>
-          <!-- Collapsible wrapper -->
-      
-            <!-- Left links -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <div class="container">
-           
-            
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-     <li class="nav-item dropdown">
-
-              <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
-	                                                                    <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
-								                       </li></li>
-										        <li class="nav-item dropdown">
-
-												<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
-									                                                                                                                                                  </li>
-																											  
-										                      <li class="nav-item dropdown">
-
-													                      <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
-															                    </li>
+<!-- Navbar-->
 
 
-																	                <li class="nav-item dropdown">
-																				                <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/login/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
-																						              </li>
-																							                    <!-- Navbar dropdown -->
+<header>
+<!-- Image and text -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- Container wrapper -->
+<div class="container-fluid">
+<!-- Toggle button -->
+<button
+class="navbar-toggler"
+type="button"
+data-mdb-toggle="collapse"
+data-mdb-target="#navbarRightAlignExample"
+aria-controls="navbarRightAlignExample"
+aria-expanded="false"
+aria-label="Toggle navigation"
+>
+<i class="fas fa-bars"></i>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<a class="navbar-brand" href="#">
+<img
+src="{% static '/logo.png' %}"
+height="45"
+alt=""
+loading="lazy"
+style="margin-top: 2px;"/>
+</a>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <li class="nav-item">
 
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
+</li>
+<li class="nav-item">
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+<span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+</li>
+<li class="nav-item">
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dtraités"> Dossiers traités <i class="fas fa-bell"></i>
+<span class="badge rounded-pill badge-notification bg-danger"  >{{NBDT}} </span></a></li>
+</ul></div>
 
+<div class="d-flex align-items-center">
+<!-- Left links -->
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-																									                </ul>
-            
-         
-            <!-- Left links -->
-          </div>
-          <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-      </nav>
-      </header>
+    {% if SupUse == True %}
+<li class="nav-item">
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+</li>
+{% endif %}
+<li>
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/logout/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+</li></ul>
+</div>
+</div></div>
+</nav>
+</header>
 
-   
-      <section>	               
-	    <div class="row">
-	    <div class="col-sm-10">
-		    <div> 
-	                <div class="card-body">
-		                                                <div class="table-responsive">
-		            
-									<div class="card-header py-3">
-										<h6 class="mb-0 text-center"><strong>Detail de {{ Veo.id }}</strong></h6>
-									</div> 
-
-			                           <table class="table table-hover text-nowrap">
-							   <thead><tr><th scope="col">Statut Doute</th>
-									   <th scope="col">Observation Expert</th>      </tr>
-								         </thead>
-
-									       <tbody>
-										                 <tr class="table-light">
-													 <td>                                                                                                                                                                               		      {% if Veo.statutdoute != None %}
-															           {{ Veo.statutdoute }}
-																   {% endif %} </td><td>
-	      {% if Veo.observation != None %}
-	      {{ Veo.observation }}
-	      {% else %}
-	      Pas d'observation
-	      {% endif %}</td>
-	    
-										                    </tr>
-							</div></div>
-                                                  
-                                             
-								  
-<br>
-
-    <br>
-          <div class="card-body">
-	            <div class="table-responsive">
-		                <table class="table table-hover text-nowrap">
-      <thead>
-        <tr>
-		  {% if Veo.Dossier != None %}
-		          <th scope="col">Dossier</th>
-			          {% endif %}
-          {% if Veo.Immatriculation != None %}
-        <th scope="col">Immatriculation</th>
-        {% endif %}
-        {% if  Veo.ImmatriculationAdverse != None %}
-        <th scope="col">Immat Adv</th>
-        {% endif %}
-   
-        {% if  Veo.Procédure != None %}
-        <th scope="col">Procédure:</th>
-        {% endif %}
-     
-        {% if  Veo.Expert != None %}
-        <th scope="col">Expert:</th>
-	{% endif %}
-        {% if  Veo.Date_sinistre != None %}
-        <th scope="col">Date sinistre</th>
-        {% endif %}
-        {% if  Veo.Date_création != None %}
-        <th scope="col">Date création:</th>
-        {% endif %}
-        {% if  Veo.RateFraude != None %}
-        <th scope="col"> Rate_Fraude</th> 
-        {% endif %}
-	{% if i.Photos_Avant != "" and i.Photos_Avant != None %}                                                   
-        <th scope="col">Photos Avant</th>
-        {% endif %}
-       
-        </tr>
-      </thead>
-      
-      <tbody>
-          <tr class="table-light">
-		   {% if Veo.Dossier != None %}
-		             <th scope="row">{{Veo.Dossier}}</th>
-			               {% endif %}
-            {% if Veo.Immatriculation != None %}
-          <th scope="row">{{Veo.Immatriculation}}</th>
-          {% endif %}
-          {% if  Veo.ImmatriculationAdverse != None %}
-        
-          <th scope="row">{{Veo.ImmatriculationAdverse}}</th>
-          {% endif %}
-        
-          {% if  Veo.Procédure != None %}
-          <td>{{Veo.Procédure}}</td>
-          {% endif %}
-          {% if  Veo.Expert != None %}
-          <td>{{Veo.Expert}}</td>
-          {% endif %}
-          {% if  Veo.Date_sinistre != None %}
-          <td>{{Veo.Date_sinistre}}</td>
-          {% endif %}
-          {% if  Veo.Date_création != None %}
-          <td>{{Veo.Date_création}}</td>
-          {% endif %}
-        {% if  Veo.RateFraude != None %}
-          <th scope="row">{{Veo.RateFraude}}% </th>
-          {% endif %}
-	  {% if i.Photos_Avant != "" and i.Photos_Avant != None %}
-          <td> <a class="btn btn-outline-danger"  href="{{Veo.Photos_Avant}} target="_blank" role="button"
-            >Voir Photos</a></td>
-            {% endif %}
-        
-        </tr>   
-     </table>
-               </div>
-	               </div>
-    <br>
-    <div class="card-header py-3">
-	    <h6 class="mb-0 text-center"><strong> Pourcentage de Fraude: {{Rate}}%</strong></h6>
-											                                                                         </div>
+<section>
     
+<div class="row"> 
+<div class="col-sm-10">
+<div class="card border border-info shadow-0 mb-3" background-color="#B5D7F2">
 
-    {% if R1 != 0 %}
-    {% if R1_P != None %}
-    <br>
-    
-    <center>
-    <font style="color: red;"><b>30%:</b></font> L'immatriculation existe dans la partie principale de ce dossier qui est signalé cas douteux:    <font style="color: red;" size="4"><b></b></font>
-</center>
-         <br>
-	   <div class="card-body">
-		             <div class="table-responsive">
-				                 <table class="table table-hover text-nowrap">
-         
-            <thead>
-                <tr>
-			 {% if R1_P.id != None %}
-			                 <th scope="col">Dossier:</th>
-					                 {% endif%}
-                {% if R1_P.Immatriculation != None %}
-                <th scope="col">Immatriculation:</th>
-                {% endif%}
-                {% if R1_P.ImmatriculationAdverse != None %}
-                <th scope="col">ImmatriculationAdverse:</th>
-                {% endif%}
-                {% if R1_P.ContactName != None %}
-                <th scope="col">Nom de contacte</th>
-                {% endif %}
-                {% if R1_P.Type != None %}
-                <th scope="col">Type:</th>
-                {% endif %}
-                {% if R1_P.CreatedDate != None %}
-                <th scope="col">Date Création:</th>
-                {% endif %}
-                {% if R1_P.Datesinistre != None %}
-                <th scope="col">Date sinistre:</th>
-                {% endif %}
-          
-               
-                {% if R1_P.Statutgarage != None %}
-                <th scope="col">Statut garage</th>
-                {% endif %}
-          
-              </tr>
-            </thead>
-      
-            <tbody>
-                <tr>
-			  {% if R1_P.id != None %}
-			                  <th scope="row">{{R1_P.id}}</th>
-					                  {% endif%}
-                    {% if R1_P.Immatriculation != None %}
-                <th scope="row">{{R1_P.Immatriculation}}</th>
-                {% endif%}
-                {% if R1_P.ImmatriculationAdverse != None %}
-                <td>{{R1_P.ImmatriculationAdverse}}</td>
-                {% endif%}
-                {% if R1_P.ContactName != None %}
-                <td>{{R1_P.ContactName}}</td>
-                {% endif %}
-                {% if R1_P.Type != None %}
-                <td>{{R1_P.Type}}</td>
-               {% endif %}
-                {% if R1_P.CreatedDate != None %}
-                <td>{{R1_P.CreatedDate}}</td>
-                {% endif %}
-                {% if R1_P.Datesinistre != None %}
-                <td>{{R1_P.Datesinistre}}</td>
-                {% endif %}
-          
-                {% if R1_P.Statutgarage != None %}
-                <td>{{R1_P.Statutgarage}}</td>
-                {% endif %}
-         
-                
-                
-    
-                <!--<td> <a class="btn btn-outline-danger"  href="" role="button"
-                    >Voir photos</a></td>-->
-              </tr>   
-          </table>
-			     </div>
-	   </div>
-           {% endif %}
-        {% elif R1_A != None %}
-    <br>
-  <center><font style="color: red;"><b>30%:</b></font> L'immatriculation existe dans la partie adverse de ce dossier qui est signalé cas douteux: <font style="color: red;"><b></b></font></center>
-
-        <br>
-         <div class="card-body">
-	           <div class="table-responsive">
-		               <table class="table table-hover text-nowrap">
-            <thead>
-		    <tr>
-                {% if R1_A.Immatriculation != None %}
-                <th scope="col">Immatriculation:</th>
-                {% endif%}
-                {% if R1_A.ImmatriculationAdverse != None %}
-                <th scope="col">ImmatriculationAdverse:</th>
-                {% endif%}
-                {% if R1_A.ContactName != None %}
-                <th scope="col">Nom de contacte</th>
-                {% endif %}
-                {% if R1_A.Type != None %}
-                <th scope="col">Type:</th>
-                {% endif %}
-                {% if R1_A.CreatedDate != None %}
-                <th scope="col">Date Création:</th>
-                {% endif %}
-                {% if R1_A.Datesinistre != None %}
-                <th scope="col">Date sinistre:</th>
-                {% endif %}
-          
-               
-                {% if R1_A.Statutgarage != None %}
-                <th scope="col">Statut garage</th>
-                {% endif %}
-     
-              </tr>
-            </thead>
-      
-            <tbody>
-                <tr>
-                    {% if R1_A.Immatriculation != None %}
-                <th scope="row">{{R1_A.Immatriculation}}</th>
-                {% endif%}
-                {% if R1_A.ImmatriculationAdverse != None %}
-                <td>{{R1_A.ImmatriculationAdverse}}</td>
-                {% endif%}
-                {% if R1_A.ContactName != None %}
-                <td>{{R1_A.ContactName}}</td>
-                {% endif %}
-                {% if R1_A.Type != None %}
-                <td>{{R1_A.Type}}</td>
-                {% endif %}
-                {% if R1_A.CreatedDate != None %}
-                <td>{{R1_A.CreatedDate}}</td>
-                {% endif %}
-                {% if R1_A.Datesinistre != None %}
-                <td>{{R1_A.Datesinistre}}</td>
-                {% endif %}
-         
-                {% if R1_A.Statutgarage != None %}
-                <td>{{R1_A.Statutgarage}}</td>
-                {% endif %}
-             
-                
-                
-              </tr>   
-          </table>
-		   </div></div>
-        {% endif %}
-
-<!-- ############################ Règle 2   #############################################-->
-        {% if R2 != 0 %}
-    {% if R2_DDA != None %}
-    <br>
-    <center>
-      <font style="color: red;"><b>10%:</b></font> Ce sinistre survenu moins d'un mois après date début d'assurance de  la  partie principale: Critère<font style="color: red;"><b> **</b></font></center>
-
-       
-            <br>
-        <div class="card-body">
-	          <div class="table-responsive">
-			              <table class="table table-hover text-nowrap">
-            <thead>
-                <tr>
-                    
-                <th scope="col">Date début assurance:</th>
-                <th scope="col">Date sinistre:</th>
-              </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                <td>{{R2_DDA}}</td>
-                <td>{{R2_DS}}</td>
-              </tr>   
-				      </table></div></div>
-               {% endif %}
-        {% endif %}
-
-        <!-- ############################ Règle 3   #############################################-->
-      
-        
-    <br>
-    
-   
-
-
-    {% if R3 != 0 %}
-    {% if R3_DDA != None %}
-    <br>
-    <center>
-      <font style="color: red;"><b>10%: </b></font>Ce sinistre survenu moins d'un mois après date début d'assurance de  la  partie adverse: Critère<font style="color: red;"><b> **</b></font></center>
-        
-            <br>
-           <div class="card-body">
-	             <div class="table-responsive">
-		                 <table class="table table-hover text-nowrap">
-            <thead>
-                <tr>
-                    
-                <th scope="col">Date début assurance:</th>
-                <th scope="col">Date sinistre:</th>
-              </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                <td>{{R3_DDA}}</td>
-                <td>{{R3_DS}}</td>
-              </tr>   
-				 </table></div></div>
-    {% endif %}
-        {% endif %}
-
-        
-
-        <!-- ############################ Règle 4   #############################################--> 
-        {% if R4 != 0 %}
-       
-        {% if R4_SP != None %}
-        <br>
-        <center>
-          <font style="color: red;"><b> 15%:</b></font> La dernière  souscription de l'immatriculation principale est Non OK: Critère<font style="color: red;"><b> ***</b></font></center>
-    
-           <br>
-               <div class="card-body">
-		                 <div class="table-responsive">
-					             <table class="table table-hover text-nowrap">
-                <thead>
-                    <tr>
-                        {% if R4_SP.Immatriculation != None %} 
-                    <th scope="col">Immatriculation:</th>
-                    {%endif%}
-                    {% if R4_SP.ContactName != None %}
-                    <th scope="col">Nom de contacte</th>
-                    {%endif%}
-                    {% if R4_SP.Type != None %}
-                    <th scope="col">Type:</th>
-                    
-                    {% endif %}
-                {% if R4_SP.CreatedDate != None %}
-                    <th scope="col">Date souscription:</th>
-                    {% endif %}
-                {% if R4_SP.Okpoursouscription != None %}
-                    <th scope="col">OK pour  souscription:</th>
-                    {% endif %}
-  
-                    {% if R4_SP.Statutgarage != None %}
-                    <th scope="col">Statut garage</th>
-                    {% endif %}
-   
-                  </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        {% if R4_SP.Immatriculation != None %}
-                    <th scope="row">{{R4_SA.Immatriculation}}</th>
-                    {%endif%}
-                    {% if R4_SP.ContactName != None %}
-                    <td>{{R4_SP.ContactName}}</td>
-                    {%endif%}
-                    {% if R4_SP.Type != None %}
-                    <td>{{R4_SP.Type}}</td>
-                    {% endif %}
-                {% if R4_SP.CreatedDate != None %}
-                    <td>{{R4_SP.CreatedDate}}</td>
-                    {% endif %}
-                {% if R4_SP.Okpoursouscription != None %}
-                    <td>{{R4_SP.Okpoursouscription}}</td>
-                    {% endif %}
-              
-                    {% if R4_SP.Statutgarage != None %}
-                    <td>{{R4_SP.Statutgarage}}</td>
-                    {% endif %}
-           
-                  </tr>    
-						     </table></div></div>
-                   {% endif %}
-            
-            {% if R4_SA != None %}
-        <br>
-    <center> <font style="color: red;"><b> 15%: La dernière  souscription de l'immatriculation Adverse est Non OK: Critère ***</b></font></center>
-               <br>
-           <div class="card-body">
-		             <div class="table-responsive">
-		                <table class="table table-hover text-nowrap">
-            <thead>
-		    <tr>
-                    {% if R4_SA.Immatriculation != None %} 
-                <th scope="col">Immatriculation:</th>
-                {%endif%}
-                {% if R4_SA.ContactName != None %}
-                <th scope="col">Nom de contacte</th>
-                {%endif%}
-                {% if R4_SA.Type != None %}
-                <th scope="col">Type:</th>
-                
-                {% endif %}
-            {% if R4_SA.CreatedDate != None %}
-                <th scope="col">Date souscription:</th>
-                {% endif %}
-            {% if R4_SA.Okpoursouscription != None %}
-                <th scope="col">OK pour  souscription:</th>
-                {% endif %}
-            {% if R4_SA.CodeIntermiédiaire != None %}
-                <th scope="col">Code intermédiaire:</th>
-                {% endif %}
-                {% if R4_SA.Statutgarage != None %}
-                <th scope="col">Statut garage</th>
-                {% endif %}
-  
-              </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    {% if R4_SA.Immatriculation != None %}
-                <th scope="row">{{R4_SA.Immatriculation}}</th>
-                {%endif%}
-                {% if R4_SA.ContactName != None %}
-                <td>{{R4_SA.ContactName}}</td>
-                {%endif%}
-                {% if R4_SA.Type != None %}
-                <td>{{R4_SA.Type}}</td>
-                {% endif %}
-            {% if R4_SA.CreatedDate != None %}
-                <td>{{R4_SA.CreatedDate}}</td>
-                {% endif %}
-            {% if R4_SA.Okpoursouscription != None %}
-                <td>{{R4_SA.Okpoursouscription}}</td>
-                {% endif %}
-      
-                {% if R4_SA.Statutgarage != None %}
-                <td>{{R4_SA.Statutgarage}}</td>
-                {% endif %}
-     
-              </tr> 
-				</table></div></div>
-   {% endif %}
-            
-            {% endif %}
- <!-- ############################ Règle 5  #############################################-->
-            {% if R5 != 0 %}
-            {% if R5_Assis != None %}
-        <br>
-     <center><font style="color: red;"><b>10:</b></font>  Cette Immatriculation a une  déclaration assistance qui est avant 7h ou après 20h qui ne  dépasse pas 5 jrs <font style="color: red;"><b></b></font></center>
-    
-               
-      
-            <center>
-                       <h4 class="card-title"><font color=#FEFEFE>Dossiers Assistance de{{imm}}</font></h4></div>
-                </center>
-         
-               <div class="card-body">
-	                 <div class="table-responsive">
-			             <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    {% if R5_Assis.Immatriculation != None %}
-                  <th scope="col">Immatriculation:</th>
-                  {% endif %}
-                  {% if R5_Assis.Type != None %}
-                  <th scope="col">Type:</th>
-                    {%endif%}
-                  {% if R5_Assis.Nomclient != None %}
-                  <th scope="col">Nom client</th>
-                  {% endif %}
-                  {% if R5_Assis.DateAssistance_h != None %}
-                  <th scope="col">Date Assistance_h:</th>
-                  {% endif %}
-                  {% if R5_Assis.Prestataire != None %}
-                  <th scope="col">Prestataire:</th>
-                  {% endif %}
-                
-                  {% if R5_Assis.Statut != None %}
-                  <th scope="col">Statut:</th>
-                  {% endif %}
-                  {% if R5_Assis.RéférenceVeo != None %}
-                  <th scope="col">RéférenceVeo:</th>
-                  {% endif %}
-                  {% if R5_Assis.Intervention != None %}
-                  <th scope="col">Intervention:</th>
-                  {% endif %}
-                  {% if R5_Assis.PhotosHistorique != None %}
-                  <th scope="col">Photos Historique:</th>
-                  {% endif %}
-                  {% if R5_Assis.PhotosAprès != None %}
-                  <th scope="col">Photos en cours:</th>
-                  {% endif %}
-                  {% if R5_Assis.DatephotosAvant != None %}
-                  <th scope="col">Photos après:</th>
-                  {% endif %}
-            
-                  {% if R5_Assis.RateFraude != None %}
-                  <th scope="col">Rate Fraude</th>
-                  {% endif %}
-                </tr>
-              </thead>
-                  
-                  <tbody>
-                    <tr>
-                        {% if R5_Assis.Immatriculation != None %}
-                      <th scope="row">{{R5_Assis.Immatriculation}}</th>
-                      {% endif %}
-                  {% if R5_Assis.Type != None %}
-                      <th scope="row">{{R5_Assis.Type}}</th>
-                      {%endif%}
-                  {% if R5_Assis.Nomclient != None %}
-                      <td>{{R5_Assis.Nomclient}}</td>
-                      {% endif %}
-                  {% if R5_Assis.DateAssistance_h != None %}
-                      <td>{{R5_Assis.DateAssistance_h}}</td>
-                      {% endif %}
-                  {% if R5_Assis.Prestataire != None %}
-                      <td>{{R5_Assis.Prestataire}}</td>
-                      {% endif %}
-
-                  {% if R5_Assis.Statut != None %}
-                      <td>{{R5_Assis.Statut}}</td>
-                      {% endif %}
-                  {% if R5_Assis.RéférenceVeo != None %}
-                      <td>{{R5_Assis.RéférenceVeo}}</td>
-                      {% endif %}
-                  {% if R5_Assis.Intervention != None %}
-                      <td>{{R5_Assis.Intervention}}</td>
-                      {% endif %}
-                  {% if R5_Assis.PhotosHistorique != None %}
-                      <td> <a class="btn btn-outline-danger"  href={{R5_Assis.PhotosHistorique}} target="_blank" role="button"
-                        >Voir Photos</a></td>
-                        {% endif %}
-                  {% if R5_Assis.PhotosAprès != None %}
-                        <td> <a class="btn btn-outline-danger"  href={{R5_Assis.PhotosAprès}} target="_blank" role="button"
-                          >Voir Photos</a></td>
-                          {% endif %}
-               
-                  {% if R5_Assis.RateFraude != None %}
-                      <th scope="row">{{R5_Assis.RateFraude}}</th>
-                      {% endif %}
-                    </tr>   
-				     </table></div></div>
-           {% endif %}
-            {% endif %}
-
-<!-- ############################ Règle 6   #############################################-->
-            {% if R6 != 0 %}
-            {% if R6_Assis1 != None %}
-        <br>
-        <center>
-          <font style="color: red;"><b>10%: </b></font> Cette Immatriculation a deux  déclarations assistance qui ne  dépasse pas 3 mois entre eux : <font style="color: red;"><b></b></font></center>
-     
-          
-           
-        
-            <center>
-         
-                  <h4 class="card-title"><font color=#FEFEFE>Dossiers Assistance de{{imm}}</font></h4></div>
-                </center>
-          
-               <div class="card-body">
-	                 <div class="table-responsive">
-				             <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    {% if  R6_Assis1.Immatriculation != None or R6_Assis2.Immatriculation != None  %}
-                  <th scope="col">Immatriculation:</th>
-                  {% endif %}
-                  {% if R6_Assis1.Type != None or R6_Assis2.Type != None %}
-                  <th scope="col">Type:</th>
-                  {% endif %}
-                  {% if R6_Assis1.Nomclient != None or R6_Assis2.Nomclient != None %}
-                  <th scope="col">Nom client</th>
-                  {% endif %}
-                  {% if R6_Assis1.DateAssistance != None or R6_Assis2.DateAssistance != None %}
-                  <th scope="col">Date Assistance:</th>
-                  {% endif %}
-                  {% if R6_Assis1.Prestataire != None or R6_Assis2.Prestataire != None %}
-                  <th scope="col">Prestataire:</th>
-                  {% endif %}
-              
-                  {% if R6_Assis1.Statut != None or R6_Assis2.Statut != None %}
-                  <th scope="col">Statut:</th>
-                  {% endif %}
-                  {% if R6_Assis1.RéférenceVeo != None or R6_Assis2.RéférenceVeo != None %}
-                  <th scope="col">RéférenceVeo:</th>
-                  {% endif %}
-                  {% if R6_Assis1.Intervention != None or R6_Assis2.Intervention != None %}
-                  <th scope="col">Intervention:</th>
-                  {% endif %}
-                  {% if R6_Assis1.PhotosHistorique != None or R6_Assis2.PhotosHistorique != None %}
-                  <th scope="col">Photos Historique</th>
-                  {% endif %}
-                  {% if R6_Assis1.PhotosAprès != None or R6_Assis2.PhotosAprès != None %}
-                  <th scope="col">Photos Après:</th>
-                  {% endif %}
-                 
-              
-                  {% if R6_Assis1.RateFraude != None or R6_Assis2.RateFraude != None %}
-                  <th scope="col">Rate Fraude</th>
-                  {% endif %}
-                </tr>
-              </thead>
-                  
-            <tbody>
-            <tr>
-              {% if R6_Assis1.Immatriculation != None %}
-                <th scope="row">{{R6_Assis1.Immatriculation}}</th>
-                {% endif %}
-                  {% if R6_Assis1.Type != None %}
-                 <th scope="row">{{R6_Assis1.Type}}</th>
-                {% endif %}
-                  {% if R6_Assis1.Nomclient != None %}
-                <td>{{R6_Assis1.Nomclient}}</td>
-                {% endif %}
-                {% if R6_Assis1.DateAssistance != None %}
-                <td>{{R6_Assis1.DateAssistance}}</td>
-                {% endif %}
-                  {% if R6_Assis1.Prestataire != None %}
-                <td>{{R6_Assis1.Prestataire}}</td>
-                {% endif %}
-              
-                  {% if R6_Assis1.Statut != None %}
-                <td>{{R6_Assis1.Statut}}</td>
-                {% endif %}
-                  {% if R6_Assis1.RéférenceVeo != None %}
-                <td>{{R6_Assis1.RéférenceVeo}}</td>
-                {% endif %}
-                  {% if R6_Assis1.Intervention != None %}
-                <td>{{R6_Assis1.Intervention}}</td>
-                {% endif %}
-                {% if R6_Assis1.PhotosHistorique != None %}
-                <td> <a class="btn btn-outline-danger"  href={{R6_Assis1.PhotosHistorique}} target="_blank" role="button"
-                >Voir Photos</a></td>
-                {% endif %}
-                  {% if R6_Assis1.PhotosAprès != None %}
-                <td> <a class="btn btn-outline-danger"  href={{R6_Assis1.PhotosAprès}} target="_blank" role="button"
-                >Voir Photos</a></td>
-                {% endif %}
-                 
-                {% if R6_Assis1.RateFraude != None %}
-                <th scope="row">{{R6_Assis1.RateFraude}}</th>
-                {% endif %}
-            </tr>
-            
-            <tr>
-              {% if R6_Assis2.Immatriculation != None %}
-                <th scope="row">{{R6_Assis2.Immatriculation}}</th>
-                {% endif %}
-                  {% if R6_Assis2.Type != None %}
-                <th scope="row">{{R6_Assis2.Type}}</th>
-                {% endif %}
-                  {% if R6_Assis2.Nomclient != None %}
-                <td>{{R6_Assis2.Nomclient}}</td>
-                {% endif %}
-                  {% if R6_Assis2.DateAssistance != None %}
-                <td>{{R6_Assis2.DateAssistance}}</td>
-                {% endif %}
-                {% if R6_Assis2.Prestataire != None %}
-                <td>{{R6_Assis2.Prestataire}}</td>
-                {% endif %}
-     
-                  {% if R6_Assis2.Statut != None %}
-                <td>{{R6_Assis2.Statut}}</td>
-                {% endif %}
-                  {% if R6_Assis2.RéférenceVeo != None %}
-                <td>{{R6_Assis2.RéférenceVeo}}</td>
-                {% endif %}
-                  {% if R6_Assis2.Intervention != None %}
-                <td>{{R6_Assis2.Intervention}}</td>
-                {% endif %}
-                {% if R6_Assis2.PhotosAprès != None %}
-                <td> <a class="btn btn-outline-danger"  href={{R6_Assis2.PhotosHistorique}} target="_blank" role="button"
-                >Voir Photos</a></td>
-                {% endif %}
-                  {% if R6_Assis2.PhotosHistorique != None %}
-                <td> <a class="btn btn-outline-danger"  href={{R6_Assis2.PhotosAprès}} target="_blank" role="button"
-                >Voir Photos</a></td>
-                {% endif %}
-         
-              {% if R6_Assis2.RateFraude != None %}
-              <th scope="row">{{R6_Assis2.RateFraude}}</th>
-              {% endif %}
-                </tr>       
-					     </table></div></div>
-            
-            {% endif %}
-            {% endif %}
-<!-- ############################ Règle 7   #############################################-->
-
-            {% if R7 != 0 %}
-            {% if R7_P != None %}
-        <br><center>
-          <b> <font style="color: red;"><b>5%:</b> </font> L'immatriculation principale de ce dossier a déjà fait l'objet d'un sinistre il y'a moins de 12 mois:<font style="color: red;"><b></b></font></center>
-  
-   <br>
-       <div class="card-body">
-                 <div class="table-responsive">
-		             <table class="table table-hover text-nowrap">
-          <thead>
-            <tr>
-              {% if R7_P.Immatriculation != None %}
-            <th scope="col">Immatriculation</th>
-            {% endif %}
-            {% if  R7_P.ImmatriculationAdverse != None %}
-            <th scope="col">Immatriculation Adverse</th>
-            {% endif %}
-            {% if  R7_P.Marque != None %}
-            <th scope="col">Marque</th>
-            {% endif %}
-            {% if  R7_P.Procédure != None %}
-            <th scope="col">Procédure:</th>
-            {% endif %}
-            {% if  R7_P.Etat_dossier != None %}
-            <th scope="col">Etat_dossier:</th>
-            {% endif %}
-            {% if  R7_P.Expert != None %}
-            <th scope="col">Expert:</th>
-            {% endif %}
-            {% if  R7_P.Date_sinistre != None %}
-            <th scope="col">Date sinistre</th>
-            {% endif %}
-            {% if  R7_P.Date_création != None %}
-            <th scope="col">Date création:</th>
-            {% endif %}
-        
-       
-            {% if  R7_P.Photos_Avant != None %}                                                     
-            <th scope="col">Photos Avant</th>
-            {% endif %}
-            {% if  R7_P.Photos_en_cours != None %}
-            <th scope="col">Photos en cours</th>
-            {% endif %}
-            {% if  R7_P.Photos_après_réparation != None %}
-            <th scope="col">Photos Après </th>
-            {% endif %}
-            </tr>
-          </thead>
-          
-          <tbody>
-              <tr>
-                {% if R7_P.Immatriculation != None %}
-              <th scope="row">{{R7_P.Immatriculation}}</th>
-              {% endif %}
-              {% if  R7_P.ImmatriculationAdverse != None %}
-            
-              <th scope="row">{{R7_P.ImmatriculationAdverse}}</th>
-              {% endif %}
-              {% if  R7_P.Marque != None %}
-              <td>{{R7_P.Marque}}</td>
-              {% endif %}
-              {% if  R7_P.Procédure != None %}
-              <td>{{R7_P.Procédure}}</td>
-              {% endif %}
-              {% if  R7_P.Etat_dossier != None %}
-              <td>{{R7_P.Etat_dossier}}</td>
-              {% endif %}
-              {% if  R7_P.Expert != None %}
-              <td>{{R7_P.Expert}}</td>
-              {% endif %}
-              {% if  R7_P.Date_sinistre != None %}
-              <td>{{R7_P.Date_sinistre}}</td>
-              {% endif %}
-              {% if  R7_P.Date_création != None %}
-              <td>{{R7_P.Date_création}}</td>
-              {% endif %}
-          
-      
-              {% if  R7_P.Photos_Avant != None %}   
-              <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_Avant}} target="_blank" role="button"> Voir Photos</a></td>
-                {% endif %}
-                {% if  R7_P.Photos_en_cours != None %}
-                <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_en_cours}} target="_blank" role="button">Voir Photos</a></td>
-                 {% endif %}
-                 {% if  R7_P.Photos_après_réparation != None %}
-                <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_après_réparation}} target="_blank" role="button"
-                    >Voir Photos</a></td>
-                    {% endif %}
-            </tr>   
-			     </table></div></div>
-    <br>
-    {% endif %}
-
-    {% if R7_A != None %}
-    <br>
-    <center>
-   <b><font style="color: red;"><b> 5%:</b></font>  L'immatriculation adverse de ce dossier a déjà fait l'objet d'un sinistre il y'a moins de 12 mois:<font style="color: red;"><b></b></center>
-   
-    <br>
     <div class="card-body">
-              <div class="table-responsive">
-		               <table class="table table-hover text-nowrap">
-      <thead>
-        <tr>
-          {% if R7_A.Immatriculation != None %}
-        <th scope="col">Immatriculation</th>
-        {% endif %}
-        {% if  R7_A.ImmatriculationAdverse != None %}
-        <th scope="col">Immatriculation Adverse</th>
-        {% endif %}
-        
-        {% if  R7_A.Procédure != None %}
-        <th scope="col">Procédure:</th>
-        {% endif %}
-       
-        {% if  R7_A.Expert != None %}
-        <th scope="col">Expert:</th>
-        {% endif %}
-        {% if  R7_A.Date_sinistre != None %}
-        <th scope="col">Date sinistre</th>
-        {% endif %}
-        {% if  R7_A.Date_création != None %}
-        <th scope="col">Date création:</th>
-        {% endif %}
+     <h6 style="font-size: 14px;"><NOBR> Détail de Dossier | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank"><font color="#6D91B4">  Dossier Omega <i class="fas fa-external-link-alt"></i></font></NOBR></h6></a> 
+
+<div class="row">
+<div class="col-sm-4">
+<!--    <h5 class="card-title">Informations du sinistre</h5>-->  
+<p class="card-text">
+
+    <dl class="row">
+{% if Veo.id != None %}
+
+
+
+
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
     
-        {% if  R7_A.Photos_Avant != None %}                                                     
-        <th scope="col">Photos Avant</th>
-        {% endif %}
-        {% if  R7_A.Photos_en_cours != None %}
-        <th scope="col">Photos en cours</th>
-        {% endif %}
-        {% if  R7_A.Photos_après_réparation != None %}
-        <th scope="col">Photos Après </th>
-        {% endif %}
-        </tr>
-      </thead>
-      
-      <tbody>
-          <tr>
-            {% if R7_A.Immatriculation != None %}
-          <th scope="row">{{R7_A.Immatriculation}}</th>
-          {% endif %}
-          {% if  R7_A.ImmatriculationAdverse != None %}
-        
-          <th scope="row">{{R7_A.ImmatriculationAdverse}}</th>
-          {% endif %}
-      
-          {% if  R7_A.Procédure != None %}
-          <td>{{R7_A.Procédure}}</td>
-          {% endif %}
-          {% if  R7_A.Etat_dossier != None %}
-          <td>{{R7_A.Etat_dossier}}</td>
-          {% endif %}
-          {% if  R7_A.Expert != None %}
-          <td>{{R7_A.Expert}}</td>
-          {% endif %}
-          {% if  R7_A.Date_sinistre != None %}
-          <td>{{R7_A.Date_sinistre}}</td>
-          {% endif %}
-          {% if  R7_A.Date_création != None %}
-          <td>{{R7_A.Date_création}}</td>
-          {% endif %}
-          
-          {% if  R7_A.Photos_Avant != None %}   
-          <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_Avant}} target="_blank" role="button"
-            >Voir Photos</a></td>
-            {% endif %}
-            {% if  R7_A.Photos_en_cours != None %}
-            <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_en_cours}} target="_blank" role="button"
-             >Voir Photos</a></td>
-             {% endif %}
-             {% if  R7_A.Photos_après_réparation != None %}
-            <td> <a class="btn btn-outline-danger"  href="{{R7_A.Photos_après_réparation}} target="_blank" role="button"
-                >Voir Photos</a></td>
-                {% endif %}
-        </tr>   
-			       </table></div></div>
-    <br>
-    <br>
-    <br>
-    {% endif %}
-    {% endif %}
+    <dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Dossier}} | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank">
+        <font color="#6D91B4"><Strong>Voir sur Omega <i class="fas fa-external-link-alt"></i></Strong></font></a></h6> </dd>
+{% endif %}
+{% if Veo.Immatriculation != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Immatriculation</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Immatriculation}}</h6></dt>
+
+{% endif %}
+{% if  Veo.ImmatriculationAdverse != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Immat Adverse</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.ImmatriculationAdverse}}</h6></dt>
+
+{% endif %}
+{% if Veo.Date_sinistre != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Date_sinistre}}</h6></dd>
+
+{% endif %}
+
+{% if Veo.Date_création != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date création</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Date_création}}</h6></dd>
+
+{% endif %}
+{% if Veo.Procédure != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Procédure</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Procédure}}</span></h6></dd>
+
+{% endif %}
+
+{% if Veo.Expert != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Expert</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Expert}}</h6></dd>
+
+{% endif %}
+{% if Veo.Garantie != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Garantie</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Garantie}}</h6></dd>
+
+{% endif %}
+
+{% if Veo.Photos_Avant != "" and Veo.Photos_Avant != None %}
+
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Avant</div></h6></Strong></dt>
+<dd class="col-sm-8"><a  href="{{Veo.Photos_Avant}}" target="_blank"><h6 style="font-size: 13px;"><font color="#6D91B4">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif %}
+</dl>
+<dl class="row">
+{% if R5 != 0 %}
+{% if R5_Assis != None %}
+{% if R5_Assis.id != None %}
 
 
-    {% if R8 != 0 %}
-   
-    <br>
-    <center>
-      <font style="color: red;"><b>10%: </b></font> 10%: La  partie  adverse est un cyclo</font></center>
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier Assistance</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.id }} | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R5_Assis.Ref_knk }}" target="_blank">
+    <font color="#6D91B4"><Strong>Voir sur Omega <i class="fas fa-external-link-alt"></i></Strong></font></a></h6> </dd>
+{% endif%}
 
-      
-    <br> <div class="card-body">
-              <div class="table-responsive">
-	              
-				                 <table class="table table-hover text-nowrap">
-                <thead>
-		                <tr>
-				                  <th scope="col">
-						  ImmatriculationAdverse:</th>
-              
-               <tbody>
-	                       <tr>
-			                         <td>
-        
-	{{Veo.ImmatriculationAdverse}}</td>
-        {% endif %}
-						 </table></div></div>
-    {% if R9 != 0 %}
-    {% if R9_DFP != None %}
-    <br>
-    <center>
-      <font style="color: red;"><b>5%: </b></font> La  garantie  est Tierce  et il y a moins  de  2  mois  avant la fin  de  validité  de  contrat: </font></center>
+{% if R5_Assis.id != None %}
 
-   
-          
-            <br>
-          <div class="card-body">
-	                 <div class="table-responsive">
-				             <table class="table table-hover text-nowrap">
-            <thead>
-		    <tr>
-                  <th scope="col">Garantie:</th>
-                <th scope="col">Date validité fin assurance:</th>
-                <th scope="col">Date sinistre:</th>
-              </tr>
-            </thead>
 
-            <tbody>
-                <tr>
-                  <td>{{Veo.Garantie}}</td>
-                <td>{{R9_DFP}}</td>
-                <td>{{R9_DS}}</td>
-              </tr>   
-          </table>
-			 </div></div>
-        {% endif %}
-        {% endif %}
-																																												           																																	                                          
-			   <div class="col-sm-2">
-				  
-				   <div class="card-body">
-				                                                                   <div class="table-responsive">
-													   
-													                                                                           <div class="card-header py-3">
-																							                                                                                   <h6 class="mb-0 text-center"><strong>Nouvelle observation</strong></h6>
-																						   </div><br>
-											      <form  class="d-flex input-group w-auto" novalidate action="{% url 'observation' %}" methode='GET'>
-												     <div class="form-outline">
-														      <label for="basic-url" class="form-label"> Statut doute <br> </label>
-												     <div align="center">	  <div class="input-group mb-3">
-											 
-	                                <select class="nav-link dropdown-toggle" name=statutdoute id=select   autocomplete=off required>
-						                                                      <option selected>{{Veo.statutdoute}}</option>
-												      <option value="Attente">Attente Photos Avant</option>
-																									                                                                        <option value="confirme">Doute confirmé</option>
-																									                                                                       <option value="rejete">Doute rejeté</option>																																											                                                                              <option value="Nontraité">Non traité</option>
-																							                                                                             <option value="Pas sur">Pas sur</option>
-					</select>	</div>	</div>					<div class="form-outline">																																														                                        <input type="hidden" id="action" name="dos" value="{{Veo.id}}">  <br>   																																																														                                                                                                                   
-						    <div class="form-outline">
-							 
-						      <textarea class="form-control" name="observation"   id="observation" border-color="blue"  rows="7"></textarea>
-						      
-						        <label class="form-label" for="textAreaExample">Tapez votre observation</label>
-							    
-						    </div>
-																      </div>
-						     <div class="form-outline">
-																   
-													
-							     <input type="hidden" id="action" name="dos" value="{{Veo.id}}">
-							     <br>
-							     <button class="btn btn-primary" type="submit">Enregistrer <i class="far fa-edit"></i></button>
-								</form>   </div>
-												   </div>																          </div>
-																							      
-<br>
-<br>
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date Assistance</div></h6></Strong></dt>
+{% if R5_Assis.Intervention == "Aide au Constat" %}
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.DateConstat }} </h6></dd>
+{% else %}
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.DateRemorquage }} </h6></dd>
+{% endif %} 
+{% endif %} {% endif %}{% endif %}
+    </dl>
+</p>
+
+</div>
+
+<div class="col-sm-4">
+
+
+
+ 
+    <p class="card-text">
+            <dl class="row">          
+{% if Veo.Date_validité_début != None %}
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date validité début</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ Veo.Date_validité_début|cut:' 00:00:00'}}</h6></dd>
+
+{% endif %}
+{% if Veo.Date_validité_fin != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date validité fin</div></h6></Strong></dt>
+<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ Veo.Date_validité_fin|cut:' 00:00:00'}}</h6></dd>
+
+{% endif %}
+{% if Veo.Date_validité_début_Adv != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date validité début Adv</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ Veo.Date_validité_début_Adv|cut:' 00:00:00'}}</h6></dd>
+
+{% endif %}
+
+
+</dl>
+
+<dl class="row">
+
+{% if R1 != 0 %}
+{% if R1_P != None %}
+{% if R1_P.id != None %}
+
+
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier douteux</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R1_P.id }} | <a  href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R1_P.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#6D91B4"><Strong>  voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6></dd>
+{% endif%}
+{% elif R1_A != None %}
+{% if R1_A.id != None %}
+
+    
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier douteux</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R1_A.id }} | <a href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R1_A.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#6D91B4"><Strong> voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6> </dd>
+
+
+{% endif%}
+{% endif%}
+{% endif%}
+
+</dl>
+<dl class="row">
+
+{% if R4 != 0 %}
+
+{% if R4_SP != None %}
+
+{% if R4_SP.id != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier souscription</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R4_SP.id }} | <a href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R4_SP.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#6D91B4"><Strong> voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6></dd>
+{% endif%}
+{% elif R4_SA != None %}
+{% if R4_SA.id != None %}
+
+
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier souscription Adv</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R4_SA.id }} | <a href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R4_SA.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#6D91B4"><Strong> voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6></th></dd>
+
+{% endif%}
+{% endif%}{% endif%}
+
+
+</dl>
+
+<dl class="row">
+{% if R6 != 0 %}
+{% if R6_Assis2 != None %}
+
+<Strong><h6 style="font-size: 14px;">Assistance Avant moins de  3 mois:</h6></Strong>
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.id }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R6_Assis2.Ref_knk }}" target="_blank">
+    <font color="#6D91B4"><Strong>Voir sur Omega <i class="fas fa-external-link-alt"></i></Strong></font> </a></h6></dd>
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date Assistance</div></h6></Strong></dt>
+{% if R6_Assis2.Intervention == "Aide au Constat" %}
+<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.DateConstat }}</h6></dd>
+{% else %}
+<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.DateRemorquage }} </h6></dd>
+
+{% endif%}
+{% endif%}{% endif%}
+
+</dl>
+<dl class="row">
+
+{% if R7 != 0 %}
+{% if R7_P != None %}
+
+<Strong><h6 style="font-size: 14px;">Sinistre ne dépasse pas un an:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_P.Dossier }} | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R7_P.Ref_knk }}" target="_blank">
+    <font color="#6D91B4"><Strong> Voir sur Omega <i class="fas fa-external-link-alt"></i></Strong></font> </a></h6></dd>
+
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_P.Date_sinistre }}</h6></dd>
+{% endif%}{% endif%}
+
+{% if R7 != 0 %}
+{% if R7_A != None and R7_P == None  %}
+<Strong><h6 style="font-size: 14px;">Sinistre de la partie Adverse ne dépasse pas un an:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_A.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R7_A.Ref_knk }}" target="_blank">
+    <font color="#6D91B4"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></String></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_A.Date_sinistre }}</h6></dd>
+{% endif%}{% endif%}
+
+
+</dl></p>
+
+
+
+</div>
+<div class="col-sm-4">
+<div class="card-body">
+    <p class="card-text">
+        <dl class="row">
+{% if Veo.RateFraude  != None %}
+
+<Strong><h6 style="font-size: 14px;"><Strong>Detail de Fraude:</Strong></h6></Strong>
+
+        <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Pourcentage Fraude:</div></h6></Strong></dt>
+<dd class="col-sm-7"><h6 style="font-size: 14px;">{{Veo.RateFraude }}%</h6></dd>
+
+{% endif %}
+
+{% if Veo.statutdoute  != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">statut doute:</div></h6></Strong></th>
+        <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.statutdoute }}</h6></th>
+
+{% endif %}
+
+{% if Veo.date_obs  != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Date modification:</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.date_obs }}</h6></dd>
+
+{% endif %}
+</dl>
+{% if Veo.observation != None %}
+<p class="note note-danger">
+    <strong>Observation expert:</strong> 
+
+{{Veo.observation }}</p>
+
+{% endif %}
+
+
+</p>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-sm-2">
+
+<div class="card-header py-2">
+<h6 class="mb-0 text-center"><strong>Nouvelle observation</strong></h6>
+</div><br>
+<form  class="d-flex input-group w-auto"  action="{% url 'observation' %}" methode='GET'>
+<div class="form-outline">
+<label for="basic-url" class="form-label"> Statut doute <br> </label>
+<div align="center">        <div class="input-group mb-9">
+
+<select class="nav-link dropdown-toggle" name=statutdoute id=select   autocomplete=off required>
+<option selected>{{Veo.statutdoute}}</option>
+<option value="Attente">Attente Photos Avant</option>
+<option value="confirme">Doute confirmé</option>
+<option value="rejete">Doute rejeté</option>
+<option value="Nontraité">Non traité</option>
+</select></div></div>
+
+<input type="hidden" id="action" name="dos" value="{{Veo.id}}"  required>  <br>   
+
+<!-- fonction pour obliger l observation  si  le statut doute  confirmé  est  choisi -->
+<script>
+function myFunction() {
+if (select.value == "confirme"){
+    document.getElementById("observation").required = true;
+    document.getElementById("demo").innerHTML = " Merci de tapez une  observation si le doute est confirmé";}
+else{
+    document.getElementById("observation").required = false;
+    document.getElementById("demo").innerHTML = "";
+  }}
+</script> 
+    
+    
+<div class="form-outline">
+
+<textarea class="form-control" name="observation"   id="observation" border-color="blue"  rows="7"></textarea>
+<br><br>
+<!-- pour  obliger l'observation c'est la  phrase écrite en  bas de textarea dans le cas  de  doute  confirmé-->
+<p id="demo"></p>
+
+<label class="form-label" for="textAreaExample">Tapez votre observation</label>
+
+</div>
+</div>
+<div class="form-outline">
+
+
+<input type="hidden" id="action" name="dos" value="{{Veo.id}}" required>
+
+<button class="btn btn-primary" onclick="myFunction()">Enregistrer <i class="far fa-edit"></i></button>
+</form></div>
+</div></div>
+<div class="card-body">
+<div class="table-responsive">
+<table class="table table-bordered border-">
+<thead>
+<tr class="table-primary">
+<th scope="col">Règles</th>
+<th scope="col">Poids</th>
+<th scope="col"></th></tr>
+</thead>
+<tbody>
+<tr>
+<th scope="col"> <h6 style="font-size: 14px;">Une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historique signalé douteux</h6></th><th>30%</th><th>{% if R1 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu moins d'un mois après date début d'assurance de la partie principale.</h6></th><th>10%</th><th>{% if R2 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu moins d'un mois après date début d'assurance de la partie adverse</h6></th><th>10%</th><th>{% if R3 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+
+<tr><th scope="col"><h6 style="font-size: 14px;">Une des immatriculations (principale ou adverse) a été signalée comme "souscription NOK"</h6></th><th>15%</th><th>{% if R4 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr></tr><th scope="col"><h6 style="font-size: 14px;">La date assistance est après 20h et avant 7h du matin</h6></th><th>10%</th><th>{% if R5 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr><th scope="col"><h6 style="font-size: 14px;">Un des véhicules a deux dossiers assistance en moins de 3 mois de distance</h6></th><th>5%</th><th>{% if R6 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr>  <th scope="col"><h6 style="font-size: 14px;">Une des immatriculations (principale ou adverse) a déjà fait l'objet d'un sinistre il y'a moins de 12 mois</h6></th><th>5%</th><th>{% if R7 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr>   <th scope="col"><h6 style="font-size: 14px;">La  partie Adverse  est un cyclo</h6></th><th>10%</th><th>{% if R8 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+<tr> <th scope="col"><h6 style="font-size: 14px;">la garantie est Tierce,et il y a moins  d'un mois entre la  date sinistre et la date de fin de validité de contrat </h6> </th><th>5%</th><th>{% if R9 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+</tr></tbody></table></div></div></section>
 <br>
 <br></body></html>
+

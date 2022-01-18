@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>VEOSMART | Detail de {{ Veo.Dossier}}</title>
+<!-- MDB icon -->
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+<link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+<!-- Google Fonts Roboto -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+<!-- MDB -->
+<link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+
+<script type='text/javascript' language='Javascript' >
+var enter = false;
+function envoi(champ)
+{
+enter=true;
+// mémorise le bouton clické dans un champ caché
+document.getElementById("action").value = champ.name;
+// demande l'envoi du formulaire (dont l'ID est table)
+document.getElementById("table").submit();
+
+}</script>
+
+<style>
+    textarea:required{
+            background:url(asterisk.png) 98% center no-repeat;
+        }
+    
+    td{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+ 
+tr {
+    line-height: 0.1px;
+    min-height: 0.1px;
+    height: 0.1px;
+}
+th {
+    line-height: 0.1px;
+    min-height: 0.1px;
+    height: 0.1px;
+    background-color: #65a789;
+
+}
+.detail{background-color: #aed2f0e0;
+    height: 20px;
+}
+</style>
+</head>
+<body>
+<!-- Background image -->
+<div style=" background-image: url('{% static '/filigrane.png' %}'');">
+
+
+<!-- Start your project here-->
+{% load static %}
+
+<!-- Navbar-->
+
+
+<header>
+<!-- Image and text -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- Container wrapper -->
+<div class="container-fluid">
+<!-- Toggle button -->
+<button
+class="navbar-toggler"
+type="button"
+data-mdb-toggle="collapse"
+data-mdb-target="#navbarRightAlignExample"
+aria-controls="navbarRightAlignExample"
+aria-expanded="false"
+aria-label="Toggle navigation"
+>
+<i class="fas fa-bars"></i>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<a class="navbar-brand" href="#">
+<img
+src="{% static '/logo.png' %}"
+height="45"
+alt=""
+loading="lazy"
+style="margin-top: 2px;"/>
+</a>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <li class="nav-item">
+
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
+</li>
+<li class="nav-item">
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+<span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+</li>
+<li class="nav-item">
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dtraités"> Dossiers traités <i class="fas fa-bell"></i>
+<span class="badge rounded-pill badge-notification bg-danger"  >{{NBDT}} </span></a></li>
+</ul></div>
+
+<div class="d-flex align-items-center">
+<!-- Left links -->
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+    {% if SupUse == True %}
+<li class="nav-item">
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+</li>
+{% endif %}
+<li>
+<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/logout/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+</li></ul>
+</div>
+</div></div>
+</nav>
+</header>

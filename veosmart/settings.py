@@ -154,8 +154,8 @@ os.path.join(BASE_DIR, 'templates'),
 #  pour affichage des photos de la bdd
 MEDIA_URL='/media/'
 
-iLOGIN_REDIRECT_URL="/"
-
+LOGIN_REDIRECT_URL="login/"
+LOGIN_URL = "/login/"
 
 
 
@@ -176,7 +176,7 @@ CELERY_BEAT_SCHEDULE = {
          #   'schedule':crontab(hours = crontab_parser(24).parse('*/10')),
 
            # 'schedule': crontab(minute='*/60'),
-            'schedule':20,
+            'schedule':10,
             }
         }
 
