@@ -1,0 +1,236 @@
+
+  <!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>VEOSMART</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+  </head>
+  <body>
+    <!-- Background image -->
+    <!--Main Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarRightAlignExample"
+            aria-controls="navbarRightAlignExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <a class="navbar-brand" href="#">
+     
+  <img
+  src="{% static '/logo.png' %}"
+  height="60"
+  alt=""
+  loading="lazy"
+  style="margin-top: 2px;"/>
+           
+          </a>
+	  <form class="d-none d-md-flex input-group w-auto my-auto" action="{% url 'filterDos'  %}" methode='GET'>
+
+		                                                    <input
+
+							                                                                                  type="text"  name="search"
+												                                                                 class="form-control rounded"
+									                                               placeholder="N° Dossier| Immatriculation"    autocomplete="on"    style="min-width: 225px"
+
+							                                     />   <span class="input-group-text border-0 d-none d-lg-flex"
+	            ><i class="fas fa-search"></i
+	          ></span></form>
+
+
+	     <form  class="d-flex input-group w-auto w-auto my-auto" action="{% url 'filtre'  %}" methode='GET'>
+	      
+	      
+	                      <select class="nav-link dropdown-toggle" name=filtre id=select autocomplete=off required>
+				                        <option selected>Pourcentage fraude</option>
+							                  <option value="Date_sinistre">Date sinistre</option>
+									                    <option value="Date_creation">Date creation</option>
+											                    </select>
+													    
+													    
+													                    <button type="submit" class="btn btn-outline-danger">
+																                            <i class="fas fa-sort-amount-down-alt"></i></button>
+															    
+															    
+															                </form>
+																	<!-- Collapsible wrapper -->
+         
+            <!-- Left links -->
+           
+  
+                        
+																			       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+     <li class="nav-item dropdown">
+     
+	     <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+	                                                       <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+                   </li></li>         
+               <li class="nav-item dropdown">
+                
+                <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+              </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="login/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+              </li>
+              <!-- Navbar dropdown -->
+              
+             
+          
+            </ul>
+         
+            <!-- Left links -->
+          </div>
+          <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+
+      
+
+   <!--  <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+      <img
+        src="{% static '/logo.png' %}"
+        height="50"
+        alt=""
+        loading="lazy"
+       
+      />
+    </a>-->
+    
+
+    
+
+  
+
+<script type="text/javascript">
+document.getElementById("search").value="{{query}}"
+</script>
+
+{% block content %}
+
+<center>
+ 
+
+  <!-- Background image -->
+
+
+
+  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+											    <script type="text/javascript">
+											    document.getElementById("search").value="{{query}}"
+											    </script>
+</center>
+   <div class="card-body">
+                                <div class="table-responsive">
+				                                                 <table class="table table-hover text-nowrap">
+        <thead>
+           
+		<tr>
+			<th scope="col">Dossier   <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col">Immatriculation <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+           
+    
+			<th scope="col">Date sinistre <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col">Date création <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col">Type <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+            
+           
+			<th scope="col">Statut <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col">Expert <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span> </th>
+			<th scope="col">Immat_Adverse <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col">RateFraude <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col">Statut doute <span class="input-group-text border-0 d-none d-lg-flex"> <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Observation <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin"><span><i class="fas fa-sort-amount-down-alt"></i></a></span></th>
+          </tr>
+        </thead>
+																																																						                                                                              
+         {% for i in list_Veo_recente %}
+      
+        <tbody>
+            <tr>
+		     <th scope="row">{{i.id}}</th>
+            <th scope="row">{{i.Immatriculation}}</th>
+          
+         
+            
+            <th scope="row">{{i.Date_sinistre}}</th>
+	     <th scope="row">{{i.Date_création}}</th>
+            <td>{{i.Procédure}}</td>
+	     <td>{{i.Statut}}</td>
+             <td>{{i.Expert}}</td>
+             <td>{{i.ImmatriculationAdverse}}</td>
+            
+            
+            <td><a href="{% url 'details' i.id %}"> {{i.RateFraude}}% </a></td>
+	    <td>{{i.statutdoute}}</td>
+            <td>{{i.observation}}</td>
+            
+            
+            <!--############################################################################################################"-->
+
+            
+          </tr>
+          
+        
+
+
+
+         {% endfor %}    
+
+										 </table></div></div>
+        
+          <br>
+
+
+<br>
+<br>
+<br>
+      </table>
+<!--     <nav aria-label="...">
+        <ul class="pagination">
+	
+{% if veopg.has_previous %}
+<nav aria-label="...">
+	  
+	<a href="?page=1">  &laquo <hr> </a>				
+	<a href="?page={{veopg.previous_page_number}}">  Précédent <hr> </a>
+      {% endif %}
+   
+      Page {{ veopg.number }} de {{ veopg.paginator.num_pages}} <hr>
+			   
+		    <li class="page-item">
+			    {% if veopg.has_next %} <a href="?page={{veopg.next_page_number }}">  Suivant   </a></li>
+		    <a href="?page={{ veopg.paginator.num_pages }}">  &raquo </a>    -->
+      {% endif %}
+      {% endblock %}
+<br>
+
+
+<br>
+<br>
+
+  </body>
+</html>

@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>VEOSMART</title>
+    <title>VEOSMART | Accueil</title>
     <!-- MDB icon -->
     <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
     <!-- Font Awesome -->
@@ -16,127 +16,76 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
     <!-- MDB -->
     <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
   </head>
   <body>
-    <!-- Background image -->
-    <div style=" background-image: url('{% static '/filigrane.png' %}'');">
-    <!-- Start your project here-->
-    {% load static %}
-    
-    <!-- Navbar-->
+	  <header>
+		  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <!-- Container wrapper -->
+		  <div class="container-fluid">
+			  <!-- Toggle button -->
+			  <button
+				  class="navbar-toggler"
+				  type="button"
+				  data-mdb-toggle="collapse"
+				  data-mdb-target="#navbarRightAlignExample"
+				  aria-controls="navbarRightAlignExample"
+				  aria-expanded="false"
+				  aria-label="Toggle navigation"
+				  >
+				  <i class="fas fa-bars"></i>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				  <a class="navbar-brand" href="#">
+					  <img
+					  src="{% static '/logo.png' %}"
+					  height="50"
+					  alt=""
+					  loading="lazy"
+					  style="margin-top: 2px;"/>
+				  </a>
+				  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					   <li class="nav-item">
+						 <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
+												                                               </li>
+					  <li class="nav-item">
+						  <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+							  <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+					  </li>
+					  <li class="nav-item">
+						  <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dtraités"> Dossiers traités <i class="fas fa-bell"></i>
+							  <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDT}} </span></a></li>
+					  <li class="nav-item me-3 me-lg-1">
+						  <form class="d-flex input-group w-auto" action="{% url 'filterDos'  %}" methode='GET'>
+							  <input type="text"  name="search" class="form-control rounded" placeholder="Dossier|Immatriculation"/>
+							<span class="input-group-text border-0" id="search-addon">
+						          <i class="fas fa-search"></i>
+						        </span></form></li>
+				  
+				  </ul></div>
 
-
-
-      <!-- Image and text -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarRightAlignExample"
-            aria-controls="navbarRightAlignExample"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-          <a class="navbar-brand" href="#">
-     
-  <img
-  src="{% static '/logo.png' %}"
-  height="60"
-  alt=""
-  loading="lazy"
-  style="margin-top: 2px;"/>
-           
-          </a>
-          <!-- Collapsible wrapper -->
-         
-            <!-- Left links -->
-           
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-              <form class="d-flex input-group w-auto" action="{% url 'search'  %}" methode='GET'>
-                
-                <input
-                
-                  type="text"  name="search"
-                  class="form-control rounded"
-                  placeholder="Immatriculation"
-              
-                  
-                />
-                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-search"></i></button>
-                
-              </form>
-            </li>
-           
-
-            <li class="nav-item">
-              <div class="container">
-            <form class="d-flex input-group w-auto" action="{% url 'filtre'  %}" methode='GET'>   
-              <li class="nav-item dropdown show">
-                
-                <select class="nav-link dropdown-toggle" name=filtre id=select autocomplete=off required>
-                  <option selected>Pourcentage fraude</option>
-                  <option value="Date_sinistre">Date sinistre</option>
-                  <option value="Date_creation">Date creation</option>      
-                </select>
-             
-              </li>
-                <button type="submit" class="btn btn-outline-danger">
-                <i class="fas fa-filter"></i></button>
-              
-              
-            </form>
-         
-        </div>
-      </li>
-              <li class="nav-item">
-                
-                <a class="nav-link active" aria-current="page" href="/admin">Admin</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login/">Se déconnecter</a>
-              </li>
-              <!-- Navbar dropdown -->
-              
-             
-          
-            </ul>
-         
-            <!-- Left links -->
-          </div>
-          <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-      </nav>
-
-      
-
-   <!--  <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
-      <img
-        src="{% static '/logo.png' %}"
-        height="50"
-        alt=""
-        loading="lazy"
-       
-      />
-    </a>-->
-    
-
-    
-
+					  <div class="d-flex align-items-center">
+						  <!-- Left links -->
+						  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							 {% if SupUse == True %}
+							  <li class="nav-item">
+								  <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+							  </li>
+							  {% endif %}
+							  <li>
+								  <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/logout/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+							  </li></ul>
+					  </div>
+		  </div></div>
+		  </nav>
+	  </header>
   
 
 <script type="text/javascript">
 document.getElementById("search").value="{{query}}"
 </script>
 
-
+{% block content %}
 
 <center>
  
@@ -145,41 +94,45 @@ document.getElementById("search").value="{{query}}"
 
 
 
- 
-
-
-
-
-
-
+  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+											    <script type="text/javascript">
+											    document.getElementById("search").value="{{query}}"
+											    </script>
 </center>
-      <table class="table table-hover"  >
+   <div class="card-body">
+                                <div class="table-responsive">
+				                                                 <table class="table table-bordered border-">
         <thead>
            
-		<tr class="table-dark">
-			<th scope="col">Dossier</th>
-			<th scope="col">Immatriculation:</th>
+	<tr class="table-primary">
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"> <span class="input-group-text border-0 d-none d-lg-flex">Dossier </span><a  href="/TrDos" >{% if tri == 1 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrDosI">{% if tri == 12 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>		
+			
+			
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Matricule</span><a  aria-current="page" href="/TrImmat">{% if tri == 2 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  href="/TrImmatI">{% if tri == 13 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</i></a></span></th>
+																																			
            
     
-            <th scope="col">Date sinistre:</th>
-	    <th scope="col">Date création</th>
-            <th scope="col">Type:</th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"> <span class="input-group-text border-0 d-none d-lg-flex"> Date sinistre</span><a  aria-current="page" href="/TrDsin">{% if tri == 3 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrDsinI">{% if tri == 14 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %} </a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Date création </span><a  aria-current="page" href="/TrDcr">{% if tri == 4 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrDcrI">{% if tri == 15 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+
+
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Type</span><a  aria-current="page" href="/TrType">{% if tri == 5 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrTypeI">{% if tri == 16 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
             
            
-            <th scope="col">Statut</th>
-	      <th scope="col">Expert:</th>
-	        <th scope="col">Immat_Adverse:</th>
-            <th scope="col">Photos Avant</th>
-            <th scope="col">RateFraude</th>
-            
-            <th scope="col">Observation</th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Statut</span><a  aria-current="page" href="/TrStat">{% if tri == 6 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrStatI">{% if tri == 17 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Expert</span><a  aria-current="page" href="/TrExp"><span>{% if tri == 7 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  aria-current="page" href="/TrExpI">{% if tri == 18 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span> </th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Immat_Adverse</span><a  aria-current="page" href="/TrIAdv">{% if tri == 8  %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrIAdvI">{% if tri == 19 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">RateFraude</span><a  aria-current="page" href="/TrRF">{% if tri == 9 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  aria-current="page" href="/TrRFI">{% if tri == 20 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Statut doute</span><a  aria-current="page" href="/TrStatDoute">{% if tri == 10 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  aria-current="page" href="/TrStatDouteI">{% if tri == 21 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+			<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Observation</span><a  aria-current="page" href="/Trobs"><span>{% if tri == 11 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrobsI">{% if tri == 22 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
           </tr>
         </thead>
-
+																																																						                                                                              
          {% for i in list_Veo_recente %}
       
         <tbody>
-            <tr class="table-light">
+            <tr>
 		     <th scope="row">{{i.Dossier}}</th>
             <th scope="row">{{i.Immatriculation}}</th>
           
@@ -192,9 +145,9 @@ document.getElementById("search").value="{{query}}"
              <td>{{i.Expert}}</td>
              <td>{{i.ImmatriculationAdverse}}</td>
             
-            <td> <a href="{{i.Photos_Avant}}" role="button"
-              >    <i class="far fa-image fa-2x"></i></td>
-            <td><a href="{% url 'details' i.Dossier %}"> {{i.RateFraude}}% </a></td>
+            
+            <td><a href="{% url 'details' i.id %}" target="_blank" > {{i.RateFraude}}% </a></td>
+	    <td>{{i.statutdoute}}</td>
             <td>{{i.observation}}</td>
             
             
@@ -209,18 +162,70 @@ document.getElementById("search").value="{{query}}"
 
          {% endfor %}    
 
-
+										 </table></div></div>
         
-          <br>
+          
 
 
-<br>
-<br>
-<br>
+
+
+
       </table>
+      <center>      <nav aria-label="Page navigation example"><center>
+	
+	 <ul class="pagination pagination-circle">
+ 
+
+		 {% if list_Veo_recente.has_previous %}
+ <li class="page-item">
+
+		 
+	       <a class="page-link" href="?page=1"> <button
+			         type="button"
+				   class="btn btn-outline-secondary btn-rounded" style="border-color: #60757C;color: #60757C;"
+				     data-mdb-ripple-color="dark"
+				     ><i class="fas fa-angle-double-left"></i>  </button></a>	</li>	
+ <li class="page-item">
+	 <a class="page-link" href="?page={{list_Veo_recente.previous_page_number}}"> 
+		 <button
+			   type="button"
+			     class="btn btn-outline-secondary btn-rounded"  style="border-color: #60757C;color: #60757C;"
+			       data-mdb-ripple-color="dark"
+			       >
+			       <i class="fas fa-angle-left"></i> Précédent
+		 </button>
+	 </a></li>
+      {% endif %}
    
-
-
+      <li class="page-item">  <a class="page-link" href=#>
+<button
+	
+	  type="button"
+	    class="btn btn-outline-primary btn-rounded" style="border-color: #60757C;color: #60757C;"
+	      data-mdb-ripple-color="dark"
+	      >
+	     {{ list_Veo_recente.number }}</button>
+	
+	      </a></li>
+	      {% if list_Veo_recente.has_next %}
+	      <li class="page-item"> <a class="page-link" href="?page={{list_Veo_recente.next_page_number }}"> 
+ <button
+	                            type="button"
+				                                 class="btn btn-outline-secondary btn-rounded" style="border-color: #60757C;color: #60757C;"
+								                                data-mdb-ripple-color="dark"
+												                               >
+															       Suivant <i class="fas fa-angle-right"></i>
+																				       </button></a></li>
+	       <li class="page-item">
+		       <a  class="page-link" href="?page={{ list_Veo_recente.paginator.num_pages }}"> <button
+				         type="button"
+					   class="btn btn-outline-secondary btn-rounded"  style="border-color: #60757C;color: #60757C;"
+					     data-mdb-ripple-color="dark"
+					     ><span class="visually-hidden"> <i class="fas fa-angle-double-right"> {{ list_Veo_recente.paginator.num_pages }}</span> </i> </button> </a>   </li>
+      {% endif %}
+	 </ul>
+	</center> </nav>
+      {% endblock %}
 <br>
 
 

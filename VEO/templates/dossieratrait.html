@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+	  <head>
+		  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrinkequiv="x-ua-compatible" content="ie=edge" />
+			      <title>VEOSMART | Dossiers à  traiter</title>
+			      <link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>			      
+			          <!-- MDB icon -->
+ <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+				          <!-- Font Awesome -->
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+					          <!-- Google Fonts Roboto -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+						          <!-- MDB -->
+<link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+</head>
+<body>
+									      <!-- Background image -->
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<!-- Container wrapper -->
+	<div class="container-fluid">
+		<!-- Toggle button -->
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-mdb-toggle="collapse"
+			data-mdb-target="#navbarRightAlignExample"
+			aria-controls="navbarRightAlignExample"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+			>
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<a class="navbar-brand" href="#">
+				<img
+				src="{% static '/logo.png' %}"
+				height="50"
+				alt=""
+				loading="lazy"
+				style="margin-top: 2px;"/>
+			</a>
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+
+					                                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
+										                                </li>
+				<li class="nav-item">
+					<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+						<span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dtraités"> Dossiers traités <i class="fas fa-bell"></i>
+						<span class="badge rounded-pill badge-notification bg-danger"  >{{NBDT}} </span></a></li>
+				<li class="nav-item me-3 me-lg-1">
+					<form class="d-flex input-group w-auto" action="{% url 'filterDosAT'  %}" methode='GET'>
+						<input type="text"  name="search" class="form-control rounded" placeholder="Dossier|Immatricuation"/>
+						<span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span></form></li>
+			</ul></div>
+
+				<div class="d-flex align-items-center">
+					<!-- Left links -->
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						
+						 {% if SupUse == True %}
+						<li class="nav-item">
+							<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+						</li>
+						{% endif %} 
+						<li>
+							<a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/logout/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+						</li></ul>
+				</div>
+	</div></div>
+	</nav>
+<script type="text/javascript">
+	document.getElementById("search").value="{{query}}"
+</script>
+
+
+
+<br>
+ <div class="card-header py-3">
+	 {% if list_Veo_recente|length == 0   %}<h6 class="mb-0 text-center"><strong>Pas de dossiers à traiter</strong></h6>
+
+	 {% else %}
+	                                                                                 <h6 class="mb-0 text-center"><strong>Dossiers à traiter</strong></h6>
+											                                                                         </div>
+
+		<div class="card-body">
+			   <div class="table-responsive">
+								  <table class="table table-bordered"><thead><tr class="table-primary">
+			 
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"> <span class="input-group-text border-0 d-none d-lg-flex">Dossier </span><a  href="/TrDosAT" >{% if tri == 1 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrDosIAT">{% if tri == 12 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Matricule</span><a  href="/TrImmatAT">{% if tri == 2 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  href="/TrImmatIAT">{% if tri == 13 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</i></a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"> <span class="input-group-text border-0 d-none d-lg-flex"> Date sinistre</span><a  aria-current="page" href="/TrDsinAT">{% if tri == 3 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrDsinIAT">{% if tri == 14 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %} </a></span> </th> 
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Date création </span><a  aria-current="page" href="/TrDcrAT">{% if tri == 4 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrDcrIAT">{% if tri == 15 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Type</span><a  aria-current="page" href="/TrTypeAT">{% if tri == 5 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrTypeIAT">{% if tri == 16 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Statut</span><a  aria-current="page" href="/TrStatAT">{% if tri == 6 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrStatIAT">{% if tri == 17 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span> </th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex">Photos Avant</span> </th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Expert</span><a  aria-current="page" href="/TrExpAT"><span>{% if tri == 7 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  aria-current="page" href="/TrExpIAT">{% if tri == 18 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span> </th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Immat_Adv </span><a  aria-current="page" href="/TrIAdvAT">{% if tri == 8  %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrIAdvIAT">{% if tri == 19 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">RateFraude</span><a  aria-current="page" href="/TrRFAT">{% if tri == 9 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  aria-current="page" href="/TrRFIAT">{% if tri == 20 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Statut doute</span><a  aria-current="page" href="/TrStatDouteAT">{% if tri == 10 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a  aria-current="page" href="/TrStatDouteIAT">{% if tri == 21 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+<th scope="col"><span class="input-group-text border-0 d-none d-lg-flex"><span class="input-group-text border-0 d-none d-lg-flex">Observation</span><a  aria-current="page" href="/TrobsAT"><span>{% if tri == 11 %} <i class="fas fa-long-arrow-alt-up" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-up" style="border-color: #60757C;color: #60757C;" ></i> {% endif %}</a><a aria-current="page" href="/TrobsIAT">{% if tri == 22 %} <i class="fas fa-long-arrow-alt-down" style="border-color: #E3351D;color: #E3351D;" ></i> {% else %}<i class="fas fa-long-arrow-alt-down" style="b order-color: #60757C;color: #60757C;" ></i> {% endif %}</a></span></th>
+																						</tr>
+																							</thead>
+																							    
+																								 {% for i in list_Veo_recente %}
+																									 <tbody>
+																											     <tr>
+												 <th scope="row">{{i.Dossier}}</th>																		
+							 <th scope="row">{{i.Immatriculation}}</th>																					     
+							<th scope="row">{{i.Date_sinistre}}</th>
+																															    
+																															     
+																																	 <th scope="row">{{i.Date_création}}</th>
+																																		     <td>{{i.Procédure}}</td>
+																																				 
+																																					     																							     <td>{{i.Statut}}</td>
+																																																																	     <td>{% if i.Photos_Avant != "" and i.Photos_Avant != None %} <a href="{{i.Photos_Avant}}"role="button" target="_blank"    >    <i class="far fa-image fa-2x"></i> {% endif %}</td>
+																																																																	     <td>{{i.Expert}}</td>     <td>{{i.ImmatriculationAdverse}}</td>  																								     <td>
+																																						     <a href="{% url 'details' i.id %}"  target="_blank" > {{i.RateFraude}}% </a></td>						        																																						             <td>{{i.statutdoute}}</td>  
+																																					    
+																							
+																																					     <td> {{i.observation}}</td>
+																																								     <!--############################################################################################################"-->
+
+																																																																																			       </tr>
+																																											 
+																																										       
+
+
+
+																																											{% endfor %}    
+																																												 
+																																												 {% for i in list_Assistance_recente %}
+																																													  <tbody>
+																																															       <tr class="table-dark">
+																																																		    <th scope="row">{{i.Immatriculation}}</th>
+																																																				
+																																																				 <td>{{i.Nomclient}}</td>
+																																																					   
+																																																					      <th scope="row">{{i.DateAssistance}}</th>
+																																																							   <td>{{i.Type}}</td>
+																																																									<td>{{i.Intervention}}</td>
+																																																										     <th scope="row">{{i.PhotosAvant}}</th>
+																																																												  <td>{{i.Statut}}</td>
+																																																													       <td>{{i.Prestataire}}</td>
+																																																															    <td>{{i.RateFraude}}</td>
+																																																																	 
+																																																																	 
+																																																															     
+																																																																	 <td> <a class="btn btn-outline-danger"  href="http://david-kyriakidis.com/wp-content/uploads/2015/08/Accident-ville.jpg" role="button"
+																																																																					  >Photos</a></td>
+																																																																		    </tr>
+																																																																			       
+																																																																			     
+																																																																		     
+																																																																		     
+																																																																		     
+																																																																			      {% endfor %}  
+
+																																																																					{% for i in list_BDG_recente %}
+																																																																						 <tbody>
+																																																																								      <tr class="table-danger">
+																																																																											   <th scope="row">{{i.Immatriculation}}</th>
+																																																																												       
+																																																																													<td>{{i.NomAssuré_souscripteur}}</td>
+																																																																														  
+																																																																														     <th scope="row">{{i.Datedecréation}}</th>
+																																																																														     /td>
+																																																																															                  <td>{{i.DélaidetraitementdesDevis_h}}</td>
+																																																																																	              
+																																																																																	           
+																																																																																	   
+																																																																																	   
+																																		            {% endfor %}
+								   </table></div></div>  																					  <nav aria-label="Page navigation example"><center>
+										            <hr>
+											             <ul class="pagination pagination-circle">
+
+
+													                      {% if list_Veo_recente.has_previous %}
+															       <li class="page-item">
+
+
+																                      <a class="page-link" href="?page=1"> <button
+																				                                       type="button"
+																								                                          class="btn btn-outline-secondary btn-rounded" style="border-color: #60757C;color: #60757C;"
+																													                                       data-mdb-ripple-color="dark"
+																																	                                            ><i class="fas fa-angle-double-left"></i>  </button></a>   </li>
+															        <li class="page-item">
+																	         <a class="page-link" href="?page={{list_Veo_recente.previous_page_number}}">
+																			                  <button
+																						                             type="button"
+																									                                  class="btn btn-outline-secondary btn-rounded"  style="border-color: #60757C;color: #60757C;"
+																													                                 data-mdb-ripple-color="dark"
+																																	                                >
+																																					                               <i class="fas fa-angle-left"></i> 
+																																								                        </button>
+																																											         </a></li>
+																																												       {% endif %}
+
+																																												             <li class="page-item">  <a class="page-link" href=#>
+																																															     <button
+
+																																																               type="button"
+																																																	                   class="btn btn-outline-primary btn-rounded" style="border-color: #60757C;color: #60757C;"
+																																																			                 data-mdb-ripple-color="dark"
+																																																					               >
+																																																						                  Page  {{ list_Veo_recente.number }}</button>
+
+																																																   </a></li>
+																																																		 {% if list_Veo_recente.has_next %}
+																																																			       <li class="page-item"> <a class="page-link" href="?page={{list_Veo_recente.next_page_number }}">
+																																																						<button
+																																																											    type="button"
+																																																																			     class="btn btn-outline-secondary btn-rounded" style="border-color: #60757C;color: #60757C;"
+																																																																															     data-mdb-ripple-color="dark"
+																																																																																															    >
+																																																																																																															    <i class="fas fa-angle-right"></i>
+																																																																																																																																				  </button></a></li>
+																																																																																																																																						 <li class="page-item">
+																																																																																																																																										<a  class="page-link" href="?page={{ list_Veo_recente.paginator.num_pages }}"> <button
+																																																																																																																																																	 type="button"
+																																																																																																																																																						    class="btn btn-outline-secondary btn-rounded"  style="border-color: #60757C;color: #60757C;"
+																																																																																																																																																												 data-mdb-ripple-color="dark"
+																																																																																																																																																																	      ><span class="visually-hidden"> <i class="fas fa-angle-double-right"> {{ list_Veo_recente.paginator.num_pages }}</span> </i> </button> </a>   </li>
+																																																																																																																																						       {% endif %}
+																																																																																																																																								</ul>
+																																																																																																																																								{% endif %}																																																																																																																																									 <hr> </center> </nav>
+																																																																					  <br-white fixed-bottom" style="background-color: #D50000;">
+																																																																																				       <!--ation" data-mdb-animation-reset="true" data-mdb-animation="slid
+

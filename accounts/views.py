@@ -16,15 +16,19 @@ from .forms import UserLoginForm
 
 def login_view(request):
     #next= request.GET.get('next')
-    form = UserLoginForm(request.POST or None)
-    if form.is_valid():
-        #user=form.save
-        username= form.cleaned_data.get('username')
-        password= form.cleaned_data.get('password')
-        user= authenticate(username=username, password=password)
-        if  user is  not  None:
-            login(request,user)
-            return redirect('/home')
+    if request.user.is_authenticated:
+
+        return redirect('/home')
+    else:
+        form = UserLoginForm(request.POST or None)
+        if form.is_valid():
+      #  user=contrib.session.models.Session.save()
+            username= form.cleaned_data.get('username')
+            password= form.cleaned_data.get('password')
+            user= authenticate(username=username, password=password)
+            if  user is  not  None:
+                login(request,user)
+                return redirect('/home')
         #user=form.save
         #login(request, user,backend='django.contrib.auth.backends.ModekBackend')
         
@@ -37,3 +41,7 @@ def login_view(request):
     }
 
     return render(request, "login.html",context)
+
+def deconnexion(request):
+    logout(request)
+    return redirect('/login')
