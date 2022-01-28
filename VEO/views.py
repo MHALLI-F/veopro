@@ -213,7 +213,7 @@ def inis(request):
     for i in list_Veoservices:
         if i.Date_création!=None:
             Date_création=datetime.datetime.strptime(i.Date_création, '%d/%m/%Y %H:%M')
-        if ((Today_DateVeo-Date_création).days<=1000) and (i.Statut!= "Changement procédure") and (i.RateFraude not in [0,'0.0',None]):
+        if ((Today_DateVeo-Date_création).days<=5) and (i.Statut!= "Changement procédure") and (i.RateFraude not in [0,'0.0',None]):
                 #if (i.calcul!="oui"):
        #         if i.Reg1()!=None:
         #            R1=i.Reg1()[0]
@@ -262,9 +262,9 @@ def inis(request):
               #      Veoservices.objects.filter(Dossier=i.Dossier).update(RateFraude=Rate)
                #     Veoservices.objects.filter(Dossier=i.Dossier).update(statutdoute="Non traité")
             
-                i.RateFraude=float(i.RateFraude)
+              #  i.RateFraude=float(i.RateFraude)
                 list_Veo_recente.append(i)
-                if ( i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']):
+                if ( i.Statut!="Changement de procédure" and i.RateFraude not in [0,"0.0",None,"5.0","10.0"] and i.statutdoute =="Non traité" ) or  (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']):
                     NBD=NBD+1
     list_Veo_recente.sort(key=lambda r: r.RateFraude,reverse=True)
     paginator = Paginator(list_Veo_recente,9)
@@ -334,7 +334,7 @@ def nbrDAT():
     for i in list_Veoservices:
         if i.Date_création!=None:
             Date_création=datetime.datetime.strptime(i.Date_création, '%d/%m/%Y %H:%M')
-            if (((Today_DateVeo-Date_création).days<=2) and i.statutdoute=="Non traité" and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']) or (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']) :
+            if (((Today_DateVeo-Date_création).days<=5) and i.statutdoute=="Non traité" and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']) or (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']) :
                 NBD=NBD+1
     return NBD
 def nbrDT():
@@ -345,7 +345,7 @@ def nbrDT():
     for i in list_Veoservices:
         if i.Date_création!=None:
             Date_création=datetime.datetime.strptime(i.Date_création, '%d/%m/%Y %H:%M')
-            if ((Today_DateVeo-Date_création).days<=2 and i.statutdoute=="Doute confirmé" and i.statutdoute!="Doute rejeté"  and i.RateFraude not in [0,'0.0',None,'5.0','10.0','15.0'] and i.Statut!="Dossier sans suite" and i.Statut!="Changement de procédure") :
+            if ((Today_DateVeo-Date_création).days<=5 and (i.statutdoute=="Doute confirmé" or i.statutdoute=="Doute rejeté")   and i.Statut!="Dossier sans suite" and i.Statut!="Changement de procédure") :
                 NBD=NBD+1
     return NBD
 
@@ -359,8 +359,16 @@ def DosAff():
     for i in list_Veoservices:
         if i.Date_création!=None:
             Date_création=datetime.datetime.strptime(i.Date_création,'%d/%m/%Y %H:%M')
-            if (((Today_DateVeo-Date_création).days<=2) and (i.Statut!= "Changement procédure") and (i.RateFraude not in [0,'0.0',None,'5.0','10.0'])) or (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']):
+            if (((Today_DateVeo-Date_création).days<=5) and (i.Statut!= "Changement procédure")) or (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" ):
                 list_Veo_recente.append(i)
+    return  list_Veo_recente
+def DosAffdout():
+    list_Veo_recente =[]
+    list_Veoservices = Veoservices.objects.all()
+    NBD=nbrDAT()
+    for i in list_Veoservices:
+        if i.statutdoute == "Doute confirmé":
+            list_Veo_recente.append(i)
     return  list_Veo_recente
 def filtre(request):
     id=request.GET.get('filtre')
@@ -904,7 +912,7 @@ def TrobsIAT(request):
 
 
 def TrDosT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.id,reverse=False)
@@ -916,7 +924,7 @@ def TrDosT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrImmatT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Immatriculation,reverse=False)
@@ -927,7 +935,7 @@ def TrImmatT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrDsinT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Date_sinistre,reverse=False)
@@ -938,7 +946,7 @@ def TrDsinT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrDcrT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Date_création,reverse=False)
@@ -950,7 +958,7 @@ def TrDcrT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrTypeT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Procédure,reverse=False)
@@ -962,7 +970,7 @@ def TrTypeT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrStatT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Statut,reverse=False)
@@ -973,7 +981,7 @@ def TrStatT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrExpT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Expert,reverse=False)
@@ -985,7 +993,7 @@ def TrExpT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrIAdvT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.ImmatriculationAdverse,reverse=True)
@@ -996,7 +1004,7 @@ def TrIAdvT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrRFT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     for i in list_Veo_recente:
@@ -1010,7 +1018,7 @@ def TrRFT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrStatDouteT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.statutdoute,reverse=True)
@@ -1022,7 +1030,7 @@ def TrStatDouteT(request):
     return render(request,"dossiertrait.html",context)
 def TrobsT(request):
 
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.observation,reverse=True)
@@ -1035,7 +1043,7 @@ def TrobsT(request):
 
 
 def TrDosIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.id,reverse=True)
@@ -1047,7 +1055,7 @@ def TrDosIT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrImmatIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Immatriculation,reverse=True)
@@ -1058,7 +1066,7 @@ def TrImmatIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrDsinIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Date_sinistre,reverse=True)
@@ -1070,7 +1078,7 @@ def TrDsinIT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrDcrIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Date_création,reverse=True)
@@ -1082,7 +1090,7 @@ def TrDcrIT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrDsinIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Date_sinistre,reverse=True)
@@ -1094,7 +1102,7 @@ def TrDsinIT(request):
     return render(request,"dossiertrait.html",context)
 
 def TrDcrIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Date_création,reverse=True)
@@ -1105,7 +1113,7 @@ def TrDcrIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrTypeIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Procédure,reverse=True)
@@ -1116,7 +1124,7 @@ def TrTypeIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrStatIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Statut,reverse=True)
@@ -1127,7 +1135,7 @@ def TrStatIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrExpIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.Expert,reverse=True)
@@ -1138,7 +1146,7 @@ def TrExpIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrIAdvIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.ImmatriculationAdverse,reverse=False)
@@ -1149,7 +1157,7 @@ def TrIAdvIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrRFIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     for i in list_Veo_recente:
@@ -1163,7 +1171,7 @@ def TrRFIT(request):
     context={"SupUse":SupUse(request),"NBDT":NBDT,"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrStatDouteIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.statutdoute,reverse=False)
@@ -1174,7 +1182,7 @@ def TrStatDouteIT(request):
     context={"SupUse":SupUse(request),"NBDossiers":nbr,"list_Veo_recente": veopg, "tri":tri}
     return render(request,"dossiertrait.html",context)
 def TrobsIT(request):
-    list_Veo_recente=DosAff()
+    list_Veo_recente=DosTAff()
     nbr=nbrDAT()
     NBDT=nbrDT()
     list_Veo_recente.sort(key=lambda r: r.observation,reverse=False)
@@ -1264,7 +1272,7 @@ def filterDosT(request):
         for i in liste:
             if i.Date_création!=None:
                 Date_création=datetime.datetime.strptime(i.Date_création,'%d/%m/%Y %H:%M')
-                if ((Today_DateVeo-Date_création).days<=2):
+                if ((Today_DateVeo-Date_création).days<=0):
                     if (i.statutdoute=="Doute confirmé" or i.statutdoute=="Doute rejeté") and i.Statut!="Changement de procédure" and  i.Statut!="Dossier sans suite" and i.RateFraude not in [0,'0.0',None,'5.0','10.0'] and i not in list_Veo_recente:
                         list_Veo_recente.append(i)
                         i.RateFraude=float(i.RateFraude)
@@ -1285,14 +1293,25 @@ def dossierstrait(request):
     NBDT=nbrDT()
     list_Veo_recente=[]
     list_Veoservices=DosAff()
+    Veoservice=Veoservices.objects.all()
     for i in list_Veoservices:
-        if (i.statutdoute=="Doute confirmé" or i.statutdoute=="Doute rejeté") and i.Statut!="Changement de procédure" and  i.Statut!="Dossier sans suite" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']:
+        if (i.statutdoute=="Doute confirmé" or i.statutdoute=="Doute rejeté") and i.Statut!="Changement de procédure" and  i.Statut!="Dossier sans suite" :
             list_Veo_recente.append(i)
+
     list_Veo_recente.sort(key=lambda r: r.RateFraude,reverse=True)
     paginator = Paginator(list_Veo_recente,9)
     page = request.GET.get('page')
     veopg = paginator.get_page(page)
-    context={"SupUse":SupUse(request),"list_Veo_recente": veopg,"NBDossiers":NBD,"NBDT":NBDT}
+
+    list_Veo_Doute =[]
+    for i in Veoservice:
+        if i.statutdoute == "Doute confirmé":
+            list_Veo_Doute.append(i)
+    list_Veo_Doute.sort(key=lambda r: r.RateFraude,reverse=True)
+    paginatorD = Paginator(list_Veo_Doute,9)
+    pageD = request.GET.get('pageD')
+    veoD = paginator.get_page(pageD)
+    context={"SupUse":SupUse(request),"list_Veo_recente": veopg,"list_Veo_Doute": DosAffdout(),"NBDossiers":NBD,"NBDT":NBDT}
     return render(request,"dossiertrait.html",context)
 @login_required
 def dossiersAtrait(request):
@@ -1301,7 +1320,7 @@ def dossiersAtrait(request):
     list_Veo_recente=[]
     list_Veoservices=DosAff()
     for i in list_Veoservices:
-        if (i.statutdoute=="Non traité" and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None]) or (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None]) :
+        if (i.statutdoute=="Non traité" and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']) or (i.statutdoute=="Attente photos Avant" and i.Photos_Avant!="" and i.Photos_Avant!=None and i.Statut!="Changement de procédure" and i.RateFraude not in [0,'0.0',None,'5.0','10.0']) :
             i.RateFraude = float(i.RateFraude)
             list_Veo_recente.append(i)
 
@@ -1314,7 +1333,18 @@ def dossiersAtrait(request):
     context={"SupUse":SupUse(request),"list_Veo_recente": veopg,"NBDossiers":NBD,"NBDT":NBDT}
     return render(request,"dossieratrait.html",context) 
 
-@login_required
+def DosTAff():
+    Today_DateVeo=datetime.datetime.today().strftime('%d/%m/%Y %H:%M')
+    Today_DateVeo=datetime.datetime.strptime(Today_DateVeo,'%d/%m/%Y %H:%M')
+    list_Veo_recente=[]
+    list_Veoservices=Veoservices.objects.all()
+
+    for i in list_Veoservices:
+        if i.Date_création!=None:
+            Date_création=datetime.datetime.strptime(i.Date_création,'%d/%m/%Y %H:%M')
+            if ((Today_DateVeo-Date_création).days<=5) and (i.Statut!= "Changement procédure") and  (i.statutdoute=="Doute confirmé" or i.statutdoute=="Doute rejeté"):
+                list_Veo_recente.append(i)
+    return  list_Veo_recente
 def observation(request):
     obs=request.GET.get('statutdoute')
     query=request.GET.get('observation')

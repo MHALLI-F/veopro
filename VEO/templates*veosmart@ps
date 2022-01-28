@@ -63,147 +63,79 @@ textarea:focus{
 .detail{background-color: #C6CACB;
     height: 20px;
 }
-.right-tabs .nav {
-		float: right;
-		border-bottom: 0px;
-	}
-	.right-tabs .nav li { float: left }
-	.right-tabs .tab-content {
-		float: left;
-		border-top: 1px solid #ddd;
-		margin-top: -1px;
-	}
-  .left-tabs .nav {
-		float: left;
-		border-bottom: 0px;
-	}
-	.left-tabs .nav li { float: right }
-	.left-tabs .tab-content {
-		float: left;
-		border-top: 1px solid #ddd;
-		margin-top: -1px;
-	}
-    
-    </style>
+</style>
 </head>
 <body>
+<!-- Background image -->
+<div style=" background-image: url('{% static '/filigrane.png' %}'');">
+
+
+<!-- Start your project here-->
 {% load static %}
 
-<header>
+<!-- Navbar-->
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-  
-      <!-- Toggle button -->
+
+<header>
+<!-- Image and text -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #bfc2c2;" >
     <!-- Container wrapper -->
     <div class="container-fluid">
     <!-- Toggle button -->
-    
-    <a class="navbar-brand" href="/home">
-      <img
-      src="{% static 'favicon.png' %}"
-      height="120"
-      width ="180"
-      alt=""
-    
-      style="margin-top: 0px; margin-left: 30px;"/>
-      </a>
-    
-  
-    
-    
-    </nav>
+    <button
+    class="navbar-toggler"
+    type="button"
+    data-mdb-toggle="collapse"
+    data-mdb-target="#navbarRightAlignExample"
+    aria-controls="navbarRightAlignExample"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    >
+    <i class="fas fa-bars"></i>
+    </button>
+    <div >
 
-
-    <div class="right-tabs clearfix">
-      <ul class="nav nav-tabs">
-        
-    {% if SupUse == True %}
-        <li><a
-        class="nav-link"
-        id="ex3-tab-3"
-        data-mdb-toggle="tab"
-        href="/admin"
-        role="tab"
-        aria-controls="ex3-tabs-3"
-        aria-selected="false"
-        >Admin</a
-        >
-      </li>
-      {% endif %}
-        <li><a
-        class="nav-link"
-        id="ex3-tab-3"
-        data-mdb-toggle="tab"
-        href="/logout/" 
-        onclick="return confirm('Vous êtes sur de se  déconnecter?');"
-        role="tab"
-        aria-controls="ex3-tabs-3"
-        aria-selected="false"
-        >Déconnexion</a
-        >
-      </li>
-
-      </ul>
-     
-      <div class="left-tabs clearfix">
-    <!-- Tabs navs -->
-    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a
-        class="nav-link"
-        id="ex3-tab-1"
-        data-mdb-toggle="tab"
-        href="/home"
-        role="tab"
-        aria-controls="ex3-tabs-1"
-        aria-selected="false"
-        >Acceuil</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a
-        class="nav-link"
-        id="ex3-tab-2"
-        data-mdb-toggle="tab"
-        href="/dt"
-        role="tab"
-        aria-controls="ex3-tabs-2"
-        aria-selected="false">Dossiers à traiter &nbsp&nbsp&nbsp
-        <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span></a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a
-        class="nav-link"
-        id="ex3-tab-3"
-        data-mdb-toggle="tab"
-        href="/dtraités"
-        role="tab"
-        aria-controls="ex3-tabs-3"
-        aria-selected="false"
-        >Dossiers traités</a
-        >
-      </li>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
     
-
-      </ul>
-      <!-- Tabs navs -->
-      
+    <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page"  href="/home">Accueil</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dt"> Dossiers à traiter <i class="fas fa-bell"></i>
+    <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span> </a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/dtraités"> Dossiers traités </a></li>
+    </ul></div>
     
+    <div class="d-flex align-items-center">
+    <!-- Left links -->
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     
-    
- 
-
-
-
+        {% if SupUse == True %}
+    <li class="nav-item">
+    <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" aria-current="page" href="/admin">Admin</a>
+    </li>
+    {% endif %}
+    <li>
+    <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="/logout/" onclick="return confirm('Vous êtes sur de se  déconnecter?');" >Se déconnecter</a>
+    </li></ul>
     </div>
+    </div></div>
+    </nav>
+<hr>
 
-  </header>
+
+
+
+</header>
 
 <section>
     
 <div class="row"> 
 <div class="col-sm-10">
-<div >
+<div class="card border border-warning shadow-0 mb-3" background-color="#B5D7F2">
 
     <div class="card-body">
      <h6 style="font-size: 14px;"><NOBR> Détail de Dossier | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank"><font color="#4F5052">  Dossier Omega <i class="fas fa-external-link-alt"></i></font></NOBR></h6></a> 

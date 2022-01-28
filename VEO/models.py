@@ -208,13 +208,17 @@ class Veoservices(models.Model):
         
         
         Rate=0
-        Imm_princ=Preprocessing_Imm(self.Immatriculation)
-        Imm_Adv=Preprocessing_Imm(self.ImmatriculationAdverse)
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+            self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
         Liste=list(Veodata.objects.all())
 
         for j in Liste:
                 
-            if Imm_princ not in [None,""] and (Preprocessing_Imm(j.Immatriculation) == Imm_princ or Preprocessing_Imm(j.ImmatriculationAdverse) == Imm_princ) and ((j.Statutgarage is not  None) and (j.Statutgarage.lower()=="cas douteux")):
+            if (self.Immatriculation not in [None,""] and len(j.Immatriculation) not in [1,2,3]) and (Preprocessing_Imm(j.Immatriculation) == self.Immatriculation or Preprocessing_Imm(j.ImmatriculationAdverse) == self.Immatriculation) and ((j.Statutgarage is not  None) and (j.Statutgarage.lower()=="cas douteux")):
                 Rate=30
                 R="30%: l'immatriculation principale a déjà été impliquée dans un dossier historique signalé douteux "+str(j.id)
                 #La declaration douteux pour  afficher le  détail
@@ -223,7 +227,7 @@ class Veoservices(models.Model):
             else:
                 doute_Princ=None
         for i in Liste:
-            if Imm_Adv not in [None,""] and (Preprocessing_Imm(i.Immatriculation) == Imm_Adv or Preprocessing_Imm(i.ImmatriculationAdverse) == Imm_Adv) and ((i.Statutgarage is not  None) and (i.Statutgarage.lower()=="cas douteux")):
+            if (self.ImmatriculationAdverse not in [None,""] and len(i.Immatriculation) not in [1,2,3]) and( Preprocessing_Imm(i.Immatriculation) == self.ImmatriculationAdverse or Preprocessing_Imm(i.ImmatriculationAdverse) == self.ImmatriculationAdverse) and ((i.Statutgarage is not  None) and (i.Statutgarage.lower()=="cas douteux")):
                 Rate=30
                 R="30%: l'immatriculation adverse a déjà été impliquée dans un dossier historique signalé douteux: "+str(i.id)
                 #La declaration douteux pour  afficher le  détail
@@ -239,8 +243,12 @@ class Veoservices(models.Model):
 
     def Reg2(self):
         R=None
-        self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
-        self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+            self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
         Rate=0
         #self.strtodate()
         DDP=self.Date_validité_début
@@ -264,8 +272,13 @@ class Veoservices(models.Model):
 
     def  Reg3(self):
         R=None
-        self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
-        self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
+        R=None
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+            self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
         Rate=0      
         #self.strtodate()
         DDA=self.Date_validité_début_Adv
@@ -293,11 +306,15 @@ class Veoservices(models.Model):
     def Reg4(self):
         Rate=0
         R=None
-        Imm_Adv=Preprocessing_Imm(self.ImmatriculationAdverse)
-        Imm_princ=Preprocessing_Imm(self.Immatriculation)
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+            self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
         Liste=list(Veodata.objects.filter( Type__icontains="Souscription"))
         for A in Liste:
-            if Imm_princ not in [None,""] and Preprocessing_Imm(A.Immatriculation) == Imm_princ and A.Okpoursouscription=="NOK":
+            if self.Immatriculation not in [None,""] and Preprocessing_Imm(A.Immatriculation) == self.Immatriculation and A.Okpoursouscription=="NOK":
                 Rate=15
                 R="15%: l'immatriculation adverse a été signalée comme souscription NOK voir le dossier "+str(A.id)
                 A=A
@@ -306,7 +323,7 @@ class Veoservices(models.Model):
                 Rate=0
                 A=None
         for A in  Liste:
-            if Imm_Adv not in [None,""] and Preprocessing_Imm(A.Immatriculation) == Imm_Adv and A.Okpoursouscription=="NOK":
+            if self.ImmatriculationAdverse not in [None,""] and Preprocessing_Imm(A.Immatriculation) == self.ImmatriculationAdverse and A.Okpoursouscription=="NOK":
                 Rate=15
                 R="15%: l'immatriculation principale a été signalée comme souscription NOK voir le dossier "+str(i.id)
                 P=A
@@ -327,10 +344,14 @@ class Veoservices(models.Model):
         Liste2=[]
         Liste=[]
         Date_création=datetime.strptime(self.Date_sinistre, "%d/%m/%Y")
-        Imm_princ=Preprocessing_Imm(self.Immatriculation)
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        
         Liste=list(Assistance.objects.all())
         for i in Liste:
-            if (Imm_princ not in [None,""] and Preprocessing_Imm(i.Immatriculation) == Imm_princ) and (i.DateConstat != None or i.DateRemorquage != None) and (i.PhotosConstat !=None or i.PhotosRemorquage != None):
+            if (len(i.Immatriculation) not in [1,2,3] and self.Immatriculation not in [None,""] and Preprocessing_Imm(i.Immatriculation) == self.Immatriculation) and (i.DateConstat != None or i.DateRemorquage != None) and (i.PhotosConstat !=None or i.PhotosRemorquage != None):
                 Liste2.append(i)
         if Liste2!=[]:
             for i in Liste2:
@@ -359,13 +380,17 @@ class Veoservices(models.Model):
         A1=None
         A2=None 
         liste2=[]
-        Imm_princ=Preprocessing_Imm(self.Immatriculation)
-        Imm_Adv=Preprocessing_Imm(self.ImmatriculationAdverse)     
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+            self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)   
         Liste=list(Assistance.objects.all())
         DateAssistance1 = None
         DateAssistance2 = None
         for i in Liste:
-            if (Imm_princ not in [None,""] and Preprocessing_Imm(i.Immatriculation) == Imm_princ) and (i.DateConstat != None or i.DateRemorquage != None) and (i.PhotosConstat !=None or i.PhotosRemorquage != None):
+            if (len(i.Immatriculation) not in [1,2,3] and len(i.Immatriculation) not in [1,2,3] and self.Immatriculation not in [None,""] and Preprocessing_Imm(i.Immatriculation) == self.Immatriculation) and (i.DateConstat != None or i.DateRemorquage != None) and (i.PhotosConstat !=None or i.PhotosRemorquage != None):
                 liste2.append(i)
         for i in  liste2:
             if i.Intervention == "Remorquage" and i.DateRemorquage != None and i.DateRemorquage != '':
@@ -410,9 +435,14 @@ class Veoservices(models.Model):
             liste1=[]
            
             Liste=list(Veoservices.objects.all())
-            Imm_princ=Preprocessing_Imm(self.Immatriculation)
+            if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+                self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        
             for i in Liste:
-                if i.Date_sinistre != self.Date_sinistre and (Imm_princ not in [None,""] and Preprocessing_Imm(i.Immatriculation) == Imm_princ):
+                
+                if i.Date_sinistre != self.Date_sinistre and (len(i.Immatriculation) not in [1,2,3] and len(i.Immatriculation) not in [1,2,3] and self.Immatriculation not in [None,""] and Preprocessing_Imm(i.Immatriculation) == self.Immatriculation):
                         liste2.append(i)
             date_sinis1=self.Date_sinistre
             for j in liste2:
@@ -428,10 +458,14 @@ class Veoservices(models.Model):
                         
 
 
-            Imm_adv=Preprocessing_Imm(self.ImmatriculationAdverse)        
+           
+         
+
+            if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+                self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)       
             for i in Liste:
                 
-                if i.Date_sinistre != self.Date_sinistre and (Imm_princ not in [None,""] and Preprocessing_Imm(i.Immatriculation) == Imm_princ):
+                if i.Date_sinistre != self.Date_sinistre and (len(i.Immatriculation) not in [1,2,3] and self.ImmatriculationAdverse not in [None,""] and Preprocessing_Imm(i.Immatriculation) == self.ImmatriculationAdverse):
                     liste1.append(i)
             date_sinis1=self.Date_sinistre
             for j in liste1:
@@ -472,8 +506,12 @@ class Veoservices(models.Model):
         
     def  Reg8(self):
         R=None
-        self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
-        self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
+        if self.Immatriculation != None and len(self.Immatriculation) not in [1,2,3]:
+            self.Immatriculation=Preprocessing_Imm(self.Immatriculation)
+         
+
+        if self.ImmatriculationAdverse != None and len(self.ImmatriculationAdverse) not in [1,2,3]:
+            self.ImmatriculationAdverse=Preprocessing_Imm(self.ImmatriculationAdverse)
         Rate=0
         #self.strtodate()
         
@@ -484,10 +522,3 @@ class Veoservices(models.Model):
                 
         Veoservices.objects.filter(id=self.id).update(R8=R)   
         return Rate
-
-
-
-
-
-
-    
