@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.db import models
-from .models import Veodata, Assistance, Bris_De_Glace, Veoservices
+from .models import Veodata, Assistance, Bris_De_Glace, Veoservices, veotest
 from accounts.forms import UserLoginForm
 # Register your models here.
 admin.site.site_header ='VEOsmart Admin'
@@ -15,6 +15,7 @@ class VeoAdmin(admin.ModelAdmin):
                    
     admin.site.register(Veodata)
     admin.site.register(Assistance)
+    admin.site.register(veotest)
                     
                     
     admin.site.register(Bris_De_Glace)

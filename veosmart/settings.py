@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-
 from celery.schedules import crontab
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,9 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['105.73.80.39','fraude.omegasin.ma']
 
-
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'VEO',
     'accounts',
+    'rest_framework',
+    'apis',
+    'django_filters',
+    'dbbackup',
 
 ]
-
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': '/var/backups_fraud'}
 MIDDLEWARE = [
 # les middlewares d'administration
     'django.middleware.common.CommonMiddleware',
@@ -135,7 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-
+#SECURE_SSL_REDIRECT = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -163,6 +164,7 @@ LOGIN_URL = "/login/"
 
 
 
+
 #CELERY SETTINGS
 CELERY_BROKER_URL = 'redis://0.0.0.0:6379'
 CELERY_RESULT_BACKEND = 'redis://0.0.0.0:6379'
@@ -176,7 +178,7 @@ CELERY_BEAT_SCHEDULE = {
          #   'schedule':crontab(hours = crontab_parser(24).parse('*/10')),
 
            # 'schedule': crontab(minute='*/60'),
-            'schedule':10,
+            'schedule':30,
             }
         }
 

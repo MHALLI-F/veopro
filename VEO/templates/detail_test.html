@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>VEOSMART | Detail de {{ Veo.Dossier}}</title>
+<!-- MDB icon -->
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+<link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+<!-- Google Fonts Roboto -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+<!-- MDB -->
+<link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+
+<script type='text/javascript' language='Javascript' >
+var enter = false;
+function envoi(champ)
+{
+enter=true;
+// mémorise le bouton clické dans un champ caché
+document.getElementById("action").value = champ.name;
+// demande l'envoi du formulaire (dont l'ID est table)
+document.getElementById("table").submit();
+
+}</script>
+
+<style>
+    textarea:required{
+            background:url(asterisk.png) 98% center no-repeat;
+        }
+    
+    td{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+ 
+tr {
+    line-height: 0.1px;
+    min-height: 0.1px;
+    height: 0.1px;
+}
+th {
+    line-height: 0.1px;
+    min-height: 0.1px;
+    height: 0.1px;
+    background-color: #65a789;
+
+}
+input:focus{
+    outline: none;
+    border:1px solid red;
+}
+
+.detail{background-color: #C6CACB;
+    height: 20px;
+}
+.right-tabs .nav {
+		float: right;
+		border-bottom: 0px;
+	}
+	.right-tabs .nav li { float: left }
+	.right-tabs .tab-content {
+		float: left;
+		border-top: 1px solid #ddd;
+		margin-top: -1px;
+	}
+  .left-tabs .nav {
+		float: left;
+		border-bottom: 0px;
+	}
+	.left-tabs .nav li { float: right }
+	.left-tabs .tab-content {
+		float: left;
+		border-top: 1px solid #ddd;
+		margin-top: -1px;
+	}
+
+    #textinput {
+	height: 200px;
+	width:98%;
+	margin-top: -10px;
+	margin-left: 3px;
+	border:2px solid black;
+	border-radius: 5px;
+}
+textarea:focus{
+  outline-color: #ecb00d;
+  border-color: #ecb00d;
+}
+
+
+
+
+
+
+
+
+
+body{margin-top:20px;
+color: 595C6C;
+}
+.bg-secondary-soft {
+    background-color: rgba(208, 212, 217, 0.1) !important;
+}
+.rounded {
+    border-radius: 5px !important;
+}
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+.px-4 {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+}
+.file-upload .square {
+    height: 250px;
+    width: 250px;
+    margin: auto;
+    vertical-align: middle;
+    border: 1px solid #e5dfe4;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.text-secondary {
+    --bs-text-opacity: 1;
+    color: rgba(208, 212, 217, 0.5) !important;
+}
+.btn-success-soft {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+.btn-danger-soft {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #29292e;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e5dfe4;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+
+
+
+.selec{
+    border: 1px solid #e5dfe4;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #29292e;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 5px;
+    -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+
+
+}
+
+
+
+
+    </style>
+</head>
+<body>
+{% load static %}
+
+<header>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+  
+      <!-- Toggle button  
+         {{ request.user.first_name.title }}
+    
+     <div class="right-tabs clearfix">
+        <ul class="nav nav-tabs">
+            <li>Bonjour {{ request.user.first_name }}</li></ul></div>
+    
+    
+    
+    
+    -->
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+    <!-- Toggle button -->
+    
+    <a class="navbar-brand" href="/home">
+      <img
+      src="{% static 'favicon.png' %}"
+      height="120"
+      width ="180"
+      alt=""
+    
+      style="margin-top: 0px; margin-left: 30px;"/>
+      </a>
+    
+     
+    
+    </nav>
+
+
+    <div class="right-tabs clearfix">
+      <ul class="nav nav-tabs">
+        {% if SupUse == True %}
+        <li><a
+        class="nav-link"
+        id="ex3-tab-3"
+        data-mdb-toggle="tab"
+        href="/home"
+        role="tab"
+        aria-controls="ex3-tabs-3"
+        aria-selected="false"
+        >Espace Producation</a
+        >
+      </li>
+      {% endif %}
+    {% if SupUse == True %}
+        <li><a
+        class="nav-link"
+        id="ex3-tab-3"
+        data-mdb-toggle="tab"
+        href="/admin"
+        role="tab"
+        aria-controls="ex3-tabs-3"
+        aria-selected="false"
+        >Admin</a
+        >
+      </li>
+      {% endif %}
+        <li><a
+        class="nav-link"
+        id="ex3-tab-3"
+        data-mdb-toggle="tab"
+        href="/logout/" 
+        onclick="return confirm('Vous êtes sur de se  déconnecter?');"
+        role="tab"
+        aria-controls="ex3-tabs-3"
+        aria-selected="false"
+        >Déconnexion</a
+        >
+      </li>
+
+      </ul>
+     
+      <div class="left-tabs clearfix">
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a
+        class="nav-link"
+        id="ex3-tab-1"
+        data-mdb-toggle="tab"
+        href="/home"
+        role="tab"
+        aria-controls="ex3-tabs-1"
+        aria-selected="false"
+        >Acceuil</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+        class="nav-link"
+        id="ex3-tab-2"
+        data-mdb-toggle="tab"
+        href="/dt"
+        role="tab"
+        aria-controls="ex3-tabs-2"
+        aria-selected="false">Dossiers à traiter &nbsp&nbsp&nbsp
+        <span class="badge rounded-pill badge-notification bg-danger"  >{{NBDossiers}} </span></a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+        class="nav-link"
+        id="ex3-tab-3"
+        data-mdb-toggle="tab"
+        href="/dtraités"
+        role="tab"
+        aria-controls="ex3-tabs-3"
+        aria-selected="false"
+        >Dossiers traités</a
+        >
+      </li>
+    
+
+      </ul>
+      <!-- Tabs navs -->
+      
+    
+    
+    
+ 
+
+
+
+    </div>
+
+  </header>
+
+<section>
+    
+<div class="row">
+	<div class="col-md-10">
+<div >
+
+    <div class="card-body">
+     <h6 style="font-size: 14px;"><NOBR>   Détail de Dossier | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank"><font color="#4F5052">  Dossier Omega <i class="fas fa-external-link-alt"></i></font></NOBR></h6></a> 
+
+<div class="row">
+<div class="col-sm-4">
+<!--    <h5 class="card-title">Informations du sinistre</h5>-->  
+<p class="card-text">
+
+    <dl class="row">
+{% if Veo.id != None %}
+
+
+
+
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    
+    <dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Dossier}} | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank">
+        <font color="#4F5052"><Strong>Voir sur Omega <i class="fas fa-external-link-alt"></i></Strong></font></a></h6> </dd>
+{% endif %}
+{% if Veo.Immatriculation != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Immatriculation</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Immatriculation}}</h6></dt>
+
+{% endif %}
+{% if  Veo.num_chassis != None and Veo.num_chassis != "" %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Numéro de chassis</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.num_chassis}}</h6></dt>
+
+{% endif %}
+{% if  Veo.ImmatriculationAdverse != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Immat Adverse</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.ImmatriculationAdverse}}</h6></dt>
+
+{% endif %}
+{% if Veo.Date_sinistre != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Date_sinistre}}</h6></dd>
+
+{% endif %}
+
+{% if Veo.Date_création != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date création</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Date_création}}</h6></dd>
+
+{% endif %}
+{% if Veo.Procédure != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Procédure</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Procédure}}</span></h6></dd>
+
+{% endif %}
+{% if Veo.Statut != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Statut</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Statut}}</span></h6></dd>
+
+{% endif %}
+{% if  Veo.montant_devis != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Montant devis</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.montant_devis}}</h6></dt>
+
+{% endif %}
+
+{% if Veo.Expert != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Expert</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Expert}}</h6></dd>
+
+{% endif %}
+{% if Veo.Garantie != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Garantie</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Garantie}}</h6></dd>
+
+{% endif %}
+
+{% if Veo.Photos_Avant != "" and Veo.Photos_Avant != None %}
+
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Avant</div></h6></Strong></dt>
+<dd class="col-sm-8"><a  href="{{Veo.Photos_Avant}}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif %}
+</dl>
+<dl class="row">
+{% if R5 != 0 %}
+{% if R5_Assis != None %}
+{% if R5_Assis.id != None %}
+
+
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier Assistance</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.id }} | <a  href=" https://veosmart-veoservices.knack.com/rma-assistance#prestations-termines/details-dossier2/{{ R5_Assis.Ref_knk }}/" target="_blank">
+    <font color="#4F5052"><Strong>Voir sur Assistance <i class="fas fa-external-link-alt"></i></Strong></font></a></h6> </dd>
+{% endif%}
+
+{% if R5_Assis.id != None %}
+
+
+    <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date Assistance</div></h6></Strong></dt>
+{% if R5_Assis.Intervention == "Aide au Constat" %}
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.DateConstat }} </h6></dd>
+{% if R5_Assis.PhotosConstat != None and R5_Assis.PhotosConstat != "Photos Constat" and R5_Assis.PhotosConstat != "" %}
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos constat</div></h6></Strong></dt>
+
+<dd class="col-sm-8"><a  href="{{ R5_Assis.PhotosConstat }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+{% endif%}
+{% else %}
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.DateRemorquage }} </h6></dd>
+{% if R5_Assis.DateRemorquage != None and R5_Assis.DateRemorquage != "Photos Remorquage" and R5_Assis.DateRemorquage != "" %}
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Remorquage</div></h6></Strong></dt>
+<dd class="col-sm-8"><a  href="{{ R5_Assis.DateRemorquage }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif%}
+{% endif %} 
+{% endif %} {% endif %}{% endif %}
+
+    </dl>
+</p>
+
+</div>
+
+<div class="col-sm-4">
+
+
+
+ 
+    <p class="card-text">
+            <dl class="row">          
+{% if Veo.Date_validité_début != None %}
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date validité début</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ Veo.Date_validité_début|cut:' 00:00:00'}}</h6></dd>
+
+{% endif %}
+{% if Veo.Date_validité_fin != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date validité fin</div></h6></Strong></dt>
+<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ Veo.Date_validité_fin|cut:' 00:00:00'}}</h6></dd>
+
+{% endif %}
+{% if Veo.Date_validité_début_Adv != None and Veo.Date_validité_début_Adv != '' %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date validité début Adv</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ Veo.Date_validité_début_Adv|cut:' 00:00:00'}}</h6></dd>
+
+{% endif %}
+
+
+</dl>
+
+<dl class="row">
+
+{% if R1 != 0 %}
+{% if R1_P != None %}
+{% if R1_P.id != None %}
+
+
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier douteux</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R1_P.id }} | <a  href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R1_P.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#4F5052"><Strong>  voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6></dd>
+{% endif%}
+{% elif R1_A != None %}
+{% if R1_A.id != None %}
+
+    
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier douteux</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R1_A.id }} | <a href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R1_A.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#4F5052"><Strong> voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6> </dd>
+
+
+{% endif%}
+{% endif%}
+{% endif%}
+
+
+{% if R10 != 0 %}
+{% if R10_Dos != None   %}
+
+<Strong><h6 style="font-size: 14px;">Sinistre avec mm numéro de chassis et immatriculation  différente:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R10_Dos.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R10_Dos.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R10_Dos.Date_sinistre }} </h6></dd>
+    
+        {% endif%}{% endif%}
+
+
+{% if R12 != 0 %}
+{% if R12_Dos != None  %}
+
+<Strong><h6 style="font-size: 14px;">Sinistre avec la même immatriculation principale et Adverse:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R12_Dos.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R12_Dos.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R12_Dos.Date_sinistre }} </h6></dd>
+   
+    
+
+        
+{% endif%}{% endif%}
+
+
+</dl>
+
+
+
+
+
+
+
+<dl class="row">
+
+{% if R4 != 0 %}
+
+{% if R4_SP != None %}
+
+{% if R4_SP.id != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier souscription</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R4_SP.id }} | <a href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R4_SP.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#4F5052"><Strong> voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6></dd>
+{% endif%}
+{% elif R4_SA != None %}
+{% if R4_SA.id != None %}
+
+
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier souscription Adv</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R4_SA.id }} | <a href="https://veosmart1.od2.vtiger.com/index.php?module=Cases&view=Detail&record={{ R4_SA.record_id|cut:'39x'}}&mode=showDetailViewByMode&requestMode=full&tab_label=Case%20Details&app=SUPPORT" target="_blank">
+    <font color="#4F5052"><Strong> voir sur Vtiger <i class="fas fa-external-link-alt"></i></Strong></font></a></h6></th></dd>
+
+{% endif%}
+{% endif%}{% endif%}
+
+
+</dl>
+
+<dl class="row">
+{% if R6 != 0 %}
+{% if R6_Assis2 != None %}
+
+<Strong><h6 style="font-size: 14px;">Assistance Avant moins de  3 mois:</h6></Strong>
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.id }} | <a href="https://veosmart-veoservices.knack.com/rma-assistance#prestations-termines/details-dossier2/{{ R6_Assis2.Ref_knk }}/" target="_blank">
+    <font color="#4F5052"><Strong>Voir sur Assistance <i class="fas fa-external-link-alt"></i></Strong></font> </a></h6></dd>
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date Assistance</div></h6></Strong></dt>
+{% if R6_Assis2.Intervention == "Aide au Constat" %}
+<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.DateConstat }}</h6></dd>
+{% if R6_Assis2.PhotosConstat != None and R6_Assis2.PhotosConstat != "Photos Constat" and R6_Assis2.PhotosConstat != ""  %}
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos constat</div></h6></Strong></dt>
+<dd class="col-sm-7"><a  href="{{ R6_Assis2.PhotosConstat }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif%}
+{% else %}
+<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.DateRemorquage }} </h6></dd>
+{% if R6_Assis2.DateRemorquage != None and R6_Assis2.DateRemorquage != "Photos Remorquage" and R6_Assis2.DateRemorquage != ""  %}
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Remorquage</div></h6></Strong></dt>
+<dd class="col-sm-7"><a  href="{{ R6_Assis2.PhotosRemorquage }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif%}
+{% endif%}
+
+
+
+
+
+{% endif%}
+{% endif%}
+
+
+
+
+
+
+
+</dl>
+<dl class="row">
+
+{% if R7 != 0 %}
+{% if R7_P != None %}
+
+<Strong><h6 style="font-size: 14px;">Sinistre ne dépasse pas un an:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_P.Dossier }} | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R7_P.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega <i class="fas fa-external-link-alt"></i></Strong></font> </a></h6></dd>
+
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_P.Date_sinistre }}</h6></dd>
+{% endif%}{% endif%}
+
+{% if R7 != 0 %}
+{% if R7_A != None and R7_P == None  %}
+<Strong><h6 style="font-size: 14px;">Sinistre de la partie Adverse ne dépasse pas un an:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_A.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R7_A.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></String></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_A.Date_sinistre }}</h6></dd>
+{% endif%}{% endif%}
+</dl>
+
+
+
+</p>
+
+
+
+</div>
+<div class="col-sm-4">
+<div class="card-body">
+    <p class="card-text">
+        <dl class="row">
+      
+<Strong><h6 style="font-size: 14px;"><Strong>Detail de traitement expert:</Strong></h6></Strong>
+            {% if Veo.utilisateur  != None %}
+            <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Traité par:</div></h6></Strong></dt>
+            
+            <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.utilisateur }}</h6></dd>
+    {% endif %}
+{% if Veo.RateFraude  != None %}
+
+
+        <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Pourcentage Fraude:</div></h6></Strong></dt>
+<dd class="col-sm-7"><h6 style="font-size: 14px;">{{Veo.RateFraude }}%</h6></dd>
+
+{% endif %}
+
+{% if Veo.statutdoute  != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Statut doute:</div></h6></Strong></th>
+        <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.statutdoute }}</h6></th>
+
+{% endif %}
+
+{% if Veo.date_obs  != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Date traitement:</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.date_obs }}</h6></dd>
+        {% endif %}
+<!--
+{% if Veo.email_traitement  != None %}
+
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Traité par:</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.email_traitement }}</h6></dd>
+
+{% endif %}-->
+</dl>
+{% if Veo.observation != None %}
+<p class="note note-warning">
+    <strong>Observation expert:</strong> 
+
+{{Veo.observation }}</p>
+
+{% endif %}
+
+
+</p>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+	<div class="col-md-2">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+<div class="container">
+
+	
+			<!-- Page title -->
+				<!-- Form START -->
+		<form class="file-upload">
+				
+					<!-- Contact detail -->
+	
+						<div class="bg-secondary-soft rounded">
+							
+								<h4 class="mb-4 mt-0">Nouvelle Observation</h4>
+								<!-- First Name -->
+								
+									<label class="form-label">First Name *</label>
+									<input type="text" class="form-control" placeholder="" aria-label="First name" value="Scaralet">
+							
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form  class="d-flex input-group w-auto"  action="{% url 'test_observation' %}" methode='GET'>
+<div class="form-outline">
+<label class="form-label"> Statut doute <br> </label>
+<div align="center">        <div class="input-group mb-9">
+
+<select class="selec" name=statutdoute id=select   autocomplete=off required>
+<option selected>{{Veo.statutdoute}} <i class="fas fa-angle-down"></i></option>
+<option value="Attente">Attente Photos Avant</option>
+<option value="confirme">Doute confirmé</option>
+<option value="rejete">Doute rejeté</option>
+<option value="Nontraité">Non traité</option>
+</select></div></div>
+
+<input type="hidden" id="action" name="dos" value="{{Veo.id}}"  required>  <br>   
+
+<!-- fonction pour obliger l observation  si  le statut doute  confirmé  est  choisi -->
+<script>
+function myFunction() {
+if (select.value == "confirme"){
+    document.getElementById("observation").required = true;
+    document.getElementById("demo").innerHTML = " Merci de tapez une  observation si le doute est confirmé";}
+else if (select.value == "rejete"){
+    document.getElementById("observation").required = true;
+    document.getElementById("demo").innerHTML = " Merci de tapez une  observation si le doute est rejeté";}
+
+else{
+    document.getElementById("observation").required = false;
+    document.getElementById("demo").innerHTML = "";
+  }}
+</script> 
+    
+    
+<div class="form-outline">
+   <label class="form-label">Tapez votre observation</label>
+    <textarea class="form-control" name="observation"   id="observation" border-color="blue"  rows="7"></textarea>
+    <br><br>
+    <!-- pour  obliger l'observation c'est la  phrase écrite en  bas de textarea dans le cas  de  doute  confirmé-->
+    <p id="demo"></p>
+    
+
+    
+    </div>
+</div>
+<div class="form-outline">
+
+
+<input type="hidden" id="action" name="dos" value="{{Veo.id}}" required>
+
+<button class="btn btn-light" onclick="myFunction()" style="background-color: #bfc2c2;" >Enregistrer <i class="far fa-edit"></i></button>
+</form></div>
+</div></div>
+<div class="card-body">
+<div class="table-responsive">
+<table class="table table-bordered border-">
+<thead>
+<tr class="table-warning">
+<th scope="col">Règles</th>
+<th scope="col">Poids</th>
+<th scope="col"></th></tr>
+</thead>
+<tbody>
+<tr>
+    {% if R1 != 0 %}<th scope="col"> <h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historiquement confirmé frauduleux. (Vtiger)</h6></th><th>30%</th></tr>{% endif %}
+    {% if R12 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Les deux immatriculations ont été toutes les deux impliquées précédement sur un autre sinistre.  </h6> </th><th>30%</th></tr>{% endif %}
+    {% if R10 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Le même numéro de chassis remonte précédement avec une autre immatriculation. </h6> </th><th>30%</th></tr>{% endif %}
+    {% if  R13 == '30.0' or  R13 == '30' or  R13 == 30 %}<tr> <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historiquement confirmé frauduleux. (OMEGA)</h6> </th><th>30%</th></tr>{% endif %}
+    {% if  R13 == '15.0' or  R13 == '15' or  R13 == 15 %}<tr> <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historiquement avec doute rejeté. (OMEGA)</h6> </th><th>15%</th></tr>{% endif %}
+    {% if R2 != 0 and  R2 == 10 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins d'un mois après date début d'assurance de la partie principale.</h6></th><th>10%</th></tr>{% endif %}
+    {% if R3 != 0 and  R3 == 10 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins d'un mois après date début d'assurance de la partie adverse.</h6></th><th>10%</th></tr>{% endif %}
+    
+    {% if R2 == '20.0' or  R2 == '20' or  R2 == 20 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins de 2 jours après date début d'assurance de la partie principale.</h6></th><th>20%</th></tr>{% endif %}
+    
+    {% if R3 == '20.0' or  R3 == '20' or  R3 == 20 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins de 2 jours après date début d'assurance de la partie adverse</h6></th><th>20%</th></tr>{% endif %}
+    
+    {% if R4 != 0 %}<tr><th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a été signalée comme "Souscription NOK".</h6></th><th>15%</th></tr>{% endif %}
+    {% if R5 != 0 %}<tr></tr><th scope="col"><h6 style="font-size: 14px;">La date d'assistance est après 20h et avant 7h du matin.</h6></th><th>10%</th></tr>{% endif %}
+    {% if R6 != 0 %}<tr><th scope="col"><h6 style="font-size: 14px;">L'un des deux véhicules a deux dossiers assistance en moins de 3 mois.</h6></th><th>5%</th></tr>{% endif %}
+    {% if R7 != 0 %}<tr>  <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà fait l'objet d'un sinistre sur les derniers 12 mois.</h6></th><th>5%</th></tr>{% endif %}
+    {% if R8 != 0 %}<tr>   <th scope="col"><h6 style="font-size: 14px;">L'un des deux véhicules est un cyclo. </h6></th><th>10%</th></tr>{% endif %}
+    {% if R9 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Le sinistre est survenu en moins d'un mois avant la fin de validité du contrat ( Grantie Tierce uniquement). </h6> </th><th>5%</th></tr>{% endif %}
+    {% if R14 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historique signalé douteux. (OMEGA)</h6> </th><th>10%</th></tr>{% endif %}
+    {% if R11 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Le montant du devis varie entre 18000 dhs et 20000 dhs. </h6> </th><th>10%</th></tr>{% endif %}
+</tr></tbody></table></div></div></section>
+<br>
+<br></body></html>
+

@@ -56,10 +56,7 @@ input:focus{
     outline: none;
     border:1px solid red;
 }
-textarea:focus{
-  outline-color: #ecd60d;
-  border-color: #ecd60d;
-}
+
 .detail{background-color: #C6CACB;
     height: 20px;
 }
@@ -83,7 +80,19 @@ textarea:focus{
 		border-top: 1px solid #ddd;
 		margin-top: -1px;
 	}
-    
+
+    #textinput {
+	height: 200px;
+	width:98%;
+	margin-top: -10px;
+	margin-left: 3px;
+	border:2px solid black;
+	border-radius: 5px;
+}
+textarea:focus{
+  outline-color: #ecb00d;
+  border-color: #ecb00d;
+}
     </style>
 </head>
 <body>
@@ -94,7 +103,17 @@ textarea:focus{
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- Container wrapper -->
   
-      <!-- Toggle button -->
+      <!-- Toggle button  
+         {{ request.user.first_name.title }}
+    
+     <div class="right-tabs clearfix">
+        <ul class="nav nav-tabs">
+            <li>Bonjour {{ request.user.first_name }}</li></ul></div>
+    
+    
+    
+    
+    -->
     <!-- Container wrapper -->
     <div class="container-fluid">
     <!-- Toggle button -->
@@ -109,15 +128,26 @@ textarea:focus{
       style="margin-top: 0px; margin-left: 30px;"/>
       </a>
     
-  
-    
+     
     
     </nav>
 
 
     <div class="right-tabs clearfix">
       <ul class="nav nav-tabs">
-        
+        {% if SupUse == True %}
+        <li><a
+        class="nav-link"
+        id="ex3-tab-3"
+        data-mdb-toggle="tab"
+        href="/home_test"
+        role="tab"
+        aria-controls="ex3-tabs-3"
+        aria-selected="false"
+        >Espace Recette</a
+        >
+      </li>
+      {% endif %}
     {% if SupUse == True %}
         <li><a
         class="nav-link"
@@ -158,7 +188,7 @@ textarea:focus{
         role="tab"
         aria-controls="ex3-tabs-1"
         aria-selected="false"
-        >Acceuil</a>
+        >Accueil</a>
       </li>
       <li class="nav-item" role="presentation">
         <a
@@ -206,7 +236,7 @@ textarea:focus{
 <div >
 
     <div class="card-body">
-     <h6 style="font-size: 14px;"><NOBR> Détail de Dossier | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank"><font color="#4F5052">  Dossier Omega <i class="fas fa-external-link-alt"></i></font></NOBR></h6></a> 
+     <h6 style="font-size: 14px;"><NOBR>   Détail de Dossier | <a  href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ Veo.Ref_knk }}" target="_blank"><font color="#4F5052">  Dossier Omega <i class="fas fa-external-link-alt"></i></font></NOBR></h6></a> 
 
 <div class="row">
 <div class="col-sm-4">
@@ -228,6 +258,12 @@ textarea:focus{
 
 <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Immatriculation</div></h6></Strong></dt>
 <dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Immatriculation}}</h6></dt>
+
+{% endif %}
+{% if  Veo.num_chassis != None and Veo.num_chassis != "" %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Numéro de chassis</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.num_chassis}}</h6></dt>
 
 {% endif %}
 {% if  Veo.ImmatriculationAdverse != None %}
@@ -253,6 +289,24 @@ textarea:focus{
 
 <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Procédure</div></h6></Strong></dt>
 <dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Procédure}}</span></h6></dd>
+
+{% endif %}
+{% if Veo.Statut != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Statut</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.Statut}}</span></h6></dd>
+
+{% endif %}
+{% if Veo.statutdt_omega != None and Veo.statutdt_omega != "" %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Statut doute omega</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.statutdt_omega}}</span></h6></dd>
+
+{% endif %}
+{% if  Veo.montant_devis != None %}
+
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Montant devis</div></h6></Strong></dt>
+<dd class="col-sm-8"><h6 style="font-size: 13px;">{{Veo.montant_devis}}</h6></dt>
 
 {% endif %}
 
@@ -293,8 +347,18 @@ textarea:focus{
     <dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Date Assistance</div></h6></Strong></dt>
 {% if R5_Assis.Intervention == "Aide au Constat" %}
 <dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.DateConstat }} </h6></dd>
+{% if R5_Assis.PhotosConstat != None and R5_Assis.PhotosConstat != "Photos Constat" and R5_Assis.PhotosConstat != "" %}
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos constat</div></h6></Strong></dt>
+
+<dd class="col-sm-8"><a  href="{{ R5_Assis.PhotosConstat }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+{% endif%}
 {% else %}
 <dd class="col-sm-8"><h6 style="font-size: 13px;">{{ R5_Assis.DateRemorquage }} </h6></dd>
+{% if R5_Assis.DateRemorquage != None and R5_Assis.DateRemorquage != "Photos Remorquage" and R5_Assis.DateRemorquage != "" %}
+<dt class="col-sm-4"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Remorquage</div></h6></Strong></dt>
+<dd class="col-sm-8"><a  href="{{ R5_Assis.DateRemorquage }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif%}
 {% endif %} 
 {% endif %} {% endif %}{% endif %}
 
@@ -355,7 +419,58 @@ textarea:focus{
 {% endif%}
 {% endif%}
 
+
+{% if R10 != 0 %}
+{% if R10_Dos != None   %}
+
+<Strong><h6 style="font-size: 14px;">Sinistre avec mm numéro de chassis et immatriculation  différente:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R10_Dos.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R10_Dos.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R10_Dos.Date_sinistre }} </h6></dd>
+    
+        {% endif%}{% endif%}
+
+
+{% if R12 != 0 %}
+{% if R12_Dos != None  %}
+
+<Strong><h6 style="font-size: 14px;">Sinistre avec la même immatriculation principale et Adverse:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R12_Dos.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R12_Dos.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R12_Dos.Date_sinistre }} </h6></dd>
+   
+    
+
+        
+{% endif%}{% endif%}
+
+{% if R13 != 0 %}
+{% if R13_Dos != None  %}
+
+<Strong><h6 style="font-size: 14px;">Dossier Douteux Omega:</h6></Strong>
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Dossier</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R14_Dos.Dossier }} | <a href="https://veosmart-veoservices.knack.com/veo-services#liste-des-dossiers4/view-dossier-details4/{{ R12_Dos.Ref_knk }}" target="_blank">
+    <font color="#4F5052"><Strong> Voir sur Omega<i class="fas fa-external-link-alt"></i> </Strong></font> </a></h6></dd>
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></Strong></dt>
+    <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R14_Dos.Date_sinistre }} </h6></dd>
+   
+    
+
+        
+{% endif%}{% endif%}
+
 </dl>
+
+
+
+
+
+
+
 <dl class="row">
 
 {% if R4 != 0 %}
@@ -395,22 +510,24 @@ textarea:focus{
     <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date Assistance</div></h6></Strong></dt>
 {% if R6_Assis2.Intervention == "Aide au Constat" %}
 <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.DateConstat }}</h6></dd>
+{% if R6_Assis2.PhotosConstat != None and R6_Assis2.PhotosConstat != "Photos Constat" and R6_Assis2.PhotosConstat != ""  %}
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos constat</div></h6></Strong></dt>
+<dd class="col-sm-7"><a  href="{{ R6_Assis2.PhotosConstat }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
+
+{% endif%}
 {% else %}
 <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.DateRemorquage }} </h6></dd>
+{% if R6_Assis2.DateRemorquage != None and R6_Assis2.DateRemorquage != "Photos Remorquage" and R6_Assis2.DateRemorquage != ""  %}
+<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Remorquage</div></h6></Strong></dt>
+<dd class="col-sm-7"><a  href="{{ R6_Assis2.PhotosRemorquage }}" target="_blank"><h6 style="font-size: 13px;"><font color="#4F5052">Voir photos  <i class="far fa-image"></i></font></h6></a></dd>
 
+{% endif%}
 {% endif%}
 
 
 
 
-<dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Photos Assistance</div></h6></Strong></dt>
-{% if R6_Assis2.Intervention == "Aide au Constat" and "premalink" in R6_Assis2.PhotosConstat %}
-<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.PhotosConstat }}</h6></dd>
 
-{% elif "premalink" in R6_Assis2.PhotosRemorquage %}
-<dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R6_Assis2.PhotosRemorquage }} </h6></dd>
-
-{% endif%}
 {% endif%}
 {% endif%}
 
@@ -444,10 +561,11 @@ textarea:focus{
     <dt class="col-sm-5"><Strong><h6 style="font-size: 13px;"><div class="detail">Date sinistre</div></h6></String></dt>
         <dd class="col-sm-7"><h6 style="font-size: 13px;">{{ R7_A.Date_sinistre }}</h6></dd>
 {% endif%}{% endif%}
+</dl>
 
 
 
-</dl></p>
+</p>
 
 
 
@@ -456,9 +574,15 @@ textarea:focus{
 <div class="card-body">
     <p class="card-text">
         <dl class="row">
+      
+<Strong><h6 style="font-size: 14px;"><Strong>Detail de traitement expert:</Strong></h6></Strong>
+            {% if Veo.utilisateur  != None %}
+            <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Traité par:</div></h6></Strong></dt>
+            
+            <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.utilisateur }}</h6></dd>
+    {% endif %}
 {% if Veo.RateFraude  != None %}
 
-<Strong><h6 style="font-size: 14px;"><Strong>Detail de traitement expert:</Strong></h6></Strong>
 
         <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Pourcentage Fraude:</div></h6></Strong></dt>
 <dd class="col-sm-7"><h6 style="font-size: 14px;">{{Veo.RateFraude }}%</h6></dd>
@@ -476,8 +600,14 @@ textarea:focus{
 
     <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Date traitement:</div></h6></Strong></dt>
         <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.date_obs }}</h6></dd>
+        {% endif %}
+<!--
+{% if Veo.email_traitement  != None %}
 
-{% endif %}
+    <dt class="col-sm-5"><Strong><h6 style="font-size: 14px;"><div class="detail">Traité par:</div></h6></Strong></dt>
+        <dd class="col-sm-7"><h6 style="font-size: 14px;">{{ Veo.email_traitement }}</h6></dd>
+
+{% endif %}-->
 </dl>
 {% if Veo.observation != None %}
 <p class="note note-warning">
@@ -497,7 +627,25 @@ textarea:focus{
 </div>
 </div>
 </div>
-
+<style>
+    textarea {
+        font-size: .8rem;
+        letter-spacing: 1px;
+    }
+    textarea {
+        padding: 32px;
+        max-width: 100%;
+        line-height: 1.5;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: 1px 1px 1px #999;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+     </style>   
 <div class="col-sm-2">
 
 <div class="card-header py-2">
@@ -533,18 +681,18 @@ else{
     document.getElementById("demo").innerHTML = "";
   }}
 </script> 
-    
+
     
 <div class="form-outline">
-
-<textarea class="form-control" name="observation"   id="observation" border-color="blue"  class="input" rows="7"></textarea>
-<br><br>
-<!-- pour  obliger l'observation c'est la  phrase écrite en  bas de textarea dans le cas  de  doute  confirmé-->
-<p id="demo"></p>
-
-<label class="form-label" for="textAreaExample">Tapez votre observation</label>
-
-</div>
+<label for ="observation">Observation:</label>
+    <textarea  name="observation"   id="observation" border-color="blue"  rows="7"></textarea>
+    <br><br>
+    <!-- pour  obliger l'observation c'est la  phrase écrite en  bas de textarea dans le cas  de  doute  confirmé-->
+    <p id="demo"></p>
+    
+    <label class="form-label" for="textAreaExample">Tapez votre observation</label>
+    
+    </div>
 </div>
 <div class="form-outline">
 
@@ -561,20 +709,32 @@ else{
 <tr class="table-warning">
 <th scope="col">Règles</th>
 <th scope="col">Poids</th>
-<th scope="col"></th></tr>
+</tr>
 </thead>
 <tbody>
 <tr>
-<th scope="col"> <h6 style="font-size: 14px;">Une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historique signalé douteux</h6></th><th>30%</th><th>{% if R1 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu moins d'un mois après date début d'assurance de la partie principale.</h6></th><th>10%</th><th>{% if R2 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu moins d'un mois après date début d'assurance de la partie adverse</h6></th><th>10%</th><th>{% if R3 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
 
-<tr><th scope="col"><h6 style="font-size: 14px;">Une des immatriculations (principale ou adverse) a été signalée comme "souscription NOK"</h6></th><th>15%</th><th>{% if R4 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr></tr><th scope="col"><h6 style="font-size: 14px;">La date assistance est après 20h et avant 7h du matin</h6></th><th>10%</th><th>{% if R5 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr><th scope="col"><h6 style="font-size: 14px;">Un des véhicules a deux dossiers assistance en moins de 3 mois de distance</h6></th><th>5%</th><th>{% if R6 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr>  <th scope="col"><h6 style="font-size: 14px;">Une des immatriculations (principale ou adverse) a déjà fait l'objet d'un sinistre il y'a moins de 12 mois</h6></th><th>5%</th><th>{% if R7 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr>   <th scope="col"><h6 style="font-size: 14px;">La  partie Adverse  est un cyclo</h6></th><th>10%</th><th>{% if R8 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
-<tr> <th scope="col"><h6 style="font-size: 14px;">la garantie est Tierce,et il y a moins  d'un mois entre la  date sinistre et la date de fin de validité de contrat </h6> </th><th>5%</th><th>{% if R9 != 0 %}<font color="#E53935"><i class="fas fa-check"></i></font>{% else %} <i class="fas fa-times"></i> {% endif %}</th></tr>
+{% if R1 != 0 %}<th scope="col"> <h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historiquement confirmé frauduleux. (Vtiger)</h6></th><th>30%</th></tr>{% endif %}
+{% if R12 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Les deux immatriculations ont été toutes les deux impliquées précédement sur un autre sinistre.  </h6> </th><th>30%</th></tr>{% endif %}
+{% if R10 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Le même numéro de chassis remonte précédement avec une autre immatriculation. </h6> </th><th>30%</th></tr>{% endif %}
+{% if  R13 == '30.0' or  R13 == '30' or  R13 == 30 %}<tr> <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historiquement confirmé frauduleux. (OMEGA)</h6> </th><th>30%</th></tr>{% endif %}
+{% if  R13 == '15.0' or  R13 == '15' or  R13 == 15 %}<tr> <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historiquement avec doute rejeté. (OMEGA)</h6> </th><th>15%</th></tr>{% endif %}
+{% if R2 != 0 and  R2 == 10 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins d'un mois après date début d'assurance de la partie principale.</h6></th><th>10%</th></tr>{% endif %}
+{% if R3 != 0 and  R3 == 10 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins d'un mois après date début d'assurance de la partie adverse.</h6></th><th>10%</th></tr>{% endif %}
+
+{% if R2 == '20.0' or  R2 == '20' or  R2 == 20 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins de 2 jours après date début d'assurance de la partie principale.</h6></th><th>20%</th></tr>{% endif %}
+
+{% if R3 == '20.0' or  R3 == '20' or  R3 == 20 %}<tr><th scope="col"><h6 style="font-size: 14px;">Sinistre survenu en moins de 2 jours après date début d'assurance de la partie adverse</h6></th><th>20%</th></tr>{% endif %}
+
+{% if R4 != 0 %}<tr><th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a été signalée comme "Souscription NOK".</h6></th><th>15%</th></tr>{% endif %}
+{% if R5 != 0 %}<tr></tr><th scope="col"><h6 style="font-size: 14px;">La date d'assistance est après 20h et avant 7h du matin.</h6></th><th>10%</th></tr>{% endif %}
+{% if R6 != 0 %}<tr><th scope="col"><h6 style="font-size: 14px;">L'un des deux véhicules a deux dossiers assistance en moins de 3 mois.</h6></th><th>5%</th></tr>{% endif %}
+{% if R7 != 0 %}<tr>  <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà fait l'objet d'un sinistre sur les derniers 12 mois.</h6></th><th>5%</th></tr>{% endif %}
+{% if R8 != 0 %}<tr>   <th scope="col"><h6 style="font-size: 14px;">L'un des deux véhicules est un cyclo. </h6></th><th>10%</th></tr>{% endif %}
+{% if R9 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Le sinistre est survenu en moins d'un mois avant la fin de validité du contrat ( Grantie Tierce uniquement). </h6> </th><th>5%</th></tr>{% endif %}
+{% if R14 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">L'une des immatriculations (principale ou adverse) a déjà été impliquée dans un dossier historique signalé douteux. (OMEGA)</h6> </th><th>10%</th></tr>{% endif %}
+{% if R11 != 0 %}<tr> <th scope="col"><h6 style="font-size: 14px;">Le montant du devis varie entre 18000 dhs et 20000 dhs. </h6> </th><th>10%</th></tr>{% endif %}
+
 </tr></tbody></table></div></div></section>
 <br>
 <br></body></html>
